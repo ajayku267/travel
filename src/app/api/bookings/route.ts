@@ -4,6 +4,7 @@ import { sendEmail } from "@/lib/email";
 import { auth } from "@/auth";
 import { bookingSchema, formatZodErrors } from "@/lib/validations";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { sendAdminNotification, sendCustomerConfirmation } from "@/lib/twilio";
 
 export async function POST(request: NextRequest) {
   try {
@@ -64,6 +65,21 @@ export async function POST(request: NextRequest) {
         `,
       }).catch((err) => console.error("Email send failed:", err));
     }
+
+    // Send real-time Twilio notifications (non-blocking)
+    const bookingDetails = {
+      bookingId: booking.bookingId,
+      name: booking.name,
+      phone: booking.phone,
+      pickup: booking.pickup,
+      drop: booking.drop,
+      date: booking.date,
+      vehicle: booking.vehicle,
+      tripType: booking.tripType,
+    };
+    
+    sendAdminNotification(bookingDetails).catch(console.error);
+    sendCustomerConfirmation(bookingDetails).catch(console.error);
 
     return NextResponse.json(
       { success: true, message: "Booking received! We will call you shortly.", id: booking.bookingId },
