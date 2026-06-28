@@ -80,6 +80,44 @@ export default function BookingForm({
         throw new Error("Could not initialize payment gateway");
       }
 
+      // If backend is in test mode (missing API keys), simulate success immediately
+      if (orderData.isTest) {
+        toast.info("Test Mode: Simulating successful payment...");
+        return simulateSuccess(orderData.order.id);
+      }
+
+      function simulateSuccess(orderId: string) {
+        const bookingData = {
+          ...data,
+          razorpay_payment_id: "test_success",
+          razorpay_order_id: orderId,
+          razorpay_signature: "test_signature",
+        };
+        submitFinalBooking(bookingData);
+      }
+
+      async function submitFinalBooking(bookingData: any) {
+        try {
+          const finalRes = await fetch("/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(bookingData),
+          });
+          
+          if (finalRes.ok) {
+            toast.success("Payment successful! Booking confirmed.");
+            setSubmitted(true);
+            reset();
+          } else {
+            toast.error("Payment received, but failed to save booking. Please contact us.");
+          }
+        } catch (e) {
+          toast.error("Error confirming booking. Please contact support.");
+        } finally {
+          setIsSubmitting(false);
+        }
+      }
+
       // 2. Open Razorpay Checkout Modal
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_YOUR_KEY", 
@@ -90,32 +128,12 @@ export default function BookingForm({
         order_id: orderData.order.id,
         handler: async function (response: any) {
           // 3. On successful payment, save booking in our database
-          const bookingData = {
+          submitFinalBooking({
             ...data,
-            razorpay_payment_id: response.razorpay_payment_id || "test_success",
-            razorpay_order_id: response.razorpay_order_id || orderData.order.id,
-            razorpay_signature: response.razorpay_signature || "test_signature",
-          };
-
-          try {
-            const finalRes = await fetch("/api/bookings", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(bookingData),
-            });
-            
-            if (finalRes.ok) {
-              toast.success("Payment successful! Booking confirmed.");
-              setSubmitted(true);
-              reset();
-            } else {
-              toast.error("Payment received, but failed to save booking. Please contact us.");
-            }
-          } catch (e) {
-            toast.error("Error confirming booking. Please contact support.");
-          } finally {
-            setIsSubmitting(false);
-          }
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          });
         },
         prefill: {
           name: data.name,
