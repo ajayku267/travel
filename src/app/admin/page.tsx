@@ -26,6 +26,7 @@ export default async function AdminDashboard() {
     recentBookings,
     bookingsLast7Days,
     inquiriesLast7Days,
+    totalDrivers,
   ] = await Promise.all([
     db.booking.count(),
     db.booking.count({ where: { status: "pending" } }),
@@ -44,8 +45,10 @@ export default async function AdminDashboard() {
     }),
     db.contactInquiry.findMany({
       where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
+      orderBy: { createdAt: "asc" },
       select: { createdAt: true }
-    })
+    }),
+    db.driver.count(),
   ]);
 
   const chartData = Array.from({ length: 7 }).map((_, i) => {
@@ -69,6 +72,7 @@ export default async function AdminDashboard() {
 
   const adminNavLinks = [
     { label: "Bookings", href: "/admin/bookings", icon: BookOpen, desc: "Manage taxi bookings", count: pendingBookings },
+    { label: "Drivers", href: "/admin/drivers", icon: Users, desc: "Manage fleet drivers", count: totalDrivers },
     { label: "Vehicles", href: "/admin/vehicles", icon: Car, desc: "Manage vehicle fleet", count: activeVehicles },
     { label: "Routes", href: "/admin/routes", icon: Route, desc: "Manage route pages", count: totalRoutes },
     { label: "Locations", href: "/admin/locations", icon: MapPin, desc: "Manage location pages", count: totalLocations },
