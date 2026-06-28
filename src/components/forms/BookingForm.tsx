@@ -216,12 +216,26 @@ export default function BookingForm({
               type="tel"
               className={cn("form-input pl-10", errors.phone && "border-red-400")}
             />
-            <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Phone className="absolute left-3.5 top-3.5 text-gray-400" size={18} />
+            </div>
+            {errors.phone && <p className="text-red-500 text-xs mt-1 font-medium">{errors.phone.message}</p>}
           </div>
-          {errors.phone && (
-            <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
-          )}
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-2">
+          Email Address <span className="text-xs text-gray-400 font-normal">(Optional, for receipt)</span>
+        </label>
+        <div className="relative">
+          <input
+            {...register("email")}
+            type="email"
+            placeholder="For booking receipt"
+            className={cn("form-input pl-10", errors.email && "border-red-400")}
+          />
+          <svg className="absolute left-3.5 top-3.5 text-gray-400" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </div>
+        {errors.email && <p className="text-red-500 text-xs mt-1 font-medium">{errors.email.message}</p>}
       </div>
 
       {/* Pickup & Drop */}

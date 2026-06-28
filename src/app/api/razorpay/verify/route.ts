@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import { db } from "@/lib/db";
+import crypto from "crypto";
+import { Resend } from "resend";
+import { ReceiptEmail } from "@/emails/ReceiptEmail";
+
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_key_for_build");
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,7 +47,7 @@ export async function POST(request: NextRequest) {
     if (generatedSignature === razorpay_signature) {
        // Payment is legitimate, update the database
        if (bookingId) {
-         await db.booking.update({
+         const booking = await db.booking.update({
            where: { bookingId },
            data: {
              paymentStatus: "success",
@@ -51,6 +55,30 @@ export async function POST(request: NextRequest) {
              orderId: razorpay_order_id,
            }
          });
+
+         // Send Email Receipt if email was provided
+         if (booking.email && process.env.RESEND_API_KEY) {
+           try {
+             await resend.emails.send({
+               from: "Haryana Taxi <receipts@haryanataxi.com>", // Update this to a verified domain in Resend later
+               to: booking.email,
+               subject: `Booking Receipt - ${booking.bookingId}`,
+               react: ReceiptEmail({
+                 bookingId: booking.bookingId,
+                 name: booking.name,
+                 pickup: booking.pickup,
+                 drop: booking.drop,
+                 date: booking.date,
+                 vehicle: booking.vehicle,
+                 amountPaid: booking.amountPaid,
+                 paymentId: razorpay_payment_id,
+               }),
+             });
+           } catch (emailError) {
+             console.error("Failed to send receipt:", emailError);
+             // We don't fail the verification if the email fails
+           }
+         }
        }
        return NextResponse.json({ success: true, verified: true });
     } else {
