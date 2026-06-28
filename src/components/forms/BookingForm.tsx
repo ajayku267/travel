@@ -138,7 +138,7 @@ export default function BookingForm({
         prefill: {
           name: data.name,
           contact: data.phone,
-          email: data.email || "",
+          ...(data.email ? { email: data.email } : {}),
         },
         theme: {
           color: "#EAB308", // Tailwind yellow-500
