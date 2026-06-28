@@ -7,6 +7,7 @@ import FloatingButtons from "@/components/layout/FloatingButtons";
 import { COMPANY_NAME } from "@/lib/utils";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -127,6 +128,7 @@ export default function RootLayout({
         <Footer />
         <FloatingButtons />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
