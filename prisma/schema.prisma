@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  bookingId String   @unique @default(uuid()) // Short ID like BK001
+  name      String
+  phone     String
+  pickup    String
+  drop      String
+  vehicle   String
+  date      String
+  tripType  String   // one-way or round-trip
+  status    String   @default("pending") // pending, confirmed, completed, cancelled
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactInquiry {
+  id        String   @id @default(uuid())
+  inquiryId String   @unique @default(uuid()) // Short ID like INQ001
+  name      String
+  phone     String
+  email     String?
+  subject   String
+  message   String
+  responded Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vehicle {
+  id              String   @id @default(uuid())
+  slug            String   @unique
+  name            String
+  category        String
+  seatingCapacity Int
+  luggageCapacity Int
+  hasAC           Boolean  @default(true)
+  baseFare        Float
+  pricePerKm      Float
+  popular         Boolean  @default(false)
+  image           String
+  description     String
+  features        String   // Stored as JSON string
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Route {
+  id            String   @id @default(uuid())
+  slug          String   @unique
+  from          String
+  to            String
+  fromState     String
+  toState       String
+  distance      String
+  travelTime    String
+  fareEstimate  String
+  description   String
+  metaTitle     String
+  metaDescription String
+  keywords      String
+  highlights    String   // Stored as JSON string
+  faqs          String   // Stored as JSON string
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Location {
+  id            String   @id @default(uuid())
+  slug          String   @unique
+  name          String
+  state         String
+  description   String
+  about         String
+  metaTitle     String
+  metaDescription String
+  keywords      String
+  highlights    String   // Stored as JSON string
+  services      String   // Stored as JSON string
+  popularRoutes String   // Stored as JSON string
+  faqs          String   // Stored as JSON string
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  name      String
+  location  String
+  rating    Int
+  review    String
+  date      String
+  verified  Boolean  @default(true)
+  featured  Boolean  @default(false)
+  route     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GalleryImage {
+  id          String   @id @default(uuid())
+  url         String
+  caption     String
+  category    String   @default("general")
+  createdAt   DateTime @default(now())
+}
