@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingButtons from "@/components/layout/FloatingButtons";
 import { COMPANY_NAME } from "@/lib/utils";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -122,6 +123,7 @@ export default function RootLayout({
         <main className="flex-1 pt-[100px]">{children}</main>
         <Footer />
         <FloatingButtons />
+        <Analytics />
       </body>
     </html>
   );
