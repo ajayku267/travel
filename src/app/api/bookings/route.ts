@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
     const booking = await db.booking.create({
       data: {
         name: data.name,
+        email: data.email || null,
         phone: data.phone,
         pickup: data.pickupLocation,
         drop: data.dropLocation,

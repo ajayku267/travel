@@ -13,6 +13,12 @@ export const bookingSchema = z.object({
     .min(10, "Phone number must be at least 10 digits")
     .max(15, "Phone number must be under 15 digits")
     .regex(/^[+\d\s-]+$/, "Invalid phone number format"),
+  email: z
+    .string()
+    .email("Invalid email address")
+    .max(200)
+    .optional()
+    .or(z.literal("")),
   pickupLocation: z
     .string()
     .min(2, "Pickup location is required")

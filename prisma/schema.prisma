@@ -19,6 +19,7 @@ model Booking {
   id        String   @id @default(uuid())
   bookingId String   @unique @default(uuid()) // Short ID like BK001
   name      String
+  email     String?
   phone     String
   pickup    String
   drop      String
