@@ -9,6 +9,13 @@ import { vehicleTypes } from "@/data/vehicles";
 import { cn } from "@/lib/utils";
 import LocationAutocomplete from "./LocationAutocomplete";
 import { toast } from "sonner";
+import { COMPANY_NAME } from "@/lib/utils";
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const bookingSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -60,25 +67,85 @@ export default function BookingForm({
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/bookings", {
+      // 1. Create a Razorpay Order for Advance Payment (Fixed ₹500)
+      const orderRes = await fetch("/api/razorpay", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ amount: 500, receipt: `rcpt_${Date.now()}` }),
       });
-      if (response.ok) {
-        toast.success("Booking request sent successfully!");
-        setSubmitted(true);
-        reset();
-      } else {
-        toast.error("Failed to submit booking. Please try again.");
+      
+      const orderData = await orderRes.json();
+      
+      if (!orderData.success) {
+        throw new Error("Could not initialize payment gateway");
       }
-    } catch {
-      toast.error("Failed to submit booking. Redirecting to WhatsApp.");
-      // Show WhatsApp fallback
+
+      // 2. Open Razorpay Checkout Modal
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_YOUR_KEY", 
+        amount: orderData.order.amount,
+        currency: orderData.order.currency,
+        name: COMPANY_NAME,
+        description: "Advance Taxi Booking Token",
+        order_id: orderData.order.id,
+        handler: async function (response: any) {
+          // 3. On successful payment, save booking in our database
+          const bookingData = {
+            ...data,
+            razorpay_payment_id: response.razorpay_payment_id || "test_success",
+            razorpay_order_id: response.razorpay_order_id || orderData.order.id,
+            razorpay_signature: response.razorpay_signature || "test_signature",
+          };
+
+          try {
+            const finalRes = await fetch("/api/bookings", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(bookingData),
+            });
+            
+            if (finalRes.ok) {
+              toast.success("Payment successful! Booking confirmed.");
+              setSubmitted(true);
+              reset();
+            } else {
+              toast.error("Payment received, but failed to save booking. Please contact us.");
+            }
+          } catch (e) {
+            toast.error("Error confirming booking. Please contact support.");
+          } finally {
+            setIsSubmitting(false);
+          }
+        },
+        prefill: {
+          name: data.name,
+          contact: data.phone,
+          email: data.email || "",
+        },
+        theme: {
+          color: "#EAB308", // Tailwind yellow-500
+        },
+        modal: {
+          ondismiss: function () {
+            setIsSubmitting(false);
+            toast.error("Payment cancelled. Booking was not completed.");
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        setIsSubmitting(false);
+        toast.error(response.error.description || "Payment failed!");
+      });
+      rzp.open();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to start payment. Redirecting to WhatsApp.");
+      setIsSubmitting(false);
+      // Fallback
       const msg = `Hi! I want to book a taxi.%0AName: ${data.name}%0APhone: ${data.phone}%0APickup: ${data.pickupLocation}%0ADrop: ${data.dropLocation}%0ADate: ${data.journeyDate}%0AVehicle: ${data.vehicleType}`;
       window.open(`https://wa.me/919876543210?text=${msg}`, "_blank");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

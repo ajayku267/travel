@@ -26,6 +26,13 @@ model Booking {
   date      String
   tripType  String   // one-way or round-trip
   status    String   @default("pending") // pending, confirmed, completed, cancelled
+  
+  // Razorpay Payment Fields
+  paymentId     String?  // Razorpay Payment ID
+  orderId       String?  // Razorpay Order ID
+  paymentStatus String   @default("pending") // pending, success, failed
+  amountPaid    Float    @default(0)
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

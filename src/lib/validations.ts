@@ -33,6 +33,10 @@ export const bookingSchema = z.object({
   tripType: z.enum(["one-way", "round-trip"], {
     error: "Trip type must be one-way or round-trip",
   }),
+  message: z.string().optional(),
+  razorpay_payment_id: z.string().optional(),
+  razorpay_order_id: z.string().optional(),
+  razorpay_signature: z.string().optional(),
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;

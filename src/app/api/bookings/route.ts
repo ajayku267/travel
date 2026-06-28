@@ -41,9 +41,13 @@ export async function POST(request: NextRequest) {
         phone: data.phone,
         pickup: data.pickupLocation,
         drop: data.dropLocation,
-        vehicle: data.vehicleType,
         date: data.journeyDate,
+        vehicle: data.vehicleType,
         tripType: data.tripType,
+        paymentId: data.razorpay_payment_id || null,
+        orderId: data.razorpay_order_id || null,
+        paymentStatus: data.razorpay_payment_id ? "success" : "pending",
+        amountPaid: data.razorpay_payment_id ? 500 : 0, // Flat 500 advance
       },
     });
 
