@@ -4,10 +4,20 @@ import twilio from "twilio";
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
+const twilioWhatsapp = process.env.TWILIO_WHATSAPP_NUMBER;
 const adminNumber = process.env.TWILIO_ADMIN_NUMBER;
 
 // We use a dummy client if keys are missing so the app doesn't crash on Vercel
 const client = accountSid && authToken ? twilio(accountSid, authToken) : null;
+
+// Helper to format phone numbers correctly
+const formatNumber = (phone: string, useWhatsapp: boolean) => {
+  let formatted = phone.trim();
+  if (!formatted.startsWith("+")) {
+    formatted = `+91${formatted.replace(/^0+/, "")}`;
+  }
+  return useWhatsapp ? `whatsapp:${formatted}` : formatted;
+};
 
 export interface BookingDetails {
   bookingId: string;
@@ -38,10 +48,13 @@ Date: ${booking.date}
 Vehicle: ${booking.vehicle} (${booking.tripType})`;
 
   try {
+    const from = twilioWhatsapp || twilioNumber;
+    const to = formatNumber(adminNumber, !!twilioWhatsapp);
+    
     await client.messages.create({
       body: message,
-      from: twilioNumber,
-      to: adminNumber,
+      from: twilioWhatsapp ? `whatsapp:${twilioWhatsapp}` : from,
+      to,
     });
     return true;
   } catch (error) {
@@ -84,12 +97,12 @@ Please login to your driver portal to mark this ride as Started when you pick up
 
   for (const to of toNumbers) {
     try {
-      // Ensure phone number starts with country code
-      const formattedTo = to.startsWith("+") ? to : `+91${to}`;
+      const from = twilioWhatsapp || twilioNumber;
+      const formattedTo = formatNumber(to, !!twilioWhatsapp);
       
       await client.messages.create({
         body: messageBody,
-        from: twilioNumber,
+        from: twilioWhatsapp ? `whatsapp:${twilioWhatsapp}` : from,
         to: formattedTo,
       });
       console.log(`Driver assignment sent to ${formattedTo}`);
@@ -114,16 +127,12 @@ We will call you shortly to confirm.
 - Haryana Taxi Service`;
 
   try {
-    // Basic phone number formatting: Make sure it has +91 for India if not present
-    let formattedPhone = booking.phone.trim();
-    if (!formattedPhone.startsWith("+")) {
-      // Assuming India as default if no country code is provided
-      formattedPhone = `+91${formattedPhone.replace(/^0+/, "")}`;
-    }
+    const from = twilioWhatsapp || twilioNumber;
+    const formattedPhone = formatNumber(booking.phone, !!twilioWhatsapp);
 
     await client.messages.create({
       body: message,
-      from: twilioNumber,
+      from: twilioWhatsapp ? `whatsapp:${twilioWhatsapp}` : from,
       to: formattedPhone,
     });
     return true;

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { Phone, MapPin, CheckCircle, Navigation, Calendar } from "lucide-react";
 import RideStatusButton from "./RideStatusButton";
+import LocationTracker from "@/components/driver/LocationTracker";
 
 export const dynamic = "force-dynamic";
 
@@ -36,8 +37,8 @@ export default async function DriverDashboard() {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center text-xl">🚘</div>
             <div>
-              <div className="text-gray-400 text-xs">Welcome back,</div>
               <div className="font-bold text-lg">{session.user.name}</div>
+              <LocationTracker />
             </div>
           </div>
           <form action={async () => {

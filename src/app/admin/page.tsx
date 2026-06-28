@@ -58,8 +58,8 @@ export default async function AdminDashboard() {
     const displayDate = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
     return {
       date: displayDate,
-      bookings: bookingsLast7Days.filter((b) => b.createdAt.toISOString().startsWith(dateStr)).length,
-      inquiries: inquiriesLast7Days.filter((inq) => inq.createdAt.toISOString().startsWith(dateStr)).length,
+      bookings: bookingsLast7Days.filter((b: any) => b.createdAt.toISOString().startsWith(dateStr)).length,
+      inquiries: inquiriesLast7Days.filter((inq: any) => inq.createdAt.toISOString().startsWith(dateStr)).length,
     };
   });
 
@@ -166,7 +166,7 @@ export default async function AdminDashboard() {
               </Link>
             </div>
             <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-              {recentBookings.length > 0 ? recentBookings.map((booking, i) => (
+              {recentBookings.length > 0 ? recentBookings.map((booking: any, i: number) => (
                 <div
                   key={booking.id}
                   className={`p-4 ${i !== recentBookings.length - 1 ? "border-b border-gray-50" : ""}`}
