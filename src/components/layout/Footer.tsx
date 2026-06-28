@@ -214,9 +214,9 @@ export default function Footer() {
             <Link href="/terms" className="hover:text-yellow-400 transition-colors">
               Terms of Service
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-yellow-400 transition-colors">
+            <a href="/sitemap.xml" className="hover:text-yellow-400 transition-colors">
               Sitemap
-            </Link>
+            </a>
           </div>
         </div>
       </div>
