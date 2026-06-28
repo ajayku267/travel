@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Phone, CheckCircle, Clock, XCircle } from "lucide-react";
 import { db } from "@/lib/db";
 import StatusSelect from "./StatusSelect";
+import DispatchForm from "./DispatchForm";
 
 export const dynamic = "force-dynamic"; // Ensure fresh data on each load
 
@@ -15,6 +16,11 @@ const statusConfig = {
 export default async function AdminBookingsPage() {
   const bookings = await db.booking.findMany({
     orderBy: { createdAt: "desc" },
+  });
+
+  const drivers = await db.driver.findMany({
+    where: { activeStatus: true },
+    select: { id: true, name: true, phone: true }
   });
 
   return (
@@ -70,8 +76,28 @@ export default async function AdminBookingsPage() {
                           <Phone size={10} /> {booking.phone}
                         </div>
                       </td>
-                      <td className="px-4 py-4">
-                        <div className="text-sm text-gray-900">{booking.pickup} → {booking.drop}</div>
+                      <td className="px-4 py-4 min-w-[300px]">
+                        <div className="text-sm font-semibold text-gray-900 mb-2">{booking.pickup} → {booking.drop}</div>
+                        <div className="p-3 bg-gray-50 border border-gray-100 rounded-lg">
+                          <div className="flex justify-between items-center mb-3">
+                            <div>
+                              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Token Payment</div>
+                              <div className="font-semibold text-xs text-gray-900">{booking.paymentStatus === "success" ? `Paid ₹${booking.amountPaid}` : "Unpaid"}</div>
+                            </div>
+                            {booking.paymentId && (
+                              <div className="text-right">
+                                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">ID</div>
+                                <div className="font-mono text-xs text-gray-500 truncate w-24" title={booking.paymentId}>{booking.paymentId}</div>
+                              </div>
+                            )}
+                          </div>
+                          <DispatchForm 
+                            bookingId={booking.bookingId} 
+                            drivers={drivers} 
+                            currentDriverId={booking.driverId} 
+                            currentFare={booking.totalFare} 
+                          />
+                        </div>
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-700">{booking.vehicle}</td>
                       <td className="px-4 py-4 text-sm text-gray-600">{booking.date}</td>

@@ -50,6 +50,55 @@ Vehicle: ${booking.vehicle} (${booking.tripType})`;
   }
 }
 
+export async function sendDriverAssignment(data: {
+  driverPhone: string;
+  driverName: string;
+  pickup: string;
+  drop: string;
+  date: string;
+  totalFare: number;
+  customerPhone: string;
+  customerName: string;
+}) {
+  if (!client) {
+    console.warn("Twilio client not initialized, skipping driver assignment message.");
+    return;
+  }
+
+  const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
+  if (!twilioNumber) return;
+
+  const toNumbers = [data.driverPhone];
+  // If the admin wants WhatsApp for drivers as well, we could duplicate to whatsapp: but SMS is standard for drivers.
+  
+  const messageBody = `🚗 New Ride Assigned to you, ${data.driverName}!
+From: ${data.pickup}
+To: ${data.drop}
+Date: ${data.date}
+
+Customer: ${data.customerName}
+Phone: ${data.customerPhone}
+Total Fare: ₹${data.totalFare}
+
+Please login to your driver portal to mark this ride as Started when you pick up the customer.`;
+
+  for (const to of toNumbers) {
+    try {
+      // Ensure phone number starts with country code
+      const formattedTo = to.startsWith("+") ? to : `+91${to}`;
+      
+      await client.messages.create({
+        body: messageBody,
+        from: twilioNumber,
+        to: formattedTo,
+      });
+      console.log(`Driver assignment sent to ${formattedTo}`);
+    } catch (error) {
+      console.error(`Failed to send driver assignment to ${to}:`, error);
+    }
+  }
+}
+
 /**
  * Sends a WhatsApp or SMS confirmation to the Customer
  */

@@ -23,27 +23,42 @@ export const {
           return null;
         }
 
-        const user = await db.adminUser.findUnique({
-          where: { username: credentials.username as string },
+        const username = credentials.username as string;
+        const password = credentials.password as string;
+
+        // 1. Try to find Admin
+        const adminUser = await db.adminUser.findUnique({
+          where: { username },
         });
 
-        if (!user) {
-          return null;
+        if (adminUser) {
+          const isValid = await bcrypt.compare(password, adminUser.password);
+          if (isValid) {
+            return {
+              id: adminUser.id,
+              name: adminUser.username,
+              role: "admin",
+            };
+          }
         }
 
-        const isValid = await bcrypt.compare(
-          credentials.password as string,
-          user.password
-        );
+        // 2. Try to find Driver (where username is their phone number)
+        const driverUser = await db.driver.findUnique({
+          where: { phone: username },
+        });
 
-        if (!isValid) {
-          return null;
+        if (driverUser && driverUser.activeStatus) {
+          const isValid = await bcrypt.compare(password, driverUser.password);
+          if (isValid) {
+            return {
+              id: driverUser.id,
+              name: driverUser.name,
+              role: "driver",
+            };
+          }
         }
 
-        return {
-          id: user.id,
-          name: user.username,
-        };
+        return null;
       },
     }),
   ],
@@ -54,12 +69,14 @@ export const {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.role = (user as any).role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        (session.user as any).role = token.role as string;
       }
       return session;
     },

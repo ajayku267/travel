@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { sendDriverAssignment } from "@/lib/twilio";
 import { bookingSchema, formatZodErrors } from "@/lib/validations";
 
 export async function updateBookingStatus(id: string, status: string) {
@@ -70,4 +71,33 @@ export async function createBooking(formData: FormData) {
     console.error("Failed to create booking:", error);
     return { success: false, error: error.message || "Failed to create booking" };
   }
+}
+
+export async function assignDriverToBooking(bookingId: string, driverId: string, totalFare: number) {
+  const booking = await db.booking.update({
+    where: { bookingId },
+    data: {
+      driverId,
+      totalFare,
+      status: "confirmed"
+    },
+    include: { driver: true }
+  });
+
+  if (booking.driver) {
+    // Notify the driver asynchronously
+    sendDriverAssignment({
+      driverPhone: booking.driver.phone,
+      driverName: booking.driver.name,
+      pickup: booking.pickup,
+      drop: booking.drop,
+      date: booking.date,
+      totalFare,
+      customerPhone: booking.phone,
+      customerName: booking.name
+    }).catch(console.error);
+  }
+
+  revalidatePath("/admin/bookings");
+  return { success: true };
 }

@@ -32,9 +32,26 @@ model Booking {
   orderId       String?  // Razorpay Order ID
   paymentStatus String   @default("pending") // pending, success, failed
   amountPaid    Float    @default(0)
+  totalFare     Float?   // Total fare quoted to customer
+  
+  // Driver assignment
+  driverId      String?
+  driver        Driver?  @relation(fields: [driverId], references: [id])
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Driver {
+  id            String    @id @default(cuid())
+  name          String
+  phone         String    @unique
+  password      String    // Hashed password for driver portal
+  licenseNumber String?
+  activeStatus  Boolean   @default(true)
+  bookings      Booking[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model ContactInquiry {
