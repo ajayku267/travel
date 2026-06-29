@@ -14,6 +14,7 @@
     "@prisma/client": "^5.22.0",
     "@react-email/components": "^1.0.12",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "bcrypt": "^6.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.41.0",
