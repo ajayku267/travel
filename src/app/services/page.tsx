@@ -12,13 +12,16 @@ import {
   Heart,
   Users,
 } from "lucide-react";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: `Taxi Services | ${COMPANY_NAME} — Local, Outstation, Airport, Corporate`,
-  description:
-    "Complete taxi services in Nainital — local cab, airport transfer, outstation taxi, one-way, round trip, corporate cab, and wedding car. Book now!",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Taxi Services | ${settings.companyName} — Local, Outstation, Airport, Corporate`,
+    description:
+      "Complete taxi services in Nainital — local cab, airport transfer, outstation taxi, one-way, round trip, corporate cab, and wedding car. Book now!",
+  };
+}
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   MapPin,

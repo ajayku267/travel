@@ -4,13 +4,16 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { Users, Luggage, Wind, CheckCircle, Phone } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: `Our Fleet | ${COMPANY_NAME} — Small Cars, Tata Sumo, Chevrolet Tavera`,
-  description:
-    "Choose from our fleet of well-maintained taxis: Small Cars, Tata Sumo, and Chevrolet Tavera. Book now at best prices.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Our Fleet | ${settings.companyName} — Small Cars, Tata Sumo, Chevrolet Tavera`,
+    description:
+      "Choose from our fleet of well-maintained taxis: Small Cars, Tata Sumo, and Chevrolet Tavera. Book now at best prices.",
+  };
+}
 
 export default async function FleetPage() {
   const vehicles = await db.vehicle.findMany({

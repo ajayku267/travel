@@ -3,13 +3,16 @@ import { db } from "@/lib/db";
 import StarRating from "@/components/ui/StarRating";
 import { CheckCircle } from "lucide-react";
 import { formatDate } from "@/lib/utils";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: `Customer Reviews | ${COMPANY_NAME} — 4.8★ Rated`,
-  description:
-    "Read genuine customer reviews of Go Nainital. 4.8 star rated taxi service across Nainital and Delhi NCR. 500+ happy customers.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Customer Reviews | ${settings.companyName} — 4.8★ Rated`,
+    description:
+      "Read genuine customer reviews of Go Nainital. 4.8 star rated taxi service across Nainital and Delhi NCR. 500+ happy customers.",
+  };
+}
 
 export default async function ReviewsPage() {
   const reviews = await db.review.findMany({

@@ -10,7 +10,7 @@ import { tourPackages } from "@/data/tours";
 import { cn } from "@/lib/utils";
 import LocationAutocomplete from "./LocationAutocomplete";
 import { toast } from "sonner";
-import { COMPANY_NAME } from "@/lib/utils";
+import { useSettings } from "@/components/providers/SettingsProvider";
 
 declare global {
   interface Window {
@@ -46,6 +46,7 @@ export default function BookingForm({
   defaultPickup = "",
   defaultDrop = "",
 }: BookingFormProps) {
+  const settings = useSettings();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTourMode, setIsTourMode] = useState(false);
@@ -137,8 +138,8 @@ export default function BookingForm({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_YOUR_KEY", 
         amount: orderData.order.amount,
         currency: orderData.order.currency,
-        name: COMPANY_NAME,
-        description: "Advance Taxi Booking Token",
+        name: settings.companyName,
+        description: "Taxi Booking Advance",
         order_id: orderData.order.id,
         handler: async function (response: any) {
           // 3. On successful payment, save booking in our database
@@ -177,7 +178,7 @@ export default function BookingForm({
       setIsSubmitting(false);
       // Fallback
       const msg = `Hi! I want to book a taxi.%0AName: ${data.name}%0APhone: ${data.phone}%0APickup: ${data.pickupLocation}%0ADrop: ${data.dropLocation}%0ADate: ${data.journeyDate}%0AVehicle: ${data.vehicleType}`;
-      window.open(`https://wa.me/918392986174?text=${msg}`, "_blank");
+      window.open(`https://wa.me/${settings.whatsapp}?text=${msg}`, "_blank");
     }
   };
 
@@ -259,7 +260,7 @@ export default function BookingForm({
           <div className="relative">
             <input
               {...register("phone")}
-              placeholder="+91 83929 86174"
+              placeholder={settings.phone}
               type="tel"
               className={cn("form-input pl-10", errors.phone && "border-red-400")}
             />
@@ -448,8 +449,8 @@ export default function BookingForm({
 
       <p className="text-center text-xs text-gray-500">
         Or call directly:{" "}
-        <a href="tel:+918392986174" className="text-yellow-600 font-semibold">
-          +91 83929 86174
+        <a href={`tel:${settings.phone}`} className="text-yellow-600 font-semibold">
+          {settings.phone}
         </a>
       </p>
     </form>

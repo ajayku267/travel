@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 import { ArrowRight, Clock, MapPin, Banknote } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: `All Taxi Routes | ${COMPANY_NAME} — Nainital, Delhi NCR`,
-  description:
-    "Browse all available taxi routes from Nainital — Dadri, Bhiwani, Rohtak, Hisar, Gurgaon to Delhi and beyond. Fixed fares, 24/7 service.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `All Taxi Routes | ${settings.companyName} — Nainital, Delhi NCR`,
+    description:
+      "Browse all available taxi routes from Nainital — Dadri, Bhiwani, Rohtak, Hisar, Gurgaon to Delhi and beyond. Fixed fares, 24/7 service.",
+  };
+}
 
 export default async function RoutesIndexPage() {
   const routes = await db.route.findMany({

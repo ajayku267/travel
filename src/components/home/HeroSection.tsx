@@ -1,8 +1,10 @@
 import BookingForm from "@/components/forms/BookingForm";
 import Link from "next/link";
 import { Phone, Shield, Clock, Star } from "lucide-react";
+import { getSettings } from "@/lib/settings";
 
 export default function HeroSection({ title, subtitle }: { title?: string, subtitle?: string }) {
+  const settings = getSettings();
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
       {/* Background */}
@@ -28,12 +30,11 @@ export default function HeroSection({ title, subtitle }: { title?: string, subti
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6 animate-fade-in-up stagger-1">
               {title ? title : <>
-                Nainital&apos;s #1
-                <span className="text-yellow-400 block mt-1">Taxi Service</span>
+                {settings.heroTitle}
               </>}
             </h1>
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-lg animate-fade-in-up stagger-2">
-              {subtitle ? subtitle : "Reliable, affordable cab service across Nainital, Delhi NCR & nearby states. Professional drivers · Clean vehicles · Fixed fares"}
+              {subtitle ? subtitle : settings.heroSubtitle}
             </p>
 
             {/* Trust indicators */}
@@ -54,13 +55,13 @@ export default function HeroSection({ title, subtitle }: { title?: string, subti
             {/* Quick action */}
             <div className="flex flex-wrap gap-3 animate-fade-in-up stagger-4">
               <a
-                href="tel:+918392986174"
+                href={`tel:${settings.phone}`}
                 className="flex items-center gap-2 px-6 py-3 bg-yellow-400 text-gray-900 font-bold rounded-xl hover:bg-yellow-300 transition-all shadow-lg shadow-yellow-400/30 hover:-translate-y-0.5"
               >
                 <Phone size={18} /> Call Now
               </a>
               <a
-                href="https://wa.me/918392986174?text=Hi, I want to book a taxi"
+                href={`https://wa.me/${settings.whatsapp}?text=Hi, I want to book a taxi`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-400 transition-all shadow-lg shadow-green-500/30 hover:-translate-y-0.5"

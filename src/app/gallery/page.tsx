@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: `Gallery | ${COMPANY_NAME} — Vehicles, Journeys & Destinations`,
-  description:
-    "Browse our gallery of well-maintained taxi fleet, customer journeys, and popular tourist destinations served by Go Nainital.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Gallery | ${settings.companyName} — Vehicles, Journeys & Destinations`,
+    description:
+      "Browse our gallery of well-maintained taxi fleet, customer journeys, and popular tourist destinations served by Go Nainital.",
+  };
+}
 
 const categories = ["All", "Vehicles", "Journeys", "Destinations"];
 

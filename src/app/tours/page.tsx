@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 import ToursList from "@/components/tours/ToursList";
 
-export const metadata: Metadata = {
-  title: `Tour Packages | ${COMPANY_NAME} — Nainital Darshan & Sightseeing`,
-  description:
-    "Explore our exclusive Nainital tour packages including Nainital Darshan, Lakes Tour, Mukteshwar, Ranikhet, Kausani, and Corbett Park. Book your cab today!",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Tour Packages | ${settings.companyName} — Nainital Darshan & Sightseeing`,
+    description:
+      "Explore our exclusive Nainital tour packages including Nainital Darshan, Lakes Tour, Mukteshwar, Ranikhet, Kausani, and Corbett Park. Book your cab today!",
+  };
+}
 
 export default function ToursPage() {
   return (

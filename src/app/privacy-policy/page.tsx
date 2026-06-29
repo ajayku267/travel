@@ -1,12 +1,16 @@
 import Link from "next/link";
-import { COMPANY_NAME, EMAIL, PHONE_NUMBER } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata = {
-  title: `Privacy Policy - ${COMPANY_NAME}`,
-  description: `Privacy policy and data handling for ${COMPANY_NAME}.`,
-};
+export async function generateMetadata() {
+  const settings = getSettings();
+  return {
+    title: `Privacy Policy - ${settings.companyName}`,
+    description: `Privacy policy and data handling for ${settings.companyName}.`,
+  };
+}
 
 export default function PrivacyPolicyPage() {
+  const settings = getSettings();
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-20">
       <div className="max-w-3xl mx-auto px-5">
@@ -14,7 +18,7 @@ export default function PrivacyPolicyPage() {
         
         <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 space-y-6 text-gray-600">
           <p>
-            At {COMPANY_NAME}, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information.
+            At {settings.companyName}, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information.
           </p>
 
           <h2 className="text-xl font-bold text-gray-900 mt-8 mb-4">1. Information We Collect</h2>
@@ -54,9 +58,9 @@ export default function PrivacyPolicyPage() {
           <p>
             If you have any questions regarding our privacy practices, please contact us at:
             <br />
-            <strong>Phone:</strong> <a href={`tel:${PHONE_NUMBER}`} className="text-yellow-600 hover:underline">{PHONE_NUMBER}</a>
+            <strong>Phone:</strong> <a href={`tel:${settings.phone}`} className="text-yellow-600 hover:underline">{settings.phone}</a>
             <br />
-            <strong>Email:</strong> <a href={`mailto:${EMAIL}`} className="text-yellow-600 hover:underline">{EMAIL}</a>
+            <strong>Email:</strong> <a href={`mailto:${settings.email}`} className="text-yellow-600 hover:underline">{settings.email}</a>
           </p>
         </div>
       </div>

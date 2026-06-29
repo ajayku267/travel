@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import { Shield, Target, Eye, Award, Users, Car } from "lucide-react";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: `About Us | ${COMPANY_NAME}`,
-  description:
-    "Learn about Go Nainital — 15 years of trusted cab service in Nainital and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `About Us | ${settings.companyName}`,
+    description:
+      "Learn about Go Nainital — 15 years of trusted cab service in Nainital and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
+  };
+}
 
 export default function AboutPage() {
+  const settings = getSettings();
   return (
     <>
       {/* Hero */}
@@ -59,7 +63,7 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {COMPANY_NAME} was founded in 2010 by Mr. Ramesh Kumar, a former truck driver
+                  {settings.companyName} was founded in 2010 by Mr. Ramesh Kumar, a former truck driver
                   who understood the pain of unreliable transportation in rural Nainital. Starting
                   with just two cars in Charkhi Dadri, he built a reputation for punctuality,
                   honesty, and passenger safety.

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 import FareCalculatorClient from "./FareCalculatorClient";
 
-export const metadata: Metadata = {
-  title: `Fare Calculator | ${COMPANY_NAME} — Taxi Fare Estimate`,
-  description:
-    "Calculate instant taxi fare for your journey across Nainital and Delhi NCR. Fixed and transparent pricing for one-way and round-trip journeys.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Fare Calculator | ${settings.companyName} — Taxi Fare Estimate`,
+    description:
+      "Calculate instant taxi fare for your journey across Nainital and Delhi NCR. Fixed and transparent pricing for one-way and round-trip journeys.",
+  };
+}
 
 export default async function FareCalculatorPage() {
   const [vehicles, popularRoutes] = await Promise.all([
