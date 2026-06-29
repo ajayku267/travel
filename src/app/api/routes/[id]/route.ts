@@ -3,26 +3,11 @@ import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { routeSchema } from "@/lib/validations";
 
-export async function GET() {
-  try {
-    const routes = await db.route.findMany({
-      orderBy: { from: "asc" },
-    });
-    // Parse JSON fields
-    const parsedRoutes = routes.map(r => ({
-      ...r,
-      highlights: r.highlights ? JSON.parse(r.highlights) : [],
-      faqs: r.faqs ? JSON.parse(r.faqs) : [],
-      keywords: r.keywords || "",
-    }));
-    return NextResponse.json(parsedRoutes);
-  } catch (error) {
-    console.error("Fetch routes error:", error);
-    return NextResponse.json({ error: "Failed to fetch routes" }, { status: 500 });
-  }
-}
-
-export async function POST(request: NextRequest) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -40,13 +25,10 @@ export async function POST(request: NextRequest) {
     }
 
     const data = result.data;
-    
-    // Auto-generate slug if needed
-    const slug = `${data.from}-to-${data.to}-taxi`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
-    const newRoute = await db.route.create({
+    const updatedRoute = await db.route.update({
+      where: { id: id },
       data: {
-        slug,
         from: data.from,
         to: data.to,
         fromState: data.fromState,
@@ -63,11 +45,35 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({ success: true, route: newRoute }, { status: 201 });
+    return NextResponse.json({ success: true, route: updatedRoute });
   } catch (error) {
-    console.error("Create route error:", error);
+    console.error("Update route error:", error);
     return NextResponse.json(
-      { error: "Failed to create route" },
+      { error: "Failed to update route" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    await db.route.delete({
+      where: { id: id },
+    });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Delete route error:", error);
+    return NextResponse.json(
+      { error: "Failed to delete route" },
       { status: 500 }
     );
   }

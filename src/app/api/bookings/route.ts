@@ -5,12 +5,13 @@ import { auth } from "@/auth";
 import { bookingSchema, formatZodErrors } from "@/lib/validations";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { sendAdminNotification, sendCustomerConfirmation } from "@/lib/twilio";
+import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
   try {
     // Rate limit: 5 bookings per minute per IP
     const ip = getClientIp(request);
-    const limiter = rateLimit(`booking:${ip}`, {
+    const limiter = await rateLimit(`booking:${ip}`, {
       windowSeconds: 60,
       maxRequests: 5,
     });
@@ -34,6 +35,22 @@ export async function POST(request: NextRequest) {
     }
 
     const data = result.data;
+
+    // Verify Razorpay signature if online payment
+    if (data.paymentMethod === "online" && data.razorpay_payment_id && data.razorpay_order_id && data.razorpay_signature) {
+      const secret = process.env.RAZORPAY_KEY_SECRET;
+      if (!secret) {
+        return NextResponse.json({ success: false, message: "Server misconfiguration: missing razorpay secret" }, { status: 500 });
+      }
+      const generatedSignature = crypto
+        .createHmac("sha256", secret)
+        .update(data.razorpay_order_id + "|" + data.razorpay_payment_id)
+        .digest("hex");
+
+      if (generatedSignature !== data.razorpay_signature) {
+        return NextResponse.json({ success: false, message: "Invalid payment signature. Payment verification failed." }, { status: 400 });
+      }
+    }
 
     const booking = await db.booking.create({
       data: {

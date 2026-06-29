@@ -1,128 +1,188 @@
-import Link from "next/link";
-import { CheckCircle, Edit, Trash2, Plus, Users, Banknote } from "lucide-react";
-import { db } from "@/lib/db";
-import { formatCurrency } from "@/lib/utils";
+"use client";
 
-export const dynamic = "force-dynamic";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import { Plus, Edit2, Trash2, Check, X } from "lucide-react";
+import type { Vehicle } from "@prisma/client";
 
-export default async function AdminVehiclesPage() {
-  const vehicles = await db.vehicle.findMany({
-    orderBy: { name: "asc" },
+export default function AdminVehiclesPage() {
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState<string | null>(null);
+  
+  // Form state
+  const [formData, setFormData] = useState<Partial<Vehicle>>({
+    name: "", category: "", seatingCapacity: 4, luggageCapacity: 2,
+    hasAC: true, baseFare: 0, pricePerKm: 0, popular: false,
+    image: "", description: "", features: "[]"
   });
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Admin Header */}
+  const fetchVehicles = async () => {
+    try {
+      const res = await fetch("/api/vehicles");
+      if (res.ok) {
+        const data = await res.json();
+        setVehicles(data);
+      }
+    } catch (error) {
+      toast.error("Failed to load vehicles");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchVehicles();
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      const method = isEditing === "new" ? "POST" : "PUT";
+      const url = isEditing === "new" ? "/api/vehicles" : `/api/vehicles/${isEditing}`;
       
+      const payload = {
+        ...formData,
+        features: typeof formData.features === 'string' ? JSON.parse(formData.features || "[]") : formData.features,
+      };
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-black text-gray-900">Vehicle Fleet</h1>
-            <div className="text-sm text-gray-500 mt-0.5">
-              {vehicles.length} vehicles · {vehicles.filter((v) => v.popular).length} popular
-            </div>
-          </div>
-          <button className="flex items-center gap-2 px-4 py-2 bg-yellow-400 text-gray-900 font-bold rounded-xl text-sm hover:bg-yellow-500 transition-colors">
-            <Plus size={16} /> Add Vehicle
-          </button>
-        </div>
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-        {vehicles.length === 0 ? (
-          <div className="bg-white rounded-2xl p-12 text-center border border-gray-100 shadow-sm">
-            <div className="text-4xl mb-3">🚗</div>
-            <div className="font-bold text-gray-900 mb-1">No vehicles yet</div>
-            <div className="text-sm text-gray-500">Run the seed script to populate vehicles from static data.</div>
-          </div>
-        ) : (
-          <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-100">
-                  <tr>
-                    <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Vehicle
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Category
-                    </th>
-                    <th className="text-center px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Seats
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Base Fare
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Per KM
-                    </th>
-                    <th className="text-center px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      AC
-                    </th>
-                    <th className="text-center px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Popular
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wide">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-50">
-                  {vehicles.map((vehicle) => (
-                    <tr key={vehicle.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-5 py-4">
-                        <div className="font-bold text-gray-900">{vehicle.name}</div>
-                        <div className="text-xs text-gray-500">{vehicle.slug}</div>
-                      </td>
-                      <td className="px-5 py-4">
-                        <span className="badge badge-yellow">{vehicle.category}</span>
-                      </td>
-                      <td className="px-5 py-4 text-center">
-                        <div className="flex items-center justify-center gap-1">
-                          <Users size={14} className="text-gray-400" />
-                          <span className="font-semibold">{vehicle.seatingCapacity}</span>
-                        </div>
-                      </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-1">
-                          <Banknote size={14} className="text-gray-400" />
-                          <span className="font-semibold">{formatCurrency(vehicle.baseFare)}</span>
-                        </div>
-                      </td>
-                      <td className="px-5 py-4 font-semibold text-gray-700">
-                        {formatCurrency(vehicle.pricePerKm)}/km
-                      </td>
-                      <td className="px-5 py-4 text-center">
-                        {vehicle.hasAC ? (
-                          <CheckCircle size={16} className="text-green-500 mx-auto" />
-                        ) : (
-                          <span className="text-gray-300">—</span>
-                        )}
-                      </td>
-                      <td className="px-5 py-4 text-center">
-                        {vehicle.popular ? (
-                          <span className="badge badge-yellow">⭐ Yes</span>
-                        ) : (
-                          <span className="text-gray-400 text-sm">—</span>
-                        )}
-                      </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-2">
-                          <button className="p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
-                            <Edit size={14} />
-                          </button>
-                          <button className="p-1.5 bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors">
-                            <Trash2 size={14} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+      if (res.ok) {
+        toast.success(`Vehicle ${isEditing === "new" ? "created" : "updated"} successfully`);
+        setIsEditing(null);
+        fetchVehicles();
+      } else {
+        const err = await res.json();
+        toast.error(err.error || "Failed to save vehicle");
+      }
+    } catch (error) {
+      toast.error("An error occurred");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this vehicle?")) return;
+    try {
+      const res = await fetch(`/api/vehicles/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        toast.success("Vehicle deleted");
+        fetchVehicles();
+      }
+    } catch (error) {
+      toast.error("Failed to delete vehicle");
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Vehicle Fleet Management</h1>
+        <button
+          onClick={() => {
+            setIsEditing("new");
+            setFormData({
+              name: "", category: "Hatchback/Sedan", seatingCapacity: 4, luggageCapacity: 2,
+              hasAC: true, baseFare: 500, pricePerKm: 12, popular: false,
+              image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&q=80", 
+              description: "", features: '["AC", "Music System"]'
+            });
+          }}
+          className="bg-gray-900 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-800"
+        >
+          <Plus size={18} /> Add Vehicle
+        </button>
       </div>
+
+      {isEditing && (
+        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <h2 className="text-lg font-bold mb-4">{isEditing === "new" ? "Add New Vehicle" : "Edit Vehicle"}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full border p-2 rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Category</label>
+              <input type="text" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full border p-2 rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Image URL</label>
+              <input type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} className="w-full border p-2 rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Base Fare (₹)</label>
+              <input type="number" value={formData.baseFare} onChange={e => setFormData({...formData, baseFare: Number(e.target.value)})} className="w-full border p-2 rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Price per Km (₹)</label>
+              <input type="number" value={formData.pricePerKm} onChange={e => setFormData({...formData, pricePerKm: Number(e.target.value)})} className="w-full border p-2 rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Seats / Luggage</label>
+              <div className="flex gap-2">
+                <input type="number" value={formData.seatingCapacity} onChange={e => setFormData({...formData, seatingCapacity: Number(e.target.value)})} className="w-1/2 border p-2 rounded" title="Seats" />
+                <input type="number" value={formData.luggageCapacity} onChange={e => setFormData({...formData, luggageCapacity: Number(e.target.value)})} className="w-1/2 border p-2 rounded" title="Luggage" />
+              </div>
+            </div>
+            <div className="lg:col-span-3">
+              <label className="block text-sm font-medium mb-1">Description</label>
+              <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full border p-2 rounded" rows={3} />
+            </div>
+            <div className="lg:col-span-3">
+              <label className="block text-sm font-medium mb-1">Features (JSON Array)</label>
+              <input type="text" value={typeof formData.features === 'string' ? formData.features : JSON.stringify(formData.features)} onChange={e => setFormData({...formData, features: e.target.value})} className="w-full border p-2 rounded" placeholder='["AC", "Music System"]' />
+            </div>
+            <div className="flex items-center gap-4 lg:col-span-3">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={formData.hasAC} onChange={e => setFormData({...formData, hasAC: e.target.checked})} /> Has AC
+              </label>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={formData.popular} onChange={e => setFormData({...formData, popular: e.target.checked})} /> Popular Tag
+              </label>
+            </div>
+          </div>
+          <div className="mt-4 flex gap-2">
+            <button onClick={handleSave} className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"><Check size={16}/> Save</button>
+            <button onClick={() => setIsEditing(null)} className="bg-gray-200 px-4 py-2 rounded flex items-center gap-2"><X size={16}/> Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="p-8 text-center text-gray-500">Loading fleet data...</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {vehicles.map(v => (
+            <div key={v.id} className="bg-white rounded-lg shadow overflow-hidden border border-gray-200">
+              <div className="h-48 overflow-hidden">
+                <img src={v.image} alt={v.name} className="w-full h-full object-cover" />
+              </div>
+              <div className="p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 className="font-bold text-lg">{v.name}</h3>
+                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">{v.category}</span>
+                  </div>
+                  <div className="flex gap-1">
+                    <button onClick={() => { setIsEditing(v.id); setFormData(v); }} className="p-2 text-blue-600 hover:bg-blue-50 rounded"><Edit2 size={16} /></button>
+                    <button onClick={() => handleDelete(v.id)} className="p-2 text-red-600 hover:bg-red-50 rounded"><Trash2 size={16} /></button>
+                  </div>
+                </div>
+                <div className="text-sm text-gray-600 grid grid-cols-2 gap-2 mt-4">
+                  <div>💺 {v.seatingCapacity} Seats</div>
+                  <div>🧳 {v.luggageCapacity} Bags</div>
+                  <div>₹ {v.baseFare} Base</div>
+                  <div>₹ {v.pricePerKm}/km</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
