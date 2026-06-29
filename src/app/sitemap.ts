@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://nainitaltaxi.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nainitaltaxi.com";
   const now = new Date();
 
   const [routes, locations] = await Promise.all([

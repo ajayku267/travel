@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import SiteLayout from "@/components/layout/SiteLayout";
 import { getSettings } from "@/lib/settings";
@@ -136,6 +137,7 @@ export default function RootLayout({
           </SiteLayout>
         </SettingsProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
