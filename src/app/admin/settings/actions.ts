@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import fs from "fs";
 import path from "path";
 
-export async function updateSettings(formData: FormData) {
+export async function updateSettings(formData: FormData): Promise<void> {
   try {
     const newSettings: SiteSettings = {
       companyName: formData.get("companyName") as string,
@@ -32,8 +32,7 @@ export async function updateSettings(formData: FormData) {
     fs.writeFileSync(utilsPath, utilsContent, "utf8");
 
     revalidatePath("/");
-    return { success: true };
   } catch (error) {
-    return { success: false, error: "Failed to save settings" };
+    console.error("Failed to save settings:", error);
   }
 }
