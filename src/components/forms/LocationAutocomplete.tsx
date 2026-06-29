@@ -1,10 +1,17 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MapPin, Loader2 } from "lucide-react";
+import { MapPin, Loader2, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
-interface Location {
+export interface LocationData {
+  name: string;
+  lat: number;
+  lon: number;
+}
+
+interface NominatimLocation {
   display_name: string;
   lat: string;
   lon: string;
@@ -13,32 +20,35 @@ interface Location {
 interface LocationAutocompleteProps {
   value: string;
   onChange: (value: string) => void;
+  onLocationSelect?: (location: LocationData) => void;
   placeholder?: string;
   className?: string;
   iconColorClass?: string;
   error?: boolean;
+  showLocateMe?: boolean;
 }
 
 export default function LocationAutocomplete({
   value,
   onChange,
+  onLocationSelect,
   placeholder = "Search location...",
   className,
   iconColorClass = "text-green-500",
   error = false,
+  showLocateMe = false,
 }: LocationAutocompleteProps) {
   const [query, setQuery] = useState(value);
-  const [results, setResults] = useState<Location[]>([]);
+  const [results, setResults] = useState<NominatimLocation[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Sync internal query state with external value changes
   useEffect(() => {
     setQuery(value);
   }, [value]);
 
-  // Click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -49,9 +59,7 @@ export default function LocationAutocomplete({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Fetch suggestions
   useEffect(() => {
-    // If query is empty or same as selected value, don't fetch
     if (!query || query === value) {
       setResults([]);
       return;
@@ -75,18 +83,66 @@ export default function LocationAutocomplete({
     return () => clearTimeout(debounceTimer);
   }, [query, value]);
 
-  const handleSelect = (location: Location) => {
+  const handleSelect = (location: NominatimLocation) => {
     const name = location.display_name;
+    const lat = parseFloat(location.lat);
+    const lon = parseFloat(location.lon);
+
     setQuery(name);
     onChange(name);
+    
+    if (onLocationSelect) {
+      onLocationSelect({ name, lat, lon });
+    }
+    
     setIsOpen(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVal = e.target.value;
     setQuery(newVal);
-    onChange(newVal); // update form immediately so it's not strictly controlled by the dropdown
+    onChange(newVal);
     if (!isOpen) setIsOpen(true);
+  };
+
+  const handleLocateMe = () => {
+    if (!navigator.geolocation) {
+      toast.error("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setIsLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const res = await fetch(`/api/reverse-geocode?lat=${latitude}&lon=${longitude}`);
+          const data = await res.json();
+          
+          if (data && data.display_name) {
+            const name = data.display_name;
+            setQuery(name);
+            onChange(name);
+            if (onLocationSelect) {
+              onLocationSelect({ name, lat: latitude, lon: longitude });
+            }
+            toast.success("Location found!");
+          } else {
+            toast.error("Could not determine address from coordinates");
+          }
+        } catch (error) {
+          console.error("Reverse geocode error:", error);
+          toast.error("Failed to fetch address");
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      (err) => {
+        setIsLocating(false);
+        toast.error("Unable to retrieve your location. Please check permissions.");
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
   };
 
   return (
@@ -99,13 +155,29 @@ export default function LocationAutocomplete({
           if (results.length > 0) setIsOpen(true);
         }}
         placeholder={placeholder}
-        className={cn("form-input pl-10", error && "border-red-400", className)}
+        className={cn("form-input pl-10", showLocateMe ? "pr-10" : "", error && "border-red-400", className)}
       />
       
       {isLoading ? (
         <Loader2 size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 animate-spin" />
       ) : (
         <MapPin size={15} className={cn("absolute left-3 top-1/2 -translate-y-1/2", iconColorClass)} />
+      )}
+
+      {showLocateMe && (
+        <button
+          type="button"
+          onClick={handleLocateMe}
+          disabled={isLocating}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500 hover:text-blue-600 transition-colors disabled:opacity-50"
+          title="Use current location"
+        >
+          {isLocating ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Navigation size={16} />
+          )}
+        </button>
       )}
 
       {isOpen && results.length > 0 && (
