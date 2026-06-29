@@ -99,9 +99,13 @@ export default async function AdminDashboard() {
   ];
 
   // Combine bookings and inquiries for a unified feed
-  const combinedActivity = [
-    ...recentBookings.map(b => ({ type: 'booking', date: new Date(b.createdAt), data: b })),
-    ...recentInquiries.map(i => ({ type: 'inquiry', date: new Date(i.createdAt), data: i }))
+  type BookingActivity = { type: 'booking'; date: Date; data: typeof recentBookings[number] };
+  type InquiryActivity = { type: 'inquiry'; date: Date; data: typeof recentInquiries[number] };
+  type Activity = BookingActivity | InquiryActivity;
+
+  const combinedActivity: Activity[] = [
+    ...recentBookings.map((b): BookingActivity => ({ type: 'booking', date: new Date(b.createdAt), data: b })),
+    ...recentInquiries.map((i): InquiryActivity => ({ type: 'inquiry', date: new Date(i.createdAt), data: i }))
   ].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 8);
 
   return (
@@ -201,36 +205,42 @@ export default async function AdminDashboard() {
                       </div>
                     </div>
                     
-                    {activity.type === 'booking' ? (
+                    {activity.type === 'booking' ? (() => {
+                      const b = activity.data;
+                      return (
                       <div>
                         <div className="text-sm text-gray-600 mb-2">
-                          <span className="font-medium text-gray-700">{activity.data.pickup}</span> → <span className="font-medium text-gray-700">{activity.data.drop}</span>
+                          <span className="font-medium text-gray-700">{b.pickup}</span> → <span className="font-medium text-gray-700">{b.drop}</span>
                         </div>
                         <div className="flex gap-2">
                           <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-                            activity.data.status === 'pending' ? 'bg-orange-100 text-orange-700' : 'bg-green-100 text-green-700'
+                            b.status === 'pending' ? 'bg-orange-100 text-orange-700' : 'bg-green-100 text-green-700'
                           }`}>
-                            {activity.data.status}
+                            {b.status}
                           </span>
                           <span className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider bg-gray-100 text-gray-600">
-                            {activity.data.vehicle}
+                            {b.vehicle}
                           </span>
                         </div>
                       </div>
-                    ) : (
+                      );
+                    })() : (() => {
+                      const inq = activity.data;
+                      return (
                       <div>
                         <div className="text-sm text-gray-600 mb-2 line-clamp-1">
-                          {activity.data.subject}: {activity.data.message}
+                          {inq.subject}: {inq.message}
                         </div>
                         <div className="flex gap-2">
                           <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-                            activity.data.responded ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                            inq.responded ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
                           }`}>
-                            {activity.data.responded ? 'Responded' : 'Needs Response'}
+                            {inq.responded ? 'Responded' : 'Needs Response'}
                           </span>
                         </div>
                       </div>
-                    )}
+                      );
+                    })()}
                   </div>
                 </div>
               ))}
