@@ -38,7 +38,7 @@ export default function DriverLoginPage() {
               name="username"
               type="text"
               required
-              placeholder="e.g. 9876543210"
+              placeholder="e.g. 8392986174"
               className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white transition-colors"
             />
           </div>

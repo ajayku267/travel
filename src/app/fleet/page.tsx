@@ -4,13 +4,16 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { Users, Luggage, Wind, CheckCircle, Phone } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: `Our Fleet | ${COMPANY_NAME} — Small Cars, Tata Sumo, Chevrolet Tavera`,
-  description:
-    "Choose from our fleet of well-maintained taxis: Small Cars, Tata Sumo, and Chevrolet Tavera. Book now at best prices.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Our Fleet | ${settings.companyName} — Small Cars, Tata Sumo, Chevrolet Tavera`,
+    description:
+      "Choose from our fleet of well-maintained taxis: Small Cars, Tata Sumo, and Chevrolet Tavera. Book now at best prices.",
+  };
+}
 
 export default async function FleetPage() {
   const vehicles = await db.vehicle.findMany({
@@ -160,13 +163,13 @@ export default async function FleetPage() {
                     {/* CTAs */}
                     <div className="flex gap-3">
                       <a
-                        href="tel:+919876543210"
+                        href="tel:+918392986174"
                         className="flex items-center gap-2 px-5 py-2.5 btn-primary flex-1 justify-center"
                       >
                         <Phone size={16} /> Book {vehicle.name}
                       </a>
                       <a
-                        href={`https://wa.me/919876543210?text=Hi! I want to book a ${vehicle.name}`}
+                        href={`https://wa.me/918392986174?text=Hi! I want to book a ${vehicle.name}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-5 py-2.5 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors"
@@ -193,10 +196,10 @@ export default async function FleetPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="tel:+919876543210"
+              href="tel:+918392986174"
               className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-yellow-400 font-bold rounded-xl hover:bg-gray-800 transition-colors"
             >
-              <Phone size={18} /> Call +91 98765 43210
+              <Phone size={18} /> Call +91 83929 86174
             </a>
             <Link
               href="/fare-calculator"

@@ -12,13 +12,16 @@ import {
   Heart,
   Users,
 } from "lucide-react";
-import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
-export const metadata: Metadata = {
-  title: `Taxi Services | ${COMPANY_NAME} — Local, Outstation, Airport, Corporate`,
-  description:
-    "Complete taxi services in Nainital — local cab, airport transfer, outstation taxi, one-way, round trip, corporate cab, and wedding car. Book now!",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Taxi Services | ${settings.companyName} — Local, Outstation, Airport, Corporate`,
+    description:
+      "Complete taxi services in Nainital — local cab, airport transfer, outstation taxi, one-way, round trip, corporate cab, and wedding car. Book now!",
+  };
+}
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   MapPin,
@@ -100,13 +103,13 @@ export default function ServicesPage() {
 
                     <div className="flex gap-3">
                       <a
-                        href="tel:+919876543210"
+                        href="tel:+918392986174"
                         className="flex items-center gap-2 px-5 py-2.5 btn-primary"
                       >
                         <Phone size={16} /> Book Now
                       </a>
                       <a
-                        href="https://wa.me/919876543210"
+                        href="https://wa.me/918392986174"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors"

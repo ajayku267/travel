@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { calculateFare, formatCurrency } from "@/lib/utils";
 import { Calculator, MapPin, Car, ArrowRight } from "lucide-react";
+import { useSettings } from "@/components/providers/SettingsProvider";
 
 const commonCities = [
   "Charkhi Dadri",
@@ -48,6 +49,7 @@ export default function FareCalculatorClient({
   vehicles: any[];
   popularRoutes: any[];
 }) {
+  const settings = useSettings();
   const [pickup, setPickup] = useState("");
   const [drop, setDrop] = useState("");
   const [vehicleType, setVehicleType] = useState(vehicles[0]?.slug || "");
@@ -226,13 +228,13 @@ export default function FareCalculatorClient({
 
                 <div className="flex gap-3">
                   <a
-                    href="tel:+919876543210"
+                    href={`tel:${settings.phone}`}
                     className="flex-1 text-center py-3 bg-yellow-400 text-gray-900 font-bold rounded-xl"
                   >
                     📞 Book Now
                   </a>
                   <a
-                    href={`https://wa.me/919876543210?text=Hi! I want to book ${vehicle.name} from ${pickup} to ${drop}. Estimated fare: ${formatCurrency(result.fare)}`}
+                    href={`https://wa.me/${settings.whatsapp}?text=Hi! I want to book ${vehicle.name} from ${pickup} to ${drop}. Estimated fare: ${formatCurrency(result.fare)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center py-3 bg-green-500 text-white font-bold rounded-xl"

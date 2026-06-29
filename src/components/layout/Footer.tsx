@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
-import { COMPANY_NAME, PHONE_NUMBER, EMAIL, ADDRESS, ADDRESS2 } from "@/lib/utils";
+import { useSettings } from "@/components/providers/SettingsProvider";
 
 const footerLinks = {
   services: [
@@ -38,6 +38,7 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const settings = useSettings();
   const year = new Date().getFullYear();
 
   return (
@@ -58,13 +59,13 @@ export default function Footer() {
           </div>
           <div className="flex gap-3">
             <a
-              href={`tel:${PHONE_NUMBER}`}
+              href={`tel:${settings.phone}`}
               className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-yellow-400 font-bold rounded-xl hover:bg-gray-800 transition-all hover:-translate-y-0.5 shadow-lg"
             >
               <Phone size={16} /> Call Now
             </a>
             <a
-              href={`https://wa.me/919876543210?text=Hi, I need to book a taxi`}
+              href={`https://wa.me/${settings.whatsapp}?text=Hi, I need to book a taxi`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all hover:-translate-y-0.5 shadow-lg"
@@ -85,7 +86,7 @@ export default function Footer() {
                 <span className="text-black text-lg">🚖</span>
               </div>
               <div>
-                <div className="text-white font-black text-lg">{COMPANY_NAME}</div>
+                <div className="text-white font-black text-lg">{settings.companyName}</div>
                 <div className="text-yellow-400/80 text-xs font-medium">Trusted Since 2010</div>
               </div>
             </div>
@@ -94,20 +95,21 @@ export default function Footer() {
               states. Professional drivers, well-maintained vehicles, and fixed transparent pricing.
             </p>
             <div className="space-y-3">
-              <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-3 group">
+              <a href={`tel:${settings.phone}`} className="flex items-center gap-3 group">
                 <div className="w-9 h-9 bg-yellow-400/10 rounded-lg flex items-center justify-center group-hover:bg-yellow-400 transition-colors duration-200">
                   <Phone size={14} className="text-yellow-400 group-hover:text-black transition-colors duration-200" />
                 </div>
-                <span className="text-sm group-hover:text-yellow-400 transition-colors">
-                  {PHONE_NUMBER}
-                </span>
+                <div>
+                  <div className="text-xs text-gray-500 font-bold tracking-wider uppercase mb-0.5">Call Us</div>
+                  <div className="text-sm font-semibold group-hover:text-yellow-400 transition-colors duration-200">{settings.phone}</div>
+                </div>
               </a>
-              <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 group">
+              <a href={`mailto:${settings.email}`} className="flex items-center gap-3 group">
                 <div className="w-9 h-9 bg-yellow-400/10 rounded-lg flex items-center justify-center group-hover:bg-yellow-400 transition-colors duration-200">
                   <Mail size={14} className="text-yellow-400 group-hover:text-black transition-colors duration-200" />
                 </div>
                 <span className="text-sm group-hover:text-yellow-400 transition-colors">
-                  {EMAIL}
+                  {settings.email}
                 </span>
               </a>
               <div className="flex items-start gap-3">
@@ -115,8 +117,7 @@ export default function Footer() {
                   <MapPin size={14} className="text-yellow-400" />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-sm text-gray-400"><strong className="text-gray-300 font-semibold">Nainital:</strong> {ADDRESS}</span>
-                  <span className="text-sm text-gray-400"><strong className="text-gray-300 font-semibold">Haldwani:</strong> {ADDRESS2}</span>
+                  <span className="text-sm text-gray-400">{settings.address}</span>
                 </div>
               </div>
             </div>
@@ -208,9 +209,9 @@ export default function Footer() {
       {/* Bottom */}
       <div className="relative border-t border-gray-800/60">
         <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-sm text-gray-500">
-            © {year} {COMPANY_NAME}. All rights reserved.
-          </p>
+          <div className="text-sm text-gray-400">
+            © {year} {settings.companyName}. All rights reserved.
+          </div>
           <div className="flex gap-5 text-xs text-gray-500">
             <Link href="/privacy-policy" className="hover:text-yellow-400 transition-colors">
               Privacy Policy

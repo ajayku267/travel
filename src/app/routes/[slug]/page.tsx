@@ -145,7 +145,7 @@ export default async function RoutePage({ params }: Props) {
                     </div>
                   </div>
                   <a
-                    href={`https://wa.me/919876543210?text=Hi! I want to book ${v.name} from ${route.from} to ${route.to}`}
+                    href={`https://wa.me/918392986174?text=Hi! I want to book ${v.name} from ${route.from} to ${route.to}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 w-full py-2 bg-yellow-400 text-gray-900 font-bold rounded-lg text-sm hover:bg-yellow-500 transition-colors"
@@ -203,13 +203,13 @@ export default async function RoutePage({ params }: Props) {
           <p className="text-gray-800 mb-5">Confirmed cab in 5 minutes. Fixed fare. 24/7 service.</p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href="tel:+919876543210"
+              href="tel:+918392986174"
               className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white font-bold rounded-xl"
             >
               <Phone size={16} /> Call Now
             </a>
             <a
-              href={`https://wa.me/919876543210?text=Hi! I want to book taxi from ${route.from} to ${route.to}`}
+              href={`https://wa.me/918392986174?text=Hi! I want to book taxi from ${route.from} to ${route.to}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl"
@@ -232,7 +232,7 @@ export default async function RoutePage({ params }: Props) {
             provider: {
               "@type": "LocalBusiness",
               name: "Go Nainital",
-              telephone: "+919876543210",
+              telephone: "+918392986174",
             },
             areaServed: [route.fromState, route.toState],
           }),

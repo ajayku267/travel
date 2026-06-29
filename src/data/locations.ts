@@ -38,7 +38,7 @@ export const locations: Location[] = [
       },
       {
         question: "What is the contact number for taxi in Dadri?",
-        answer: "You can reach us at +91 98765 43210 or WhatsApp us for instant booking.",
+        answer: "You can reach us at +91 83929 86174 or WhatsApp us for instant booking.",
       },
       {
         question: "Do you offer 24/7 cab service in Charkhi Dadri?",
@@ -85,7 +85,7 @@ export const locations: Location[] = [
       {
         question: "How to book a taxi in Bhiwani?",
         answer:
-          "You can book a taxi in Bhiwani by calling +91 98765 43210, WhatsApp, or using our online booking form on this website.",
+          "You can book a taxi in Bhiwani by calling +91 83929 86174, WhatsApp, or using our online booking form on this website.",
       },
       {
         question: "Is taxi service available from Bhiwani to Delhi airport?",
@@ -226,7 +226,7 @@ export const locations: Location[] = [
       {
         question: "How to book a cab from Gurgaon to Nainital?",
         answer:
-          "Book online through our website, call +91 98765 43210, or WhatsApp us with your travel details.",
+          "Book online through our website, call +91 83929 86174, or WhatsApp us with your travel details.",
       },
       {
         question: "Do you provide employee transportation in Gurgaon?",

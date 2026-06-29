@@ -8,8 +8,8 @@ import {
   Heart, Navigation, ArrowRight, Calculator, Users, Mail,
   Clock, Star, Shield, MessageCircle
 } from "lucide-react";
-import { COMPANY_NAME, PHONE_NUMBER, WHATSAPP_NUMBER } from "@/lib/utils";
 import { cn } from "@/lib/utils";
+import { useSettings } from "@/components/providers/SettingsProvider";
 
 const serviceLinks = [
   { label: "Local Taxi", href: "/services#local-taxi", icon: MapPin, desc: "City rides & hourly rentals" },
@@ -40,6 +40,7 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const settings = useSettings();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -107,18 +108,18 @@ export default function Header() {
             </div>
             <div className="flex items-center gap-4">
               <a
-                href={`mailto:booking@gonainital.com`}
+                href={`mailto:${settings.email}`}
                 className="text-gray-400 text-xs hover:text-white transition-colors hidden sm:flex items-center gap-1.5"
               >
-                <Mail size={11} /> booking@gonainital.com
+                <Mail size={11} /> {settings.email}
               </a>
               <span className="text-gray-500 hidden sm:block">|</span>
               <a
-                href={`tel:${PHONE_NUMBER}`}
+                href={`tel:${settings.phone}`}
                 className="flex items-center gap-1.5 text-yellow-400 font-bold text-xs hover:text-yellow-300 transition-colors"
               >
                 <Phone size={12} />
-                <span>{PHONE_NUMBER}</span>
+                <span>{settings.phone}</span>
               </a>
             </div>
           </div>
@@ -133,7 +134,7 @@ export default function Header() {
                 <span className="text-black font-black text-lg">🚖</span>
               </div>
               <div>
-                <div className="font-black text-gray-900 text-lg leading-tight tracking-tight">{COMPANY_NAME}</div>
+                <div className="font-black text-gray-900 text-lg leading-tight tracking-tight">{settings.companyName}</div>
                 <div className="text-[10px] font-bold text-yellow-600 uppercase tracking-widest leading-tight">
                   Trusted Since 2010
                 </div>
@@ -179,7 +180,7 @@ export default function Header() {
             {/* CTA Buttons */}
             <div className="hidden xl:flex items-center gap-2.5">
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi, I need to book a taxi`}
+                href={`https://wa.me/${settings.whatsapp}?text=Hi, I need to book a taxi`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white text-sm font-bold rounded-xl hover:bg-green-600 transition-all shadow-md shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-0.5"
@@ -187,7 +188,7 @@ export default function Header() {
                 <MessageCircle size={15} /> WhatsApp
               </a>
               <a
-                href={`tel:${PHONE_NUMBER}`}
+                href={`tel:${settings.phone}`}
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 text-sm font-bold rounded-xl hover:from-yellow-500 hover:to-yellow-600 transition-all shadow-md shadow-yellow-400/30 hover:shadow-yellow-400/50 hover:-translate-y-0.5"
               >
                 <Phone size={15} /> Book Now
@@ -363,7 +364,7 @@ export default function Header() {
               <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center">
                 <span className="text-sm">🚖</span>
               </div>
-              <span className="font-black text-gray-900">{COMPANY_NAME}</span>
+              <span className="font-black text-gray-900">{settings.companyName}</span>
             </div>
             <button
               onClick={() => setMobileOpen(false)}
@@ -434,7 +435,7 @@ export default function Header() {
           {/* Mobile CTA buttons */}
           <div className="p-4 border-t border-gray-100 space-y-2.5 bg-gray-50">
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi, I need to book a taxi`}
+              href={`https://wa.me/${settings.whatsapp}?text=Hi, I need to book a taxi`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3 bg-green-500 text-white font-bold rounded-xl text-sm shadow-md"
@@ -442,7 +443,7 @@ export default function Header() {
               <MessageCircle size={16} /> Chat on WhatsApp
             </a>
             <a
-              href={`tel:${PHONE_NUMBER}`}
+              href={`tel:${settings.phone}`}
               className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 font-bold rounded-xl text-sm shadow-md"
             >
               <Phone size={16} /> Call & Book Now

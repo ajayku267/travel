@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { COMPANY_NAME, PHONE_NUMBER, EMAIL, ADDRESS, ADDRESS2 } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 import ContactForm from "@/components/forms/ContactForm";
 
-export const metadata: Metadata = {
-  title: `Contact Us | ${COMPANY_NAME}`,
-  description:
-    "Contact Go Nainital. Call +91 98765 43210, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and Delhi NCR.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = getSettings();
+  return {
+    title: `Contact Us | ${settings.companyName}`,
+    description:
+      `Contact ${settings.companyName}. Call ${settings.phone}, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and Delhi NCR.`,
+  };
+}
 
 export default function ContactPage() {
+  const settings = getSettings();
   return (
     <>
       {/* Hero */}
@@ -38,33 +42,25 @@ export default function ContactPage() {
                   {
                     icon: Phone,
                     title: "Phone / WhatsApp",
-                    value: PHONE_NUMBER,
-                    href: `tel:${PHONE_NUMBER}`,
+                    value: settings.phone,
+                    href: `tel:${settings.phone}`,
                     color: "bg-yellow-400",
                     textColor: "text-gray-900",
                   },
                   {
                     icon: Mail,
                     title: "Email",
-                    value: EMAIL,
-                    href: `mailto:${EMAIL}`,
+                    value: settings.email,
+                    href: `mailto:${settings.email}`,
                     color: "bg-blue-500",
                     textColor: "text-white",
                   },
                   {
                     icon: MapPin,
-                    title: "Nainital Office",
-                    value: ADDRESS,
+                    title: "Office Location",
+                    value: settings.address,
                     href: "#map",
                     color: "bg-green-500",
-                    textColor: "text-white",
-                  },
-                  {
-                    icon: MapPin,
-                    title: "Haldwani Office",
-                    value: ADDRESS2,
-                    href: "#map",
-                    color: "bg-green-600",
                     textColor: "text-white",
                   },
                   {
@@ -97,13 +93,13 @@ export default function ContactPage() {
               {/* Quick actions */}
               <div className="grid grid-cols-2 gap-3">
                 <a
-                  href={`tel:${PHONE_NUMBER}`}
+                  href={`tel:${settings.phone}`}
                   className="flex items-center justify-center gap-2 py-3 bg-yellow-400 text-gray-900 font-bold rounded-xl hover:bg-yellow-500 transition-colors"
                 >
                   <Phone size={16} /> Call Now
                 </a>
                 <a
-                  href="https://wa.me/919876543210"
+                  href={`https://wa.me/${settings.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-colors"

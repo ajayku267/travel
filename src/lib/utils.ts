@@ -60,10 +60,4 @@ export function generateId(): string {
   return Math.random().toString(36).substr(2, 9);
 }
 
-export const PHONE_NUMBER = "+91 8392986174";
-export const WHATSAPP_NUMBER = "918392986174";
-export const EMAIL = "booking@gonainital.com";
-export const ADDRESS = "Near Hotel basera, Mallital, Nainital";
-export const ADDRESS2 = "Near shishu bharti school, bareilly road, haldwani";
-export const COMPANY_NAME = "Go Nainital";
-export const TAGLINE = "Reliable Taxi Service in Nainital";
+

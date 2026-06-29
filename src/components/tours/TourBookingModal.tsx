@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { X, Loader2, CheckCircle, Car } from "lucide-react";
 import { toast } from "sonner";
+import { useSettings } from "@/components/providers/SettingsProvider";
 import { TourPackage } from "@/data/tours";
 
 interface TourBookingModalProps {
@@ -11,6 +12,7 @@ interface TourBookingModalProps {
 }
 
 export default function TourBookingModal({ tour, onClose }: TourBookingModalProps) {
+  const settings = useSettings();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -192,7 +194,7 @@ export default function TourBookingModal({ tour, onClose }: TourBookingModalProp
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 98765 43210"
+                    placeholder={settings.phone}
                     type="tel"
                     className="form-input"
                     required

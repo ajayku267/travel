@@ -3,7 +3,10 @@
 import { Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 
+import { useSettings } from "@/components/providers/SettingsProvider";
+
 export default function FloatingButtons() {
+  const settings = useSettings();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export default function FloatingButtons() {
     <>
       {/* WhatsApp Float */}
       <a
-        href="https://wa.me/919876543210?text=Hi, I need to book a taxi from Go Nainital"
+        href={`https://wa.me/${settings.whatsapp}?text=Hi, I need to book a taxi from Go Nainital`}
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float animate-fade-in-up group"
@@ -31,7 +34,7 @@ export default function FloatingButtons() {
 
       {/* Call Float */}
       <a
-        href="tel:+919876543210"
+        href={`tel:${settings.phone}`}
         className="call-float animate-fade-in-up group"
         aria-label="Call us"
         title="Call Now"
