@@ -5,13 +5,13 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Phone, Calendar, MapPin, Car, CheckCircle, Loader2, User, Mail, Map } from "lucide-react";
-import { vehicleTypes } from "@/data/vehicles";
 import { tourPackages } from "@/data/tours";
 import { cn } from "@/lib/utils";
 import LocationAutocomplete from "./LocationAutocomplete";
 import { toast } from "sonner";
 import { useSettings } from "@/components/providers/SettingsProvider";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 import type { LocationData } from "./LocationAutocomplete";
 
 const BookingMap = dynamic(() => import("./BookingMap"), { ssr: false });
@@ -60,6 +60,27 @@ export default function BookingForm({
   const [dropCoords, setDropCoords] = useState<[number, number] | null>(null);
   const [pickupName, setPickupName] = useState<string>(defaultPickup);
   const [dropName, setDropName] = useState<string>(defaultDrop);
+
+  // Dynamic Options
+  const [vehicleTypes, setVehicleTypes] = useState<{value: string, label: string}[]>([]);
+
+  useEffect(() => {
+    async function loadOptions() {
+      try {
+        const res = await fetch("/api/vehicles");
+        if (res.ok) {
+          const data = await res.json();
+          setVehicleTypes(data.map((v: any) => ({
+            value: v.slug,
+            label: `${v.name} (${v.seatingCapacity} seats)`,
+          })));
+        }
+      } catch (e) {
+        console.error("Failed to fetch vehicles");
+      }
+    }
+    loadOptions();
+  }, []);
 
   const today = new Date().toISOString().split("T")[0];
 

@@ -3,27 +3,11 @@ import { db } from "@/lib/db";
 import { auth } from "@/auth";
 import { vehicleSchema } from "@/lib/validations";
 
-export async function GET() {
-  try {
-    const vehicles = await db.vehicle.findMany({
-      orderBy: { baseFare: "asc" },
-    });
-    // Parse features from string to array for frontend
-    const parsedVehicles = vehicles.map(v => ({
-      ...v,
-      features: v.features ? JSON.parse(v.features) : [],
-    }));
-    return NextResponse.json(parsedVehicles);
-  } catch (error) {
-    console.error("Fetch vehicles error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch vehicles" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(request: NextRequest) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   const session = await auth();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -41,13 +25,10 @@ export async function POST(request: NextRequest) {
     }
 
     const data = result.data;
-    
-    // Auto-generate a slug from the name if not provided
-    const slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
-    const newVehicle = await db.vehicle.create({
+    const updatedVehicle = await db.vehicle.update({
+      where: { id: id },
       data: {
-        slug,
         name: data.name,
         category: data.category,
         seatingCapacity: data.seatingCapacity,
@@ -62,11 +43,35 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({ success: true, vehicle: newVehicle }, { status: 201 });
+    return NextResponse.json({ success: true, vehicle: updatedVehicle });
   } catch (error) {
-    console.error("Create vehicle error:", error);
+    console.error("Update vehicle error:", error);
     return NextResponse.json(
-      { error: "Failed to create vehicle" },
+      { error: "Failed to update vehicle" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    await db.vehicle.delete({
+      where: { id: id },
+    });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Delete vehicle error:", error);
+    return NextResponse.json(
+      { error: "Failed to delete vehicle" },
       { status: 500 }
     );
   }

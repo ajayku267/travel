@@ -25,9 +25,9 @@ export async function POST(request: NextRequest) {
   try {
     // Rate limit: 3 reviews per minute per IP
     const ip = getClientIp(request);
-    const limiter = rateLimit(`review:${ip}`, {
-      windowSeconds: 60,
-      maxRequests: 3,
+    const limiter = await rateLimit(`review:${ip}`, {
+      windowSeconds: 60 * 60, // 1 hour
+      maxRequests: 2, // Max 2 reviews per hour per IP
     });
 
     if (!limiter.success) {

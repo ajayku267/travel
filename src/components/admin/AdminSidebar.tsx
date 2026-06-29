@@ -69,6 +69,17 @@ export default function AdminSidebar() {
             <Settings size={18} />
             <span className="text-sm">Site Settings</span>
           </Link>
+          <Link
+            href="/admin/settings/users"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+              pathname === "/admin/settings/users" 
+                ? "bg-yellow-400 text-gray-900 font-bold" 
+                : "hover:bg-gray-800 hover:text-white"
+            }`}
+          >
+            <Users size={18} />
+            <span className="text-sm">Admin Users</span>
+          </Link>
         </div>
       </nav>
 

@@ -9,8 +9,8 @@ export async function POST(request: NextRequest) {
   try {
     // Rate limit: 3 contact submissions per minute per IP
     const ip = getClientIp(request);
-    const limiter = rateLimit(`contact:${ip}`, {
-      windowSeconds: 60,
+    const limiter = await rateLimit(`contact:${ip}`, {
+      windowSeconds: 60 * 60,
       maxRequests: 3,
     });
 
