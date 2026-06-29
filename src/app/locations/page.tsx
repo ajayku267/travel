@@ -7,9 +7,9 @@ import { ArrowRight, MapPin } from "lucide-react";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = getSettings();
   return {
-    title: `Taxi Service Locations | ${settings.companyName} — Nainital & Delhi NCR`,
+    title: `Taxi Service Locations | ${settings.companyName} — Nainital & all india`,
     description:
-      "Find taxi service in your city — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon, and more across Nainital and Delhi NCR.",
+      "Find taxi service in your city — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon, and more across Nainital and all india.",
   };
 }
 
@@ -24,10 +24,10 @@ export default async function LocationsPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-black text-white mb-4">
             Taxi Service Locations
-            <span className="text-yellow-400 block">Nainital &amp; Delhi NCR</span>
+            <span className="text-yellow-400 block">Nainital &amp; all india</span>
           </h1>
           <p className="text-gray-300 text-lg">
-            We operate in all major cities and towns across Nainital and Delhi NCR.
+            We operate in all major cities and towns across Nainital and all india.
           </p>
         </div>
       </section>

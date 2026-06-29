@@ -29,7 +29,7 @@ export default function ContactCTA() {
         </h2>
         <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
           Get a confirmed cab in just 5 minutes. Call, WhatsApp, or book online —
-          we&apos;re available 24/7 across Nainital and Delhi NCR.
+          we&apos;re available 24/7 across Nainital and all india.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 mb-10">

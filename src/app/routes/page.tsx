@@ -7,7 +7,7 @@ import { ArrowRight, Clock, MapPin, Banknote } from "lucide-react";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = getSettings();
   return {
-    title: `All Taxi Routes | ${settings.companyName} — Nainital, Delhi NCR`,
+    title: `All Taxi Routes | ${settings.companyName} — Nainital, all india`,
     description:
       "Browse all available taxi routes from Nainital — Dadri, Bhiwani, Rohtak, Hisar, Gurgaon to Delhi and beyond. Fixed fares, 24/7 service.",
   };
@@ -24,10 +24,10 @@ export default async function RoutesIndexPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-black text-white mb-4">
             All Taxi Routes
-            <span className="text-yellow-400 block">Nainital &amp; Delhi NCR</span>
+            <span className="text-yellow-400 block">Nainital &amp; all india</span>
           </h1>
           <p className="text-gray-300 text-lg">
-            Fixed-fare taxi on {routes.length}+ routes across Nainital, Delhi NCR, and nearby states.
+            Fixed-fare taxi on {routes.length}+ routes across Nainital, all india, and nearby states.
           </p>
         </div>
       </section>

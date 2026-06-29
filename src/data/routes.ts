@@ -15,7 +15,7 @@ export const routes: Route[] = [
       "Book a comfortable taxi from Charkhi Dadri to Delhi. We offer reliable, affordable cab service with experienced drivers who know the best routes to avoid traffic.",
     highlights: [
       "Pick-up from your doorstep in Dadri",
-      "Drop at any location in Delhi NCR",
+      "Drop at any location in all india",
       "No hidden charges — fixed fare",
       "24/7 availability",
       "Clean, well-maintained vehicles",

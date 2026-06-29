@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `About Us | ${settings.companyName}`,
     description:
-      "Learn about Go Nainital — 15 years of trusted cab service in Nainital and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
+      "Learn about Go Nainital — 15 years of trusted cab service in Nainital and all india. Our mission, vision, values, and commitment to safe travel.",
   };
 }
 
@@ -27,7 +27,7 @@ export default function AboutPage() {
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
             Founded with a simple mission — to provide safe, reliable, and affordable taxi service
-            to the people of Nainital and Delhi NCR. We started with 2 cars and now operate a fleet
+            to the people of Nainital and all india. We started with 2 cars and now operate a fleet
             of 50+ vehicles serving thousands of customers every month.
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Over 15 years, we have grown into a full-service taxi company covering the entire
-                  state of Nainital and Delhi NCR. Our fleet now includes sedans, MPVs, luxury SUVs,
+                  state of Nainital and all india. Our fleet now includes sedans, MPVs, luxury SUVs,
                   and Tavera to serve every type of travel need.
                 </p>
                 <p>
@@ -113,7 +113,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-black text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
                 To provide the most reliable, safe, and affordable taxi service to every corner of
-                Nainital and Delhi NCR. We are committed to making travel stress-free for every
+                Nainital and all india. We are committed to making travel stress-free for every
                 customer — from the working professional to the family on vacation.
               </p>
               <ul className="space-y-2">

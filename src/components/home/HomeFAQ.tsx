@@ -35,7 +35,7 @@ const homeFaqs: FAQ[] = [
   {
     question: "Do you offer corporate taxi service?",
     answer:
-      "Yes, we have special corporate packages with monthly billing, GST invoices, and dedicated account managers for businesses in Nainital and Delhi NCR.",
+      "Yes, we have special corporate packages with monthly billing, GST invoices, and dedicated account managers for businesses in Nainital and all india.",
   },
   {
     question: "What payment methods do you accept?",

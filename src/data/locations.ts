@@ -204,7 +204,7 @@ export const locations: Location[] = [
     state: "Nainital",
     description: "Taxi Service in Gurgaon — Book Cab for Nainital & NCR",
     about:
-      "Gurgaon (Gurugram) is the financial and technology hub of the Delhi NCR region. A major corporate city with Fortune 500 companies, luxury malls, and world-class infrastructure. Our taxi service from Gurgaon covers all destinations in Nainital, Delhi, and outstation locations.",
+      "Gurgaon (Gurugram) is the financial and technology hub of the all india region. A major corporate city with Fortune 500 companies, luxury malls, and world-class infrastructure. Our taxi service from Gurgaon covers all destinations in Nainital, Delhi, and outstation locations.",
     popularRoutes: ["dadri-to-gurgaon-taxi", "hisar-to-gurgaon-taxi"],
     services: [
       "Corporate Cab Service",
