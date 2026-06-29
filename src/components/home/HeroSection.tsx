@@ -2,7 +2,7 @@ import BookingForm from "@/components/forms/BookingForm";
 import Link from "next/link";
 import { Phone, Shield, Clock, Star } from "lucide-react";
 
-export default function HeroSection() {
+export default function HeroSection({ title, subtitle }: { title?: string, subtitle?: string }) {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
       {/* Background */}
@@ -27,12 +27,13 @@ export default function HeroSection() {
               Trusted Since 2010 · 10,000+ Happy Customers
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6 animate-fade-in-up stagger-1">
-              Nainital&apos;s #1
-              <span className="text-yellow-400 block mt-1">Taxi Service</span>
+              {title ? title : <>
+                Nainital&apos;s #1
+                <span className="text-yellow-400 block mt-1">Taxi Service</span>
+              </>}
             </h1>
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-lg animate-fade-in-up stagger-2">
-              Reliable, affordable cab service across Nainital, Delhi NCR &amp; nearby states.
-              Professional drivers · Clean vehicles · Fixed fares
+              {subtitle ? subtitle : "Reliable, affordable cab service across Nainital, Delhi NCR & nearby states. Professional drivers · Clean vehicles · Fixed fares"}
             </p>
 
             {/* Trust indicators */}

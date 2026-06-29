@@ -8,11 +8,12 @@ import HomeFAQ from "@/components/home/HomeFAQ";
 import ContactCTA from "@/components/home/ContactCTA";
 import ServicesOverview from "@/components/home/ServicesOverview";
 import { COMPANY_NAME } from "@/lib/utils";
+import { getSettings } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: `${COMPANY_NAME} | Best Taxi & Cab Service in Nainital, Delhi NCR`,
   description:
-    "Book affordable taxi in Nainital — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon. Local, outstation, airport & corporate cab. 24/7 service, professional drivers.",
+    "Book affordable taxi in Nainital. Local, outstation, airport & corporate cab. 24/7 service, professional drivers.",
   openGraph: {
     title: `${COMPANY_NAME} | Best Taxi Service in Nainital`,
     description:
@@ -20,10 +21,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default function Home() {
+  const settings = getSettings();
+  
   return (
     <>
-      <HeroSection />
+      <HeroSection 
+        title={settings.heroTitle}
+        subtitle={settings.heroSubtitle}
+      />
       <WhyChooseUs />
       <ServicesOverview />
       <PopularRoutes />

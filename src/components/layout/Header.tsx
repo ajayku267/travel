@@ -18,7 +18,7 @@ const navLinks = [
       { label: "Outstation Taxi", href: "/services#outstation-taxi" },
       { label: "Corporate Cab", href: "/services#corporate-cab" },
       { label: "Wedding Car", href: "/services#wedding-car" },
-      { label: "Tempo Traveller", href: "/services#tempo-traveller" },
+
     ],
   },
   {
@@ -32,6 +32,7 @@ const navLinks = [
       { label: "Hisar → Gurgaon", href: "/routes/hisar-to-gurgaon-taxi" },
     ],
   },
+  { label: "Tours", href: "/tours" },
   { label: "Fleet", href: "/fleet" },
   { label: "Locations", href: "/locations" },
   { label: "Fare Calculator", href: "/fare-calculator" },

@@ -67,6 +67,7 @@ export const metadata: Metadata = {
 };
 
 import Script from "next/script";
+import SiteLayout from "@/components/layout/SiteLayout";
 
 export default function RootLayout({
   children,
@@ -122,10 +123,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
         <Toaster position="top-center" richColors />
-        <Header />
-        <main className="flex-1 pt-[100px]">{children}</main>
-        <Footer />
-        <FloatingButtons />
+        <SiteLayout>
+          {children}
+        </SiteLayout>
         <Analytics />
       </body>
     </html>

@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Phone, Calendar, MapPin, Car, CheckCircle, Loader2, User, Mail } from "lucide-react";
+import { Phone, Calendar, MapPin, Car, CheckCircle, Loader2, User, Mail, Map } from "lucide-react";
 import { vehicleTypes } from "@/data/vehicles";
+import { tourPackages } from "@/data/tours";
 import { cn } from "@/lib/utils";
 import LocationAutocomplete from "./LocationAutocomplete";
 import { toast } from "sonner";
@@ -46,6 +47,7 @@ export default function BookingForm({
 }: BookingFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isTourMode, setIsTourMode] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -54,6 +56,8 @@ export default function BookingForm({
     handleSubmit,
     control,
     reset,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -187,6 +191,39 @@ export default function BookingForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn("space-y-4", className)}>
+      {/* Booking Mode Toggle */}
+      {!compact && (
+        <div className="flex bg-gray-100 p-1.5 rounded-xl mb-2">
+          <button
+            type="button"
+            onClick={() => {
+              setIsTourMode(false);
+              setValue("dropLocation", "");
+            }}
+            className={cn(
+              "flex-1 py-2.5 text-sm font-bold rounded-lg transition-all",
+              !isTourMode ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-900"
+            )}
+          >
+            Taxi Booking
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsTourMode(true);
+              setValue("dropLocation", "");
+              setValue("tripType", "round-trip");
+            }}
+            className={cn(
+              "flex-1 py-2.5 text-sm font-bold rounded-lg transition-all",
+              isTourMode ? "bg-white shadow-sm text-gray-900" : "text-gray-500 hover:text-gray-900"
+            )}
+          >
+            Tour Packages
+          </button>
+        </div>
+      )}
+
       {/* Name & Phone */}
       <div className={cn("grid gap-4", compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2")}>
         <div>
@@ -263,21 +300,38 @@ export default function BookingForm({
         </div>
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-            Drop Location *
+            {isTourMode ? "Select Tour Package *" : "Drop Location *"}
           </label>
-          <Controller
-            control={control}
-            name="dropLocation"
-            render={({ field }) => (
-              <LocationAutocomplete
-                value={field.value}
-                onChange={field.onChange}
-                placeholder="City, Area or Full Address"
-                iconColorClass="text-red-500"
-                error={!!errors.dropLocation}
-              />
-            )}
-          />
+          {isTourMode ? (
+            <div className="relative">
+              <select
+                {...register("dropLocation")}
+                className={cn("form-input pl-10 appearance-none", errors.dropLocation && "border-red-400")}
+              >
+                <option value="">Choose a tour...</option>
+                {tourPackages.map((tour) => (
+                  <option key={tour.id} value={`Tour: ${tour.name}`}>
+                    {tour.name}
+                  </option>
+                ))}
+              </select>
+              <Map size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+          ) : (
+            <Controller
+              control={control}
+              name="dropLocation"
+              render={({ field }) => (
+                <LocationAutocomplete
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="City, Area or Full Address"
+                  iconColorClass="text-red-500"
+                  error={!!errors.dropLocation}
+                />
+              )}
+            />
+          )}
           {errors.dropLocation && (
             <p className="text-red-500 text-xs mt-1">{errors.dropLocation.message}</p>
           )}

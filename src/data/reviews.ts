@@ -7,7 +7,7 @@ export const reviews: Review[] = [
     location: "Charkhi Dadri",
     rating: 5,
     review:
-      "Excellent service! Booked a taxi from Dadri to Delhi airport at 4 AM. Driver arrived 15 minutes early. The Innova Crysta was spotlessly clean and the driver was very professional. Reached the airport well in time. Highly recommended!",
+      "Excellent service! Booked a taxi from Dadri to Delhi airport at 4 AM. Driver arrived 15 minutes early. The Tata Sumo was spotlessly clean and the driver was very professional. Reached the airport well in time. Highly recommended!",
     date: "2024-12-15",
     verified: true,
     route: "Dadri to Delhi Airport",
@@ -19,7 +19,7 @@ export const reviews: Review[] = [
     location: "Bhiwani",
     rating: 5,
     review:
-      "Used Go Nainital for my wedding car rental. They provided an Innova Crysta beautifully decorated. The driver was on time and very courteous. All my family members were impressed. Will definitely use again for outstation travel!",
+      "Used Go Nainital for my wedding car rental. They provided a Chevrolet Tavera beautifully decorated. The driver was on time and very courteous. All my family members were impressed. Will definitely use again for outstation travel!",
     date: "2024-11-28",
     verified: true,
     route: "Wedding Car Rental",
@@ -43,7 +43,7 @@ export const reviews: Review[] = [
     location: "Hisar",
     rating: 4,
     review:
-      "Booked Tempo Traveller for a family trip to Chandigarh. 12 people, all comfortable throughout the journey. Driver made timely stops. Only minor issue was slight delay in pickup but they informed in advance. Overall great experience!",
+      "Booked Chevrolet Tavera for a family trip to Chandigarh. 9 people, all comfortable throughout the journey. Driver made timely stops. Only minor issue was slight delay in pickup but they informed in advance. Overall great experience!",
     date: "2024-11-20",
     verified: true,
     route: "Hisar to Chandigarh",
@@ -55,7 +55,7 @@ export const reviews: Review[] = [
     location: "Gurgaon",
     rating: 5,
     review:
-      "Amazing outstation service. Traveled Gurgaon to Jaipur with family in Toyota Innova. Driver was experienced, knew the route well, and drove very safely. Highly professional. Fair pricing with no hidden charges. 5 stars!",
+      "Amazing outstation service. Traveled Gurgaon to Jaipur with family in Tata Sumo. Driver was experienced, knew the route well, and drove very safely. Highly professional. Fair pricing with no hidden charges. 5 stars!",
     date: "2024-12-10",
     verified: true,
     route: "Gurgaon to Jaipur",
@@ -79,7 +79,7 @@ export const reviews: Review[] = [
     location: "Charkhi Dadri",
     rating: 5,
     review:
-      "Booked Swift Dzire for local use in Dadri for a whole day. The driver was knowledgeable about local areas and very helpful. Very reasonable daily rate. Will book again for sure!",
+      "Booked Small Car for local use in Dadri for a whole day. The driver was knowledgeable about local areas and very helpful. Very reasonable daily rate. Will book again for sure!",
     date: "2024-11-15",
     verified: true,
     route: "Local Taxi Service",

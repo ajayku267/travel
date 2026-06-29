@@ -3,9 +3,11 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { 
   Car, Route, MapPin, BookOpen, Star, Image, Users, 
-  TrendingUp, Clock, AlertCircle, CheckCircle2
+  TrendingUp, Clock, AlertCircle, CheckCircle2, DollarSign,
+  MessageSquare
 } from "lucide-react";
 import AdminChart from "@/components/admin/AdminChart";
+import { formatCurrency, formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard | Go Nainital",
@@ -27,6 +29,8 @@ export default async function AdminDashboard() {
     bookingsLast7Days,
     inquiriesLast7Days,
     totalDrivers,
+    completedBookingsWithFare,
+    recentInquiries
   ] = await Promise.all([
     db.booking.count(),
     db.booking.count({ where: { status: "pending" } }),
@@ -37,11 +41,11 @@ export default async function AdminDashboard() {
     db.contactInquiry.count(),
     db.booking.findMany({
       orderBy: { createdAt: "desc" },
-      take: 4,
+      take: 5,
     }),
     db.booking.findMany({
       where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
-      select: { createdAt: true }
+      select: { createdAt: true, status: true }
     }),
     db.contactInquiry.findMany({
       where: { createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } },
@@ -49,7 +53,17 @@ export default async function AdminDashboard() {
       select: { createdAt: true }
     }),
     db.driver.count(),
+    db.booking.findMany({
+      where: { status: "completed", totalFare: { not: null } },
+      select: { totalFare: true }
+    }),
+    db.contactInquiry.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    })
   ]);
+
+  const totalRevenue = completedBookingsWithFare.reduce((acc, curr) => acc + (curr.totalFare || 0), 0);
 
   const chartData = Array.from({ length: 7 }).map((_, i) => {
     const d = new Date();
@@ -63,11 +77,15 @@ export default async function AdminDashboard() {
     };
   });
 
+  const conversionRate = totalInquiries > 0 
+    ? Math.round((totalBookings / (totalInquiries + totalBookings)) * 100) 
+    : 0;
+
   const stats = [
     { label: "Total Bookings", value: totalBookings, change: "All time", icon: BookOpen, color: "bg-blue-500" },
-    { label: "Pending Bookings", value: pendingBookings, change: "Need attention", icon: AlertCircle, color: "bg-orange-500" },
-    { label: "Total Reviews", value: totalReviews, change: "Customer feedback", icon: Star, color: "bg-yellow-500" },
-    { label: "Active Vehicles", value: activeVehicles, change: "In fleet", icon: Car, color: "bg-green-500" },
+    { label: "Total Revenue", value: formatCurrency(totalRevenue), change: "Completed rides", icon: DollarSign, color: "bg-green-500" },
+    { label: "Conversion Rate", value: `${conversionRate}%`, change: "Bookings vs Inquiries", icon: TrendingUp, color: "bg-purple-500" },
+    { label: "Pending Bookings", value: pendingBookings, change: "Action required", icon: AlertCircle, color: "bg-orange-500" },
   ];
 
   const adminNavLinks = [
@@ -77,54 +95,46 @@ export default async function AdminDashboard() {
     { label: "Routes", href: "/admin/routes", icon: Route, desc: "Manage route pages", count: totalRoutes },
     { label: "Locations", href: "/admin/locations", icon: MapPin, desc: "Manage location pages", count: totalLocations },
     { label: "Reviews", href: "/admin/reviews", icon: Star, desc: "Manage customer reviews", count: totalReviews },
-    { label: "Gallery", href: "/admin/gallery", icon: Image, desc: "Manage gallery images", count: 12 },
-    { label: "Inquiries", href: "/admin/inquiries", icon: Users, desc: "Contact submissions", count: totalInquiries },
+    { label: "Inquiries", href: "/admin/inquiries", icon: MessageSquare, desc: "Contact submissions", count: totalInquiries },
   ];
 
+  // Combine bookings and inquiries for a unified feed
+  type BookingActivity = { type: 'booking'; date: Date; data: typeof recentBookings[number] };
+  type InquiryActivity = { type: 'inquiry'; date: Date; data: typeof recentInquiries[number] };
+  type Activity = BookingActivity | InquiryActivity;
+
+  const combinedActivity: Activity[] = [
+    ...recentBookings.map((b): BookingActivity => ({ type: 'booking', date: new Date(b.createdAt), data: b })),
+    ...recentInquiries.map((i): InquiryActivity => ({ type: 'inquiry', date: new Date(i.createdAt), data: i }))
+  ].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 8);
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gray-900 text-white px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center text-gray-900 font-black">
-              🚖
-            </div>
-            <div>
-              <div className="font-bold">Go Nainital — Admin</div>
-              <div className="text-xs text-gray-400">Management Dashboard</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="text-sm text-gray-400 hover:text-white">
-              ← View Website
-            </Link>
-            <Link href="/api/auth/signout" className="text-sm text-red-400 hover:text-red-300">
-              Sign out
-            </Link>
-          </div>
-        </div>
+    <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="mb-8">
+        <h1 className="text-2xl font-black text-gray-900">Dashboard Overview</h1>
+        <p className="text-sm text-gray-500 mt-1">Here is what is happening with Go Nainital today.</p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          {stats.map(({ label, value, change, icon: Icon, color }) => (
-            <div key={label} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-              <div className="flex items-start justify-between mb-3">
-                <div className={`w-10 h-10 ${color} rounded-xl flex items-center justify-center`}>
-                  <Icon size={18} className="text-white" />
-                </div>
-                <span className="text-xs text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded-full">
-                  {change}
-                </span>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        {stats.map(({ label, value, change, icon: Icon, color }) => (
+          <div key={label} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="flex items-start justify-between mb-3">
+              <div className={`w-10 h-10 ${color} rounded-xl flex items-center justify-center shadow-inner`}>
+                <Icon size={18} className="text-white" />
               </div>
-              <div className="text-2xl font-black text-gray-900">{value}</div>
-              <div className="text-sm text-gray-500">{label}</div>
+              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider bg-gray-50 px-2 py-1 rounded-md">
+                {change}
+              </span>
             </div>
-          ))}
-        </div>
+            <div className="text-2xl font-black text-gray-900">{value}</div>
+            <div className="text-sm text-gray-500 font-medium">{label}</div>
+          </div>
+        ))}
+      </div>
 
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
-          <div className="flex items-center justify-between mb-2">
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-lg font-black text-gray-900">Platform Analytics</h2>
               <p className="text-sm text-gray-500">Bookings vs Inquiries over the last 7 days</p>
@@ -132,69 +142,112 @@ export default async function AdminDashboard() {
           </div>
           <AdminChart data={chartData} />
         </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <h2 className="text-lg font-black text-gray-900 mb-4">Management Sections</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {adminNavLinks.map(({ label, href, icon: Icon, desc, count }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="bg-white rounded-2xl p-5 border border-gray-100 hover:border-yellow-300 hover:shadow-md transition-all group"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="w-10 h-10 bg-gray-100 group-hover:bg-yellow-400 rounded-xl flex items-center justify-center transition-colors">
-                      <Icon size={18} className="text-gray-600 group-hover:text-gray-900 transition-colors" />
-                    </div>
-                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full font-semibold">
-                      {count}
-                    </span>
+        
+        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-lg font-black text-gray-900">Quick Navigation</h2>
+              <p className="text-sm text-gray-500">Jump to management sections</p>
+            </div>
+          </div>
+          
+          <div className="space-y-3 flex-1 overflow-y-auto pr-2">
+            {adminNavLinks.map(({ label, href, icon: Icon, count }) => (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-yellow-300 hover:bg-yellow-50/50 transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-50 group-hover:bg-white rounded-lg flex items-center justify-center transition-colors shadow-sm">
+                    <Icon size={16} className="text-gray-600 group-hover:text-yellow-600" />
                   </div>
-                  <div className="font-bold text-gray-900">{label}</div>
-                  <div className="text-sm text-gray-500 mt-1">{desc}</div>
-                </Link>
+                  <span className="font-bold text-gray-700 group-hover:text-gray-900 text-sm">{label}</span>
+                </div>
+                <span className="text-xs font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded-full group-hover:bg-yellow-200 group-hover:text-yellow-800 transition-colors">
+                  {count}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-black text-gray-900">Recent Activity Feed</h2>
+        </div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          {combinedActivity.length > 0 ? (
+            <div className="divide-y divide-gray-50">
+              {combinedActivity.map((activity, i) => (
+                <div key={`${activity.type}-${i}`} className="p-4 hover:bg-gray-50 transition-colors flex gap-4">
+                  <div className="mt-1">
+                    {activity.type === 'booking' ? (
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center shadow-sm border border-blue-200">
+                        <BookOpen size={14} className="text-blue-600" />
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center shadow-sm border border-purple-200">
+                        <MessageSquare size={14} className="text-purple-600" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-1">
+                      <div className="font-bold text-gray-900 text-sm">
+                        {activity.type === 'booking' 
+                          ? `New Booking from ${activity.data.name}` 
+                          : `New Inquiry from ${activity.data.name}`}
+                      </div>
+                      <div className="text-xs text-gray-400 font-medium whitespace-nowrap">
+                        {formatDate(activity.date.toISOString())}
+                      </div>
+                    </div>
+                    
+                    {activity.type === 'booking' ? (() => {
+                      const b = activity.data;
+                      return (
+                      <div>
+                        <div className="text-sm text-gray-600 mb-2">
+                          <span className="font-medium text-gray-700">{b.pickup}</span> → <span className="font-medium text-gray-700">{b.drop}</span>
+                        </div>
+                        <div className="flex gap-2">
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                            b.status === 'pending' ? 'bg-orange-100 text-orange-700' : 'bg-green-100 text-green-700'
+                          }`}>
+                            {b.status}
+                          </span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider bg-gray-100 text-gray-600">
+                            {b.vehicle}
+                          </span>
+                        </div>
+                      </div>
+                      );
+                    })() : (() => {
+                      const inq = activity.data;
+                      return (
+                      <div>
+                        <div className="text-sm text-gray-600 mb-2 line-clamp-1">
+                          {inq.subject}: {inq.message}
+                        </div>
+                        <div className="flex gap-2">
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                            inq.responded ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                          }`}>
+                            {inq.responded ? 'Responded' : 'Needs Response'}
+                          </span>
+                        </div>
+                      </div>
+                      );
+                    })()}
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-black text-gray-900">Recent Bookings</h2>
-              <Link href="/admin/bookings" className="text-sm text-yellow-600 font-medium">
-                View all →
-              </Link>
-            </div>
-            <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-              {recentBookings.length > 0 ? recentBookings.map((booking: any, i: number) => (
-                <div
-                  key={booking.id}
-                  className={`p-4 ${i !== recentBookings.length - 1 ? "border-b border-gray-50" : ""}`}
-                >
-                  <div className="flex items-start justify-between mb-1">
-                    <div className="font-semibold text-gray-900 text-sm">{booking.name}</div>
-                    <span
-                      className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                        booking.status === "confirmed" || booking.status === "completed"
-                          ? "bg-green-100 text-green-700"
-                          : booking.status === "pending"
-                          ? "bg-orange-100 text-orange-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {booking.status}
-                    </span>
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {booking.pickup} → {booking.drop} · {booking.vehicle}
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1">{booking.date}</div>
-                </div>
-              )) : (
-                <div className="p-6 text-center text-gray-500 text-sm">No recent bookings.</div>
-              )}
-            </div>
-          </div>
+          ) : (
+            <div className="p-8 text-center text-gray-500 text-sm">No recent activity found.</div>
+          )}
         </div>
       </div>
     </div>

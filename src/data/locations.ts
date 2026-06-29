@@ -132,7 +132,7 @@ export const locations: Location[] = [
       {
         question: "What is the fare for taxi from Rohtak to Delhi?",
         answer:
-          "Rohtak to Delhi taxi starts from ₹1,100 for Swift Dzire. Exact fare depends on pickup/drop points and vehicle type.",
+          "Rohtak to Delhi taxi starts from ₹1,100 for Small Cars. Exact fare depends on pickup/drop points and vehicle type.",
       },
       {
         question: "Are there regular cabs from Rohtak to Delhi?",

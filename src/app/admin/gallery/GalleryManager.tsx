@@ -66,7 +66,7 @@ export default function GalleryManager({ images }: { images: any[] }) {
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">Caption</label>
-            <input name="caption" type="text" required placeholder="e.g. Innova Crysta" className="form-input" />
+            <input name="caption" type="text" required placeholder="e.g. Tavera" className="form-input" />
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">Category</label>

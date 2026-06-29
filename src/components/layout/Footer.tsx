@@ -9,7 +9,7 @@ const footerLinks = {
     { label: "Outstation Taxi", href: "/services" },
     { label: "Corporate Cab", href: "/services" },
     { label: "Wedding Car Rental", href: "/services" },
-    { label: "Tempo Traveller", href: "/services" },
+
   ],
   routes: [
     { label: "Dadri to Delhi Taxi", href: "/routes/dadri-to-delhi-taxi" },
@@ -27,6 +27,7 @@ const footerLinks = {
     { label: "Taxi in Gurgaon", href: "/locations/gurgaon" },
   ],
   company: [
+    { label: "Tour Packages", href: "/tours" },
     { label: "About Us", href: "/about" },
     { label: "Fleet", href: "/fleet" },
     { label: "Fare Calculator", href: "/fare-calculator" },

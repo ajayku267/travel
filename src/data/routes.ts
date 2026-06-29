@@ -30,7 +30,7 @@ export const routes: Route[] = [
       {
         question: "What is the fare for Dadri to Delhi taxi?",
         answer:
-          "Fares start from ₹1,500 for a Swift Dzire and go up to ₹2,500 for an Innova Crysta. Final fare depends on vehicle type and pickup/drop points.",
+          "Fares start from ₹1,500 for a Small Car and go up to ₹2,500 for a Tavera. Final fare depends on vehicle type and pickup/drop points.",
       },
       {
         question: "Can I book a one-way taxi from Dadri to Delhi?",
@@ -262,7 +262,7 @@ export const routes: Route[] = [
       {
         question: "What is the cheapest option from Rohtak to Delhi?",
         answer:
-          "Swift Dzire is the most economical option starting from ₹1,100 for a one-way trip.",
+          "Small Car is the most economical option starting from ₹1,100 for a one-way trip.",
       },
     ],
     metaTitle: "Rohtak to Delhi Taxi | Book Cab | Go Nainital",

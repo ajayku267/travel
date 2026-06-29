@@ -17,7 +17,7 @@ import { COMPANY_NAME } from "@/lib/utils";
 export const metadata: Metadata = {
   title: `Taxi Services | ${COMPANY_NAME} — Local, Outstation, Airport, Corporate`,
   description:
-    "Complete taxi services in Nainital — local cab, airport transfer, outstation taxi, one-way, round trip, corporate cab, wedding car, and Tempo Traveller. Book now!",
+    "Complete taxi services in Nainital — local cab, airport transfer, outstation taxi, one-way, round trip, corporate cab, and wedding car. Book now!",
 };
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
