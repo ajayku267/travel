@@ -10,24 +10,31 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // OpenStreetMap Nominatim reverse geocoding API
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=jsonv2`,
-      {
-        headers: {
-          "User-Agent": "NainitalTaxiService/1.0 (contact@nainitaltaxi.com)",
-        },
-      }
-    );
+    // We use Photon (Komoot) instead of raw Nominatim because Nominatim frequently blocks
+    // Vercel serverless IP ranges for rate-limiting.
+    const res = await fetch(`https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}`);
 
     if (!res.ok) {
-      throw new Error(`Nominatim returned status: ${res.status}`);
+      throw new Error(`Photon returned status: ${res.status}`);
     }
 
     const data = await res.json();
-    return NextResponse.json(data);
+
+    if (!data.features || data.features.length === 0) {
+      return NextResponse.json({ error: "No location found" }, { status: 404 });
+    }
+
+    const p = data.features[0].properties;
+    
+    // Build a display name like: "Charkhi Dadri, Haryana, India"
+    const nameParts = [p.name, p.street, p.city || p.town || p.village, p.state, p.country].filter(Boolean);
+    const uniqueParts = Array.from(new Set(nameParts));
+    
+    return NextResponse.json({
+      display_name: uniqueParts.join(", ")
+    });
   } catch (error) {
-    console.error("Nominatim reverse geocode error:", error);
+    console.error("Photon reverse geocode error:", error);
     return NextResponse.json({ error: "Failed to fetch location address" }, { status: 500 });
   }
 }
