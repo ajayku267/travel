@@ -5,9 +5,9 @@ import { COMPANY_NAME } from "@/lib/utils";
 import { ArrowRight, Clock, MapPin, Banknote } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: `All Taxi Routes | ${COMPANY_NAME} — Haryana, Delhi NCR`,
+  title: `All Taxi Routes | ${COMPANY_NAME} — Nainital, Delhi NCR`,
   description:
-    "Browse all available taxi routes from Haryana — Dadri, Bhiwani, Rohtak, Hisar, Gurgaon to Delhi and beyond. Fixed fares, 24/7 service.",
+    "Browse all available taxi routes from Nainital — Dadri, Bhiwani, Rohtak, Hisar, Gurgaon to Delhi and beyond. Fixed fares, 24/7 service.",
 };
 
 export default async function RoutesIndexPage() {
@@ -21,10 +21,10 @@ export default async function RoutesIndexPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-black text-white mb-4">
             All Taxi Routes
-            <span className="text-yellow-400 block">Haryana &amp; Delhi NCR</span>
+            <span className="text-yellow-400 block">Nainital &amp; Delhi NCR</span>
           </h1>
           <p className="text-gray-300 text-lg">
-            Fixed-fare taxi on {routes.length}+ routes across Haryana, Delhi NCR, and nearby states.
+            Fixed-fare taxi on {routes.length}+ routes across Nainital, Delhi NCR, and nearby states.
           </p>
         </div>
       </section>

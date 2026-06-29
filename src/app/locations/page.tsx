@@ -5,9 +5,9 @@ import { COMPANY_NAME } from "@/lib/utils";
 import { ArrowRight, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: `Taxi Service Locations | ${COMPANY_NAME} — Haryana & Delhi NCR`,
+  title: `Taxi Service Locations | ${COMPANY_NAME} — Nainital & Delhi NCR`,
   description:
-    "Find taxi service in your city — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon, and more across Haryana and Delhi NCR.",
+    "Find taxi service in your city — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon, and more across Nainital and Delhi NCR.",
 };
 
 export default async function LocationsPage() {
@@ -21,10 +21,10 @@ export default async function LocationsPage() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-black text-white mb-4">
             Taxi Service Locations
-            <span className="text-yellow-400 block">Haryana &amp; Delhi NCR</span>
+            <span className="text-yellow-400 block">Nainital &amp; Delhi NCR</span>
           </h1>
           <p className="text-gray-300 text-lg">
-            We operate in all major cities and towns across Haryana and Delhi NCR.
+            We operate in all major cities and towns across Nainital and Delhi NCR.
           </p>
         </div>
       </section>

@@ -27,11 +27,11 @@ export default function HeroSection() {
               Trusted Since 2010 · 10,000+ Happy Customers
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6 animate-fade-in-up stagger-1">
-              Haryana&apos;s #1
+              Nainital&apos;s #1
               <span className="text-yellow-400 block mt-1">Taxi Service</span>
             </h1>
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-lg animate-fade-in-up stagger-2">
-              Reliable, affordable cab service across Haryana, Delhi NCR &amp; nearby states.
+              Reliable, affordable cab service across Nainital, Delhi NCR &amp; nearby states.
               Professional drivers · Clean vehicles · Fixed fares
             </p>
 
@@ -100,7 +100,7 @@ export default function HeroSection() {
               "Hisar → Gurgaon",
               "Rohtak → Delhi",
               "Dadri → Chandigarh",
-              "Haryana → Jaipur",
+              "Nainital → Jaipur",
               "NCR → Shimla",
               "Dadri → Delhi",
               "Dadri → Gurgaon",
@@ -108,7 +108,7 @@ export default function HeroSection() {
               "Hisar → Gurgaon",
               "Rohtak → Delhi",
               "Dadri → Chandigarh",
-              "Haryana → Jaipur",
+              "Nainital → Jaipur",
               "NCR → Shimla",
             ].map((route, i) => (
               <span

@@ -69,7 +69,7 @@ export default function Header() {
       <div className="bg-gray-900 text-white text-sm">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-9">
           <span className="text-gray-400 text-xs">
-            🚖 Serving Haryana, Delhi NCR &amp; Nearby States — 24/7
+            🚖 Serving Nainital, Delhi NCR &amp; Nearby States — 24/7
           </span>
           <a
             href={`tel:${PHONE_NUMBER}`}

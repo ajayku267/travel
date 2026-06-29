@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: location.metaDescription,
     },
     alternates: {
-      canonical: `https://haryanataxi.com/locations/${location.slug}`,
+      canonical: `https://nainitaltaxi.com/locations/${location.slug}`,
     },
   };
 }

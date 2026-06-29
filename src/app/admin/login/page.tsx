@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
             <Shield size={32} className="text-gray-900" />
           </div>
           <h1 className="text-2xl font-black text-white">Admin Login</h1>
-          <p className="text-gray-400 mt-2 text-sm">Haryana Taxi Service Management</p>
+          <p className="text-gray-400 mt-2 text-sm">Go Nainital Management</p>
         </div>
 
         <div className="p-8">

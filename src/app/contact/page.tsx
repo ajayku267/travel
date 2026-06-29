@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { COMPANY_NAME, PHONE_NUMBER, EMAIL, ADDRESS } from "@/lib/utils";
+import { COMPANY_NAME, PHONE_NUMBER, EMAIL, ADDRESS, ADDRESS2 } from "@/lib/utils";
 import ContactForm from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
   title: `Contact Us | ${COMPANY_NAME}`,
   description:
-    "Contact Haryana Taxi Service. Call +91 98765 43210, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Haryana and Delhi NCR.",
+    "Contact Go Nainital. Call +91 98765 43210, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and Delhi NCR.",
 };
 
 export default function ContactPage() {
@@ -53,10 +53,18 @@ export default function ContactPage() {
                   },
                   {
                     icon: MapPin,
-                    title: "Office Address",
+                    title: "Nainital Office",
                     value: ADDRESS,
                     href: "#map",
                     color: "bg-green-500",
+                    textColor: "text-white",
+                  },
+                  {
+                    icon: MapPin,
+                    title: "Haldwani Office",
+                    value: ADDRESS2,
+                    href: "#map",
+                    color: "bg-green-600",
                     textColor: "text-white",
                   },
                   {
@@ -107,14 +115,14 @@ export default function ContactPage() {
               {/* Map */}
               <div id="map" className="mt-8 rounded-2xl overflow-hidden shadow-lg h-64 bg-gray-200">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28055.59843958975!2d76.2714!3d28.5921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391b8f5a5a5a5a5a%3A0x5a5a5a5a5a5a5a5a!2sCharkhi%20Dadri%2C%20Haryana!5e0!3m2!1sen!2sin!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28055.59843958975!2d76.2714!3d28.5921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391b8f5a5a5a5a5a%3A0x5a5a5a5a5a5a5a5a!2sCharkhi%20Dadri%2C%20Nainital!5e0!3m2!1sen!2sin!4v1234567890"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Haryana Taxi Service Location"
+                  title="Go Nainital Location"
                 />
               </div>
             </div>

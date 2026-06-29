@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=5`,
       {
         headers: {
-          "User-Agent": "HaryanaTaxiService/1.0 (contact@haryanataxi.com)",
+          "User-Agent": "NainitalTaxiService/1.0 (contact@nainitaltaxi.com)",
         },
       }
     );

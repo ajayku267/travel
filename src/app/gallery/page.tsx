@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: `Gallery | ${COMPANY_NAME} — Vehicles, Journeys & Destinations`,
   description:
-    "Browse our gallery of well-maintained taxi fleet, customer journeys, and popular tourist destinations served by Haryana Taxi Service.",
+    "Browse our gallery of well-maintained taxi fleet, customer journeys, and popular tourist destinations served by Go Nainital.",
 };
 
 const categories = ["All", "Vehicles", "Journeys", "Destinations"];

@@ -17,7 +17,7 @@ export default function FloatingButtons() {
     <>
       {/* WhatsApp Float */}
       <a
-        href="https://wa.me/919876543210?text=Hi, I need to book a taxi from Haryana Taxi Service"
+        href="https://wa.me/919876543210?text=Hi, I need to book a taxi from Go Nainital"
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float animate-fade-in-up group"

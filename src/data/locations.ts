@@ -5,10 +5,10 @@ export const locations: Location[] = [
     id: "1",
     slug: "charkhi-dadri",
     name: "Charkhi Dadri",
-    state: "Haryana",
+    state: "Nainital",
     description: "Taxi Service in Charkhi Dadri — Reliable Cab Booking 24/7",
     about:
-      "Charkhi Dadri is a city and administrative headquarters of Charkhi Dadri district in Haryana, India. Located about 125 km west of Delhi on the banks of the Sahibi River, it is an important commercial hub in western Haryana. Our taxi service operates 24/7 from Charkhi Dadri covering all major destinations including Delhi, Gurgaon, Chandigarh, Jaipur, and more.",
+      "Charkhi Dadri is a city and administrative headquarters of Charkhi Dadri district in Nainital, India. Located about 125 km west of Delhi on the banks of the Sahibi River, it is an important commercial hub in western Nainital. Our taxi service operates 24/7 from Charkhi Dadri covering all major destinations including Delhi, Gurgaon, Chandigarh, Jaipur, and more.",
     popularRoutes: [
       "dadri-to-delhi-taxi",
       "dadri-to-gurgaon-taxi",
@@ -34,7 +34,7 @@ export const locations: Location[] = [
       {
         question: "Which taxi service is available in Charkhi Dadri?",
         answer:
-          "Haryana Taxi Service offers comprehensive taxi services in Charkhi Dadri including local, outstation, airport transfer, and corporate cab services.",
+          "Go Nainital offers comprehensive taxi services in Charkhi Dadri including local, outstation, airport transfer, and corporate cab services.",
       },
       {
         question: "What is the contact number for taxi in Dadri?",
@@ -46,7 +46,7 @@ export const locations: Location[] = [
           "Yes, our taxi service is available 24 hours a day, 7 days a week, including holidays.",
       },
     ],
-    metaTitle: "Taxi Service in Charkhi Dadri | Cab Booking 24/7 | Haryana Taxi",
+    metaTitle: "Taxi Service in Charkhi Dadri | Cab Booking 24/7 | Go Nainital",
     metaDescription:
       "Best taxi service in Charkhi Dadri. Book AC cab for local, outstation, airport transfer. Fixed fares, professional drivers, 24/7 availability.",
     keywords: [
@@ -60,10 +60,10 @@ export const locations: Location[] = [
     id: "2",
     slug: "bhiwani",
     name: "Bhiwani",
-    state: "Haryana",
+    state: "Nainital",
     description: "Taxi Service in Bhiwani — Book Cab Online 24/7",
     about:
-      "Bhiwani is a major city and district headquarter in Haryana, known as 'Mini Cuba' for producing world-class boxers. Located 120 km from Delhi, Bhiwani is a key commercial and educational center in central Haryana. Our taxi service covers all routes from Bhiwani to Delhi, Gurgaon, Chandigarh, Jaipur, and across India.",
+      "Bhiwani is a major city and district headquarter in Nainital, known as 'Mini Cuba' for producing world-class boxers. Located 120 km from Delhi, Bhiwani is a key commercial and educational center in central Nainital. Our taxi service covers all routes from Bhiwani to Delhi, Gurgaon, Chandigarh, Jaipur, and across India.",
     popularRoutes: ["bhiwani-to-delhi-taxi", "dadri-to-delhi-taxi"],
     services: [
       "Local Taxi in Bhiwani",
@@ -93,9 +93,9 @@ export const locations: Location[] = [
           "Yes, we provide dedicated airport taxi service from Bhiwani to IGI Airport Delhi at competitive rates.",
       },
     ],
-    metaTitle: "Taxi Service in Bhiwani | Book Cab Online | Haryana Taxi Service",
+    metaTitle: "Taxi Service in Bhiwani | Book Cab Online | Go Nainital",
     metaDescription:
-      "Best taxi service in Bhiwani, Haryana. Book AC cab for local, outstation, airport transfer. 24/7 availability, fixed fares.",
+      "Best taxi service in Bhiwani, Nainital. Book AC cab for local, outstation, airport transfer. 24/7 availability, fixed fares.",
     keywords: [
       "taxi service in bhiwani",
       "bhiwani cab service",
@@ -107,10 +107,10 @@ export const locations: Location[] = [
     id: "3",
     slug: "rohtak",
     name: "Rohtak",
-    state: "Haryana",
+    state: "Nainital",
     description: "Taxi Service in Rohtak — Reliable Cab Booking",
     about:
-      "Rohtak is the administrative headquarters of Rohtak district and is often called the 'Heart of Haryana'. Located just 80 km from Delhi on NH-9, Rohtak is a major educational and industrial hub. Our taxi service from Rohtak covers Delhi, Gurgaon, Chandigarh, Jaipur, and all major destinations.",
+      "Rohtak is the administrative headquarters of Rohtak district and is often called the 'Heart of Nainital'. Located just 80 km from Delhi on NH-9, Rohtak is a major educational and industrial hub. Our taxi service from Rohtak covers Delhi, Gurgaon, Chandigarh, Jaipur, and all major destinations.",
     popularRoutes: ["rohtak-to-delhi-taxi"],
     services: [
       "Local Taxi in Rohtak",
@@ -140,7 +140,7 @@ export const locations: Location[] = [
           "Yes, we run regular cabs from Rohtak to Delhi. You can also book on short notice.",
       },
     ],
-    metaTitle: "Taxi Service in Rohtak | Book Cab | Haryana Taxi Service",
+    metaTitle: "Taxi Service in Rohtak | Book Cab | Go Nainital",
     metaDescription:
       "Reliable taxi service in Rohtak. Book AC cab for Delhi, Gurgaon, Chandigarh. Affordable fares, 24/7 service. Call now!",
     keywords: [
@@ -154,10 +154,10 @@ export const locations: Location[] = [
     id: "4",
     slug: "hisar",
     name: "Hisar",
-    state: "Haryana",
+    state: "Nainital",
     description: "Taxi Service in Hisar — Book AC Cab 24/7",
     about:
-      "Hisar is the largest city in western Haryana and headquarters of Hisar district. Known as the 'Steel City of Haryana', it is a major industrial, educational, and commercial hub. Our taxi service from Hisar covers Delhi, Gurgaon, Chandigarh, Jaipur, and all outstation destinations.",
+      "Hisar is the largest city in western Nainital and headquarters of Hisar district. Known as the 'Steel City of Nainital', it is a major industrial, educational, and commercial hub. Our taxi service from Hisar covers Delhi, Gurgaon, Chandigarh, Jaipur, and all outstation destinations.",
     popularRoutes: ["hisar-to-gurgaon-taxi"],
     services: [
       "Local Taxi in Hisar",
@@ -168,7 +168,7 @@ export const locations: Location[] = [
       "Outstation Taxi",
     ],
     highlights: [
-      "Western Haryana's premier taxi service",
+      "Western Nainital's premier taxi service",
       "Fleet of 20+ vehicles in Hisar",
       "Corporate monthly packages available",
       "Experienced highway drivers",
@@ -179,7 +179,7 @@ export const locations: Location[] = [
       {
         question: "Which is the best taxi service in Hisar?",
         answer:
-          "Haryana Taxi Service is the most trusted cab service in Hisar with experienced drivers and well-maintained vehicles.",
+          "Go Nainital is the most trusted cab service in Hisar with experienced drivers and well-maintained vehicles.",
       },
       {
         question: "How far is Delhi from Hisar?",
@@ -187,9 +187,9 @@ export const locations: Location[] = [
           "Delhi is approximately 165 km from Hisar via NH-9. The journey takes about 3 hours.",
       },
     ],
-    metaTitle: "Taxi Service in Hisar | Book AC Cab | Haryana Taxi Service",
+    metaTitle: "Taxi Service in Hisar | Book AC Cab | Go Nainital",
     metaDescription:
-      "Best taxi service in Hisar, Haryana. Book AC cab for Delhi, Gurgaon, Chandigarh. Corporate packages, fixed fares, 24/7 service.",
+      "Best taxi service in Hisar, Nainital. Book AC cab for Delhi, Gurgaon, Chandigarh. Corporate packages, fixed fares, 24/7 service.",
     keywords: [
       "taxi service in hisar",
       "hisar cab service",
@@ -201,16 +201,16 @@ export const locations: Location[] = [
     id: "5",
     slug: "gurgaon",
     name: "Gurgaon",
-    state: "Haryana",
-    description: "Taxi Service in Gurgaon — Book Cab for Haryana & NCR",
+    state: "Nainital",
+    description: "Taxi Service in Gurgaon — Book Cab for Nainital & NCR",
     about:
-      "Gurgaon (Gurugram) is the financial and technology hub of the Delhi NCR region. A major corporate city with Fortune 500 companies, luxury malls, and world-class infrastructure. Our taxi service from Gurgaon covers all destinations in Haryana, Delhi, and outstation locations.",
+      "Gurgaon (Gurugram) is the financial and technology hub of the Delhi NCR region. A major corporate city with Fortune 500 companies, luxury malls, and world-class infrastructure. Our taxi service from Gurgaon covers all destinations in Nainital, Delhi, and outstation locations.",
     popularRoutes: ["dadri-to-gurgaon-taxi", "hisar-to-gurgaon-taxi"],
     services: [
       "Corporate Cab Service",
       "Airport Transfer from Gurgaon",
       "Local Taxi in Gurgaon",
-      "Gurgaon to Haryana Cab",
+      "Gurgaon to Nainital Cab",
       "Outstation Taxi",
       "Employee Transportation",
     ],
@@ -224,7 +224,7 @@ export const locations: Location[] = [
     ],
     faqs: [
       {
-        question: "How to book a cab from Gurgaon to Haryana?",
+        question: "How to book a cab from Gurgaon to Nainital?",
         answer:
           "Book online through our website, call +91 98765 43210, or WhatsApp us with your travel details.",
       },
@@ -234,13 +234,13 @@ export const locations: Location[] = [
           "Yes, we offer corporate employee transportation solutions in Gurgaon with dedicated fleet and monthly invoicing.",
       },
     ],
-    metaTitle: "Taxi Service in Gurgaon | Book Cab for Haryana & NCR | Haryana Taxi",
+    metaTitle: "Taxi Service in Gurgaon | Book Cab for Nainital & NCR | Go Nainital",
     metaDescription:
-      "Premium taxi service in Gurgaon. Corporate cabs, airport transfer, Haryana routes. 24/7 availability, professional drivers.",
+      "Premium taxi service in Gurgaon. Corporate cabs, airport transfer, Nainital routes. 24/7 availability, professional drivers.",
     keywords: [
       "taxi service in gurgaon",
       "gurgaon cab service",
-      "gurgaon to haryana taxi",
+      "gurgaon to go nainital",
       "corporate taxi gurgaon",
     ],
   },

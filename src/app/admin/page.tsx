@@ -8,7 +8,7 @@ import {
 import AdminChart from "@/components/admin/AdminChart";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | Haryana Taxi Service",
+  title: "Admin Dashboard | Go Nainital",
   robots: { index: false, follow: false },
 };
 
@@ -90,7 +90,7 @@ export default async function AdminDashboard() {
               🚖
             </div>
             <div>
-              <div className="font-bold">Haryana Taxi — Admin</div>
+              <div className="font-bold">Go Nainital — Admin</div>
               <div className="text-xs text-gray-400">Management Dashboard</div>
             </div>
           </div>

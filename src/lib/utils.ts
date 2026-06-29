@@ -64,7 +64,8 @@ export function generateId(): string {
 
 export const PHONE_NUMBER = "+91 98765 43210";
 export const WHATSAPP_NUMBER = "919876543210";
-export const EMAIL = "info@haryanataxi.com";
-export const ADDRESS = "Near Bus Stand, Charkhi Dadri, Haryana - 127306";
-export const COMPANY_NAME = "Haryana Taxi Service";
-export const TAGLINE = "Your Trusted Travel Partner in Haryana & NCR";
+export const EMAIL = "info@nainitaltaxi.com";
+export const ADDRESS = "Near Hotel basera, Mallital, Nainital";
+export const ADDRESS2 = "Near shishu bharti school, bareilly road, haldwani";
+export const COMPANY_NAME = "Go Nainital";
+export const TAGLINE = "Your Trusted Travel Partner in Nainital & NCR";
