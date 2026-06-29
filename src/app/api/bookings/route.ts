@@ -47,7 +47,8 @@ export async function POST(request: NextRequest) {
         tripType: data.tripType,
         paymentId: data.razorpay_payment_id || null,
         orderId: data.razorpay_order_id || null,
-        paymentStatus: data.razorpay_payment_id ? "success" : "pending",
+        paymentStatus: data.paymentStatus || (data.razorpay_payment_id ? "success" : "pending"),
+        paymentMethod: data.paymentMethod || "online",
         amountPaid: data.razorpay_payment_id ? 500 : 0, // Flat 500 advance
       },
     });

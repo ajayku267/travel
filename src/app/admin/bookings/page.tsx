@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, CheckCircle, Clock, XCircle } from "lucide-react";
 import { db } from "@/lib/db";
+import { cn } from "@/lib/utils";
 import StatusSelect from "./StatusSelect";
 import DispatchForm from "./DispatchForm";
 
@@ -73,12 +74,19 @@ export default async function AdminBookingsPage() {
                         <div className="p-3 bg-gray-50 border border-gray-100 rounded-lg">
                           <div className="flex justify-between items-center mb-3">
                             <div>
-                              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Token Payment</div>
-                              <div className="font-semibold text-xs text-gray-900">{booking.paymentStatus === "success" ? `Paid ₹${booking.amountPaid}` : "Unpaid"}</div>
+                              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Payment Mode</div>
+                              <div className="font-semibold text-xs text-gray-900">
+                                {booking.paymentMethod === "cash" ? "Cash (Pay to Driver)" : "Online Advance"}
+                                {booking.paymentMethod === "online" && (
+                                  <span className={cn("ml-1.5 px-1.5 py-0.5 rounded text-[10px]", booking.paymentStatus === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700")}>
+                                    {booking.paymentStatus === "success" ? `Paid ₹${booking.amountPaid}` : "Unpaid"}
+                                  </span>
+                                )}
+                              </div>
                             </div>
                             {booking.paymentId && (
                               <div className="text-right">
-                                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">ID</div>
+                                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Transaction ID</div>
                                 <div className="font-mono text-xs text-gray-500 truncate w-24" title={booking.paymentId}>{booking.paymentId}</div>
                               </div>
                             )}

@@ -43,6 +43,8 @@ export const bookingSchema = z.object({
   razorpay_payment_id: z.string().optional(),
   razorpay_order_id: z.string().optional(),
   razorpay_signature: z.string().optional(),
+  paymentMethod: z.enum(["online", "cash"]).optional(),
+  paymentStatus: z.string().optional(),
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;
