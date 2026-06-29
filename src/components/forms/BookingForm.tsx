@@ -27,6 +27,7 @@ const bookingSchema = z.object({
   journeyDate: z.string().min(1, "Select journey date"),
   vehicleType: z.string().min(1, "Select vehicle type"),
   tripType: z.enum(["one-way", "round-trip"]),
+  paymentMethod: z.enum(["online", "cash"]),
   message: z.string().optional(),
 });
 
@@ -65,12 +66,21 @@ export default function BookingForm({
       pickupLocation: defaultPickup,
       dropLocation: defaultDrop,
       tripType: "one-way",
+      paymentMethod: "online",
     },
   });
 
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
     try {
+      if (data.paymentMethod === "cash") {
+        // Skip Razorpay, submit directly
+        return submitFinalBooking({
+          ...data,
+          paymentStatus: "pending",
+        });
+      }
+
       // 1. Create a Razorpay Order for Advance Payment (Fixed ₹500)
       const orderRes = await fetch("/api/razorpay", {
         method: "POST",
@@ -389,6 +399,18 @@ export default function BookingForm({
           >
             <option value="one-way">One Way</option>
             <option value="round-trip">Round Trip</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+            Payment Mode *
+          </label>
+          <select
+            {...register("paymentMethod")}
+            className="form-input appearance-none"
+          >
+            <option value="online">Pay Advance (₹500)</option>
+            <option value="cash">Pay to Driver</option>
           </select>
         </div>
       </div>

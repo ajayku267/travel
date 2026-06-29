@@ -32,6 +32,7 @@ model Booking {
   paymentId     String?  // Razorpay Payment ID
   orderId       String?  // Razorpay Order ID
   paymentStatus String   @default("pending") // pending, success, failed
+  paymentMethod String   @default("online") // online, cash
   amountPaid    Float    @default(0)
   totalFare     Float?   // Total fare quoted to customer
   
