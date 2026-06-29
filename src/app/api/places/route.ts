@@ -9,24 +9,35 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // OpenStreetMap Nominatim API strictly requires a custom User-Agent
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=5`,
-      {
-        headers: {
-          "User-Agent": "NainitalTaxiService/1.0 (contact@nainitaltaxi.com)",
-        },
-      }
-    );
+    // We use Photon (Komoot) instead of raw Nominatim because Nominatim frequently blocks
+    // Vercel serverless IP ranges for rate-limiting. Photon is much more lenient and uses OSM data.
+    const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5`);
 
     if (!res.ok) {
-      throw new Error(`Nominatim returned status: ${res.status}`);
+      throw new Error(`Photon returned status: ${res.status}`);
     }
 
     const data = await res.json();
-    return NextResponse.json(data);
+    
+    // Map Photon's GeoJSON format back to the Nominatim format our frontend expects
+    const formattedResults = data.features.map((feature: any) => {
+      const p = feature.properties;
+      
+      // Build a display name like: "Charkhi Dadri, Haryana, India"
+      const nameParts = [p.name, p.street, p.city || p.town || p.village, p.state, p.country].filter(Boolean);
+      // Remove duplicates
+      const uniqueParts = Array.from(new Set(nameParts));
+      
+      return {
+        display_name: uniqueParts.join(", "),
+        lon: feature.geometry.coordinates[0].toString(),
+        lat: feature.geometry.coordinates[1].toString(),
+      };
+    });
+
+    return NextResponse.json(formattedResults);
   } catch (error) {
-    console.error("Nominatim proxy error:", error);
+    console.error("Geocoding API error:", error);
     return NextResponse.json({ error: "Failed to fetch locations" }, { status: 500 });
   }
 }
