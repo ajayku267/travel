@@ -72,6 +72,22 @@ export async function POST(request: NextRequest) {
       }).catch((err) => console.error("Email send failed:", err));
     }
 
+    if (booking.email) {
+      sendEmail({
+        to: booking.email,
+        subject: `Booking Request Received - ${booking.bookingId}`,
+        html: `
+          <h2>Booking Request Received</h2>
+          <p>Hi ${booking.name},</p>
+          <p>Your booking request (<strong>${booking.bookingId}</strong>) has been received! We will call you shortly to confirm.</p>
+          <p><strong>Route:</strong> ${booking.pickup} ➔ ${booking.drop}</p>
+          <p><strong>Date:</strong> ${booking.date}</p>
+          <p><strong>Vehicle:</strong> ${booking.vehicle} (${booking.tripType})</p>
+          <p>Thank you for choosing Go Nainital!</p>
+        `,
+      }).catch((err) => console.error("Customer email send failed:", err));
+    }
+
     // Send real-time Twilio notifications (non-blocking)
     const bookingDetails = {
       bookingId: booking.bookingId,

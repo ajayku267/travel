@@ -103,7 +103,7 @@ export default function Header() {
               <span className="text-gray-500 hidden sm:block">|</span>
               <span className="text-gray-400 text-xs flex items-center gap-1.5">
                 <MapPin size={11} className="text-yellow-400" />
-                Nainital & Delhi NCR
+                Nainital & all india
               </span>
             </div>
             <div className="flex items-center gap-4">

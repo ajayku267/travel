@@ -91,7 +91,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-6 max-w-sm">
-              Nainital&#39;s most trusted taxi service operating in Nainital, Delhi NCR, and nearby
+              Nainital&#39;s most trusted taxi service operating in Nainital, all india, and nearby
               states. Professional drivers, well-maintained vehicles, and fixed transparent pricing.
             </p>
             <div className="space-y-3">

@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Customer Reviews | ${settings.companyName} — 4.8★ Rated`,
     description:
-      "Read genuine customer reviews of Go Nainital. 4.8 star rated taxi service across Nainital and Delhi NCR. 500+ happy customers.",
+      "Read genuine customer reviews of Go Nainital. 4.8 star rated taxi service across Nainital and all india. 500+ happy customers.",
   };
 }
 
@@ -42,7 +42,7 @@ export default async function ReviewsPage() {
           </span>
           <h1 className="text-4xl font-black text-white mb-4">What Our Customers Say</h1>
           <p className="text-gray-300 text-lg">
-            Genuine reviews from thousands of satisfied customers across Nainital &amp; Delhi NCR
+            Genuine reviews from thousands of satisfied customers across Nainital &amp; all india
           </p>
         </div>
       </section>

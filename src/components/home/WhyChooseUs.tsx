@@ -38,7 +38,7 @@ const reasons = [
     icon: Star,
     title: "4.8★ Rated Service",
     description:
-      "Consistently rated 4.8+ stars by thousands of customers across Nainital and Delhi NCR.",
+      "Consistently rated 4.8+ stars by thousands of customers across Nainital and all india.",
     color: "bg-purple-500/10 text-purple-600",
     accent: "group-hover:bg-purple-500",
   },
@@ -70,7 +70,7 @@ const reasons = [
     icon: Award,
     title: "Trusted Since 2010",
     description:
-      "15+ years of experience serving customers across Nainital and the Delhi NCR region.",
+      "15+ years of experience serving customers across Nainital and the all india region.",
     color: "bg-orange-500/10 text-orange-600",
     accent: "group-hover:bg-orange-500",
   },

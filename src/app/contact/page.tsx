@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Contact Us | ${settings.companyName}`,
     description:
-      `Contact ${settings.companyName}. Call ${settings.phone}, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and Delhi NCR.`,
+      `Contact ${settings.companyName}. Call ${settings.phone}, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and all india.`,
   };
 }
 

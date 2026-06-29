@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       google: "DSPBAVU2kCBdxYmlzhvyeekLGIfgrJ6btoD0Pr70ISk",
     },
     title: {
-      default: `${COMPANY_NAME} | Taxi & Cab Service in Nainital, Delhi NCR`,
+      default: `${COMPANY_NAME} | Taxi & Cab Service in Nainital, all india`,
       template: `%s | ${COMPANY_NAME}`,
     },
     description:
-      "Nainital's most trusted taxi service. Book AC cab for local, outstation, airport transfer in Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon, Delhi NCR. 24/7 availability.",
+      "Nainital's most trusted taxi service. Book AC cab for local, outstation, airport transfer in Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon, all india. 24/7 availability.",
     keywords: [
       "taxi service nainital",
       "cab service nainital",
@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "rohtak taxi",
       "hisar taxi",
       "gurgaon taxi",
-      "delhi ncr taxi",
+      "all india taxi",
     ],
     authors: [{ name: COMPANY_NAME }],
     creator: COMPANY_NAME,
@@ -50,14 +50,14 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: "en_IN",
       siteName: COMPANY_NAME,
-      title: `${COMPANY_NAME} | Taxi & Cab Service in Nainital, Delhi NCR`,
+      title: `${COMPANY_NAME} | Taxi & Cab Service in Nainital, all india`,
       description:
         "Nainital's most trusted taxi service. Book AC cab for local, outstation, airport transfer. 24/7 availability, professional drivers, fixed fares.",
     },
     twitter: {
       card: "summary_large_image",
       title: `${COMPANY_NAME} | Taxi Service in Nainital`,
-      description: "Book reliable taxi service in Nainital & Delhi NCR. 24/7 availability.",
+      description: "Book reliable taxi service in Nainital & all india. 24/7 availability.",
     },
     robots: {
       index: true,
@@ -97,7 +97,7 @@ export default function RootLayout({
               "@id": "https://nainitaltaxi.com",
               name: settings.companyName,
               description:
-                "Trusted taxi and cab rental service in Nainital, Delhi NCR. Local, outstation, airport, and corporate cab services.",
+                "Trusted taxi and cab rental service in Nainital, all india. Local, outstation, airport, and corporate cab services.",
               url: "https://nainitaltaxi.com",
               telephone: settings.phone,
               email: settings.email,
@@ -117,7 +117,7 @@ export default function RootLayout({
               openingHours: "Mo-Su 00:00-24:00",
               priceRange: "₹₹",
               serviceType: ["Taxi Service", "Car Rental", "Airport Transfer", "Outstation Cab"],
-              areaServed: ["Nainital", "Delhi NCR", "Punjab", "Rajasthan", "Uttarakhand"],
+              areaServed: ["Nainital", "all india", "Punjab", "Rajasthan", "Uttarakhand"],
               aggregateRating: {
                 "@type": "AggregateRating",
                 ratingValue: "4.8",

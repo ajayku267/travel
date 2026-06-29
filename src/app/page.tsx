@@ -12,13 +12,13 @@ import { getSettings } from "@/lib/settings";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = getSettings();
   return {
-    title: `${settings.companyName} | Best Taxi & Cab Service in Nainital, Delhi NCR`,
+    title: `${settings.companyName} | Best Taxi & Cab Service in Nainital, all india`,
     description:
       "Book affordable taxi in Nainital. Local, outstation, airport & corporate cab. 24/7 service, professional drivers.",
     openGraph: {
       title: `${settings.companyName} | Best Taxi Service in Nainital`,
       description:
-        "Book reliable taxi in Nainital & Delhi NCR. Local, outstation, airport transfer from ₹300. 24/7 available.",
+        "Book reliable taxi in Nainital & all india. Local, outstation, airport transfer from ₹300. 24/7 available.",
     },
   };
 }

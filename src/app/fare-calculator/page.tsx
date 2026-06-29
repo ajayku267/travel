@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Fare Calculator | ${settings.companyName} — Taxi Fare Estimate`,
     description:
-      "Calculate instant taxi fare for your journey across Nainital and Delhi NCR. Fixed and transparent pricing for one-way and round-trip journeys.",
+      "Calculate instant taxi fare for your journey across Nainital and all india. Fixed and transparent pricing for one-way and round-trip journeys.",
   };
 }
 
