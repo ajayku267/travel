@@ -94,7 +94,7 @@ export default async function AdminDriversPage() {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Mobile Number (Login ID)</label>
-                  <input name="phone" required className="w-full form-input bg-gray-50 border-transparent focus:bg-white text-sm" placeholder="e.g. 9876543210" />
+                  <input name="phone" required className="w-full form-input bg-gray-50 border-transparent focus:bg-white text-sm" placeholder="e.g. 8392986174" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Password</label>

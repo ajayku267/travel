@@ -34,14 +34,14 @@ export default function ContactCTA() {
 
         <div className="flex flex-wrap justify-center gap-4 mb-10">
           <a
-            href="tel:+919876543210"
+            href="tel:+918392986174"
             className="group flex items-center justify-center gap-2.5 px-8 py-4 bg-yellow-400 text-gray-900 font-black text-lg rounded-2xl hover:bg-yellow-300 transition-all shadow-2xl shadow-yellow-400/20 hover:-translate-y-1"
           >
             <Phone size={22} className="group-hover:animate-bounce-subtle shrink-0" /> 
-            <span className="leading-none mt-0.5">+91 98765 43210</span>
+            <span className="leading-none mt-0.5">+91 83929 86174</span>
           </a>
           <a
-            href="https://wa.me/919876543210?text=Hi! I want to book a taxi."
+            href="https://wa.me/918392986174?text=Hi! I want to book a taxi."
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center justify-center gap-2.5 px-8 py-4 bg-green-500 text-white font-black text-lg rounded-2xl hover:bg-green-400 transition-all shadow-2xl shadow-green-500/15 hover:-translate-y-1"

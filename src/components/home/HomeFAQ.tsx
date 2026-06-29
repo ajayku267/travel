@@ -5,7 +5,7 @@ const homeFaqs: FAQ[] = [
   {
     question: "How do I book a taxi with Go Nainital?",
     answer:
-      "You can book a taxi through our online booking form on the website, by calling +91 98765 43210, or by sending a WhatsApp message. We respond within 5 minutes.",
+      "You can book a taxi through our online booking form on the website, by calling +91 83929 86174, or by sending a WhatsApp message. We respond within 5 minutes.",
   },
   {
     question: "Do you offer one-way taxi service?",
@@ -66,13 +66,13 @@ export default function HomeFAQ() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href="tel:+919876543210"
+              href="tel:+918392986174"
               className="px-5 py-2.5 bg-yellow-400 text-gray-900 font-bold rounded-xl hover:bg-yellow-500 transition-colors"
             >
-              📞 Call +91 98765 43210
+              📞 Call +91 83929 86174
             </a>
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/918392986174"
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-colors"

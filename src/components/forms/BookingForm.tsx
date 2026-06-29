@@ -177,7 +177,7 @@ export default function BookingForm({
       setIsSubmitting(false);
       // Fallback
       const msg = `Hi! I want to book a taxi.%0AName: ${data.name}%0APhone: ${data.phone}%0APickup: ${data.pickupLocation}%0ADrop: ${data.dropLocation}%0ADate: ${data.journeyDate}%0AVehicle: ${data.vehicleType}`;
-      window.open(`https://wa.me/919876543210?text=${msg}`, "_blank");
+      window.open(`https://wa.me/918392986174?text=${msg}`, "_blank");
     }
   };
 
@@ -259,7 +259,7 @@ export default function BookingForm({
           <div className="relative">
             <input
               {...register("phone")}
-              placeholder="+91 98765 43210"
+              placeholder="+91 83929 86174"
               type="tel"
               className={cn("form-input pl-10", errors.phone && "border-red-400")}
             />
@@ -448,8 +448,8 @@ export default function BookingForm({
 
       <p className="text-center text-xs text-gray-500">
         Or call directly:{" "}
-        <a href="tel:+919876543210" className="text-yellow-600 font-semibold">
-          +91 98765 43210
+        <a href="tel:+918392986174" className="text-yellow-600 font-semibold">
+          +91 83929 86174
         </a>
       </p>
     </form>

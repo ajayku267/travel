@@ -66,7 +66,7 @@ export default async function TrackBookingPage({ params }: { params: Promise<{ b
               <div className="flex items-center gap-1.5 text-gray-500 text-xs mb-1">
                 <Phone size={14} /> Support
               </div>
-              <a href="tel:+919876543210" className="font-medium text-sm text-blue-600">Call Us</a>
+              <a href="tel:+918392986174" className="font-medium text-sm text-blue-600">Call Us</a>
             </div>
           </div>
         </div>

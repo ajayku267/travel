@@ -17,7 +17,7 @@ export default function FloatingButtons() {
     <>
       {/* WhatsApp Float */}
       <a
-        href="https://wa.me/919876543210?text=Hi, I need to book a taxi from Go Nainital"
+        href="https://wa.me/918392986174?text=Hi, I need to book a taxi from Go Nainital"
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float animate-fade-in-up group"
@@ -31,7 +31,7 @@ export default function FloatingButtons() {
 
       {/* Call Float */}
       <a
-        href="tel:+919876543210"
+        href="tel:+918392986174"
         className="call-float animate-fade-in-up group"
         aria-label="Call us"
         title="Call Now"

@@ -64,7 +64,7 @@ export default function Footer() {
               <Phone size={16} /> Call Now
             </a>
             <a
-              href={`https://wa.me/919876543210?text=Hi, I need to book a taxi`}
+              href={`https://wa.me/918392986174?text=Hi, I need to book a taxi`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all hover:-translate-y-0.5 shadow-lg"

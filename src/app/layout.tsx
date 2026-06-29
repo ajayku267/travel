@@ -91,7 +91,7 @@ export default function RootLayout({
               description:
                 "Trusted taxi and cab rental service in Nainital, Delhi NCR. Local, outstation, airport, and corporate cab services.",
               url: "https://nainitaltaxi.com",
-              telephone: "+919876543210",
+              telephone: "+918392986174",
               email: "info@nainitaltaxi.com",
               address: {
                 "@type": "PostalAddress",

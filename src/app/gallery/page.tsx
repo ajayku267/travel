@@ -94,7 +94,7 @@ export default async function GalleryPage() {
             Book a taxi and let us take you to your destination safely and comfortably.
           </p>
           <a
-            href="tel:+919876543210"
+            href="tel:+918392986174"
             className="inline-flex items-center gap-2 px-8 py-3 bg-yellow-400 text-gray-900 font-bold rounded-xl text-lg"
           >
             📞 Book Your Taxi Now

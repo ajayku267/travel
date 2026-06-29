@@ -98,13 +98,13 @@ export default async function LocationPage({ params }: Props) {
 
               <div className="flex gap-3">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918392986174"
                   className="flex items-center gap-2 px-5 py-2.5 bg-yellow-400 text-gray-900 font-bold rounded-xl"
                 >
                   <Phone size={16} /> Call Now
                 </a>
                 <a
-                  href={`https://wa.me/919876543210?text=Hi! I need a taxi in ${location.name}`}
+                  href={`https://wa.me/918392986174?text=Hi! I need a taxi in ${location.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white font-bold rounded-xl"
@@ -208,7 +208,7 @@ export default async function LocationPage({ params }: Props) {
             name: `Taxi Service in ${location.name}`,
             description: location.description,
             areaServed: location.name,
-            telephone: "+919876543210",
+            telephone: "+918392986174",
             address: {
               "@type": "PostalAddress",
               addressLocality: location.name,

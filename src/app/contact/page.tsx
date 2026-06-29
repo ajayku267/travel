@@ -6,7 +6,7 @@ import ContactForm from "@/components/forms/ContactForm";
 export const metadata: Metadata = {
   title: `Contact Us | ${COMPANY_NAME}`,
   description:
-    "Contact Go Nainital. Call +91 98765 43210, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and Delhi NCR.",
+    "Contact Go Nainital. Call +91 83929 86174, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Nainital and Delhi NCR.",
 };
 
 export default function ContactPage() {
@@ -103,7 +103,7 @@ export default function ContactPage() {
                   <Phone size={16} /> Call Now
                 </a>
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/918392986174"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-colors"

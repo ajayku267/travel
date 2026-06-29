@@ -192,7 +192,7 @@ export default function TourBookingModal({ tour, onClose }: TourBookingModalProp
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 83929 86174"
                     type="tel"
                     className="form-input"
                     required

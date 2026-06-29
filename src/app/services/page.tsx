@@ -100,13 +100,13 @@ export default function ServicesPage() {
 
                     <div className="flex gap-3">
                       <a
-                        href="tel:+919876543210"
+                        href="tel:+918392986174"
                         className="flex items-center gap-2 px-5 py-2.5 btn-primary"
                       >
                         <Phone size={16} /> Book Now
                       </a>
                       <a
-                        href="https://wa.me/919876543210"
+                        href="https://wa.me/918392986174"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors"

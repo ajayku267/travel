@@ -226,13 +226,13 @@ export default function FareCalculatorClient({
 
                 <div className="flex gap-3">
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+918392986174"
                     className="flex-1 text-center py-3 bg-yellow-400 text-gray-900 font-bold rounded-xl"
                   >
                     📞 Book Now
                   </a>
                   <a
-                    href={`https://wa.me/919876543210?text=Hi! I want to book ${vehicle.name} from ${pickup} to ${drop}. Estimated fare: ${formatCurrency(result.fare)}`}
+                    href={`https://wa.me/918392986174?text=Hi! I want to book ${vehicle.name} from ${pickup} to ${drop}. Estimated fare: ${formatCurrency(result.fare)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center py-3 bg-green-500 text-white font-bold rounded-xl"

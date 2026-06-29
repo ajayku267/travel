@@ -48,7 +48,7 @@ export default function ContactForm() {
     } catch {
       toast.error("Failed to send message. Redirecting to WhatsApp.");
       const msg = `Hi! I have a query.%0AName: ${data.name}%0APhone: ${data.phone}%0ASubject: ${data.subject}%0AMessage: ${data.message}`;
-      window.open(`https://wa.me/919876543210?text=${msg}`, "_blank");
+      window.open(`https://wa.me/918392986174?text=${msg}`, "_blank");
     } finally {
       setIsSubmitting(false);
     }
@@ -88,7 +88,7 @@ export default function ContactForm() {
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">Mobile Number *</label>
           <input
             {...register("phone")}
-            placeholder="+91 98765 43210"
+            placeholder="+91 83929 86174"
             type="tel"
             className={`form-input ${errors.phone ? "border-red-400" : ""}`}
           />
