@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: route.metaDescription,
     },
     alternates: {
-      canonical: `https://haryanataxi.com/routes/${route.slug}`,
+      canonical: `https://nainitaltaxi.com/routes/${route.slug}`,
     },
   };
 }

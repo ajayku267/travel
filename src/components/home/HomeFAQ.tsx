@@ -23,19 +23,19 @@ const homeFaqs: FAQ[] = [
       "We charge fixed fares with no hidden charges. The fare is quoted upfront and includes tolls and driver allowances unless specified otherwise.",
   },
   {
-    question: "Do you provide airport taxi service from Haryana?",
+    question: "Do you provide airport taxi service from Nainital?",
     answer:
-      "Yes, we provide dedicated airport taxi service from all cities in Haryana to Delhi IGI Airport, Chandigarh Airport, and other airports. We track your flight for delays.",
+      "Yes, we provide dedicated airport taxi service from all cities in Nainital to Delhi IGI Airport, Chandigarh Airport, and other airports. We track your flight for delays.",
   },
   {
-    question: "Can I hire a cab for the whole day in Haryana?",
+    question: "Can I hire a cab for the whole day in Nainital?",
     answer:
       "Yes, we offer 8-hour/80 km and 12-hour/120 km packages for local use. The driver stays with you throughout the day.",
   },
   {
     question: "Do you offer corporate taxi service?",
     answer:
-      "Yes, we have special corporate packages with monthly billing, GST invoices, and dedicated account managers for businesses in Haryana and Delhi NCR.",
+      "Yes, we have special corporate packages with monthly billing, GST invoices, and dedicated account managers for businesses in Nainital and Delhi NCR.",
   },
   {
     question: "What payment methods do you accept?",

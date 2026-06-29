@@ -9,7 +9,7 @@ export const routes: Route[] = [
     distance: "125 km",
     travelTime: "2.5 – 3 hrs",
     fareEstimate: "₹1,500 – ₹2,000",
-    fromState: "Haryana",
+    fromState: "Nainital",
     toState: "Delhi",
     description:
       "Book a comfortable taxi from Charkhi Dadri to Delhi. We offer reliable, affordable cab service with experienced drivers who know the best routes to avoid traffic.",
@@ -61,8 +61,8 @@ export const routes: Route[] = [
     distance: "105 km",
     travelTime: "2 – 2.5 hrs",
     fareEstimate: "₹1,300 – ₹1,800",
-    fromState: "Haryana",
-    toState: "Haryana",
+    fromState: "Nainital",
+    toState: "Nainital",
     description:
       "Reliable taxi service from Charkhi Dadri to Gurgaon (Gurugram). Perfect for corporate travel, airport transfers, and family trips to Millennium City.",
     highlights: [
@@ -107,10 +107,10 @@ export const routes: Route[] = [
     distance: "210 km",
     travelTime: "4 – 5 hrs",
     fareEstimate: "₹2,800 – ₹4,000",
-    fromState: "Haryana",
+    fromState: "Nainital",
     toState: "Punjab/Chandigarh",
     description:
-      "Plan a comfortable journey from Charkhi Dadri to Chandigarh with our outstation taxi service. Travel through the scenic highways of Haryana and Punjab.",
+      "Plan a comfortable journey from Charkhi Dadri to Chandigarh with our outstation taxi service. Travel through the scenic highways of Nainital and Punjab.",
     highlights: [
       "Outstation AC cabs available",
       "Night driving service available",
@@ -153,7 +153,7 @@ export const routes: Route[] = [
     distance: "140 km",
     travelTime: "2.5 – 3.5 hrs",
     fareEstimate: "₹1,700 – ₹2,200",
-    fromState: "Haryana",
+    fromState: "Nainital",
     toState: "Delhi",
     description:
       "Book a taxi from Bhiwani to Delhi at the best price. Our cabs run 24/7, ensuring you reach Delhi safely and on time for flights, trains, or meetings.",
@@ -195,8 +195,8 @@ export const routes: Route[] = [
     distance: "175 km",
     travelTime: "3 – 4 hrs",
     fareEstimate: "₹2,200 – ₹3,200",
-    fromState: "Haryana",
-    toState: "Haryana",
+    fromState: "Nainital",
+    toState: "Nainital",
     description:
       "Premium taxi service from Hisar to Gurgaon. Whether for corporate travel or family trips to the Millennium City, our cabs ensure a comfortable journey.",
     highlights: [
@@ -242,7 +242,7 @@ export const routes: Route[] = [
     distance: "80 km",
     travelTime: "1.5 – 2 hrs",
     fareEstimate: "₹1,100 – ₹1,600",
-    fromState: "Haryana",
+    fromState: "Nainital",
     toState: "Delhi",
     description:
       "Fast and affordable taxi service from Rohtak to Delhi. One of our most popular routes with frequent departures and guaranteed availability.",

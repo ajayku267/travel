@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
-import { COMPANY_NAME, PHONE_NUMBER, EMAIL, ADDRESS } from "@/lib/utils";
+import { COMPANY_NAME, PHONE_NUMBER, EMAIL, ADDRESS, ADDRESS2 } from "@/lib/utils";
 
 const footerLinks = {
   services: [
@@ -89,7 +89,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-6 max-w-sm">
-              Haryana&#39;s most trusted taxi service operating in Haryana, Delhi NCR, and nearby
+              Nainital&#39;s most trusted taxi service operating in Nainital, Delhi NCR, and nearby
               states. Professional drivers, well-maintained vehicles, and fixed transparent pricing.
             </p>
             <div className="space-y-3">
@@ -113,7 +113,10 @@ export default function Footer() {
                 <div className="w-9 h-9 bg-yellow-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
                   <MapPin size={14} className="text-yellow-400" />
                 </div>
-                <span className="text-sm text-gray-400">{ADDRESS}</span>
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-sm text-gray-400"><strong className="text-gray-300 font-semibold">Nainital:</strong> {ADDRESS}</span>
+                  <span className="text-sm text-gray-400"><strong className="text-gray-300 font-semibold">Haldwani:</strong> {ADDRESS2}</span>
+                </div>
               </div>
             </div>
           </div>

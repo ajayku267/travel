@@ -31,7 +31,7 @@ export const reviews: Review[] = [
     location: "Rohtak",
     rating: 5,
     review:
-      "I use Go Nainital for my weekly commute from Rohtak to Gurgaon office. The drivers are always punctual and the cabs are well-maintained. The corporate billing is very convenient. Best taxi service in Haryana!",
+      "I use Go Nainital for my weekly commute from Rohtak to Gurgaon office. The drivers are always punctual and the cabs are well-maintained. The corporate billing is very convenient. Best taxi service in Nainital!",
     date: "2024-12-01",
     verified: true,
     route: "Rohtak to Gurgaon",

@@ -8,7 +8,7 @@ import { COMPANY_NAME } from "@/lib/utils";
 export const metadata: Metadata = {
   title: `Customer Reviews | ${COMPANY_NAME} — 4.8★ Rated`,
   description:
-    "Read genuine customer reviews of Go Nainital. 4.8 star rated taxi service across Haryana and Delhi NCR. 500+ happy customers.",
+    "Read genuine customer reviews of Go Nainital. 4.8 star rated taxi service across Nainital and Delhi NCR. 500+ happy customers.",
 };
 
 export default async function ReviewsPage() {
@@ -39,7 +39,7 @@ export default async function ReviewsPage() {
           </span>
           <h1 className="text-4xl font-black text-white mb-4">What Our Customers Say</h1>
           <p className="text-gray-300 text-lg">
-            Genuine reviews from thousands of satisfied customers across Haryana &amp; Delhi NCR
+            Genuine reviews from thousands of satisfied customers across Nainital &amp; Delhi NCR
           </p>
         </div>
       </section>

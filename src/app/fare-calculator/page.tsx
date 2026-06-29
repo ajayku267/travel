@@ -6,7 +6,7 @@ import FareCalculatorClient from "./FareCalculatorClient";
 export const metadata: Metadata = {
   title: `Fare Calculator | ${COMPANY_NAME} — Taxi Fare Estimate`,
   description:
-    "Calculate instant taxi fare for your journey across Haryana and Delhi NCR. Fixed and transparent pricing for one-way and round-trip journeys.",
+    "Calculate instant taxi fare for your journey across Nainital and Delhi NCR. Fixed and transparent pricing for one-way and round-trip journeys.",
 };
 
 export default async function FareCalculatorPage() {

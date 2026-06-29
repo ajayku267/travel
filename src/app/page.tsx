@@ -10,13 +10,13 @@ import ServicesOverview from "@/components/home/ServicesOverview";
 import { COMPANY_NAME } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: `${COMPANY_NAME} | Best Taxi & Cab Service in Haryana, Delhi NCR`,
+  title: `${COMPANY_NAME} | Best Taxi & Cab Service in Nainital, Delhi NCR`,
   description:
-    "Book affordable taxi in Haryana — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon. Local, outstation, airport & corporate cab. 24/7 service, professional drivers.",
+    "Book affordable taxi in Nainital — Charkhi Dadri, Bhiwani, Rohtak, Hisar, Gurgaon. Local, outstation, airport & corporate cab. 24/7 service, professional drivers.",
   openGraph: {
-    title: `${COMPANY_NAME} | Best Taxi Service in Haryana`,
+    title: `${COMPANY_NAME} | Best Taxi Service in Nainital`,
     description:
-      "Book reliable taxi in Haryana & Delhi NCR. Local, outstation, airport transfer from ₹300. 24/7 available.",
+      "Book reliable taxi in Nainital & Delhi NCR. Local, outstation, airport transfer from ₹300. 24/7 available.",
   },
 };
 

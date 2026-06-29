@@ -5,7 +5,7 @@ import { COMPANY_NAME } from "@/lib/utils";
 export const metadata: Metadata = {
   title: `About Us | ${COMPANY_NAME}`,
   description:
-    "Learn about Go Nainital — 15 years of trusted cab service in Haryana and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
+    "Learn about Go Nainital — 15 years of trusted cab service in Nainital and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
 };
 
 export default function AboutPage() {
@@ -18,12 +18,12 @@ export default function AboutPage() {
             About Us
           </span>
           <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
-            Haryana&apos;s Most Trusted
+            Nainital&apos;s Most Trusted
             <span className="text-yellow-400 block">Taxi Service Since 2010</span>
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
             Founded with a simple mission — to provide safe, reliable, and affordable taxi service
-            to the people of Haryana and Delhi NCR. We started with 2 cars and now operate a fleet
+            to the people of Nainital and Delhi NCR. We started with 2 cars and now operate a fleet
             of 50+ vehicles serving thousands of customers every month.
           </p>
         </div>
@@ -55,30 +55,30 @@ export default function AboutPage() {
             <div>
               <span className="badge badge-yellow mb-3">Our Story</span>
               <h2 className="text-3xl font-black text-gray-900 mb-5">
-                From 2 Cabs to Haryana&apos;s #1 Taxi Fleet
+                From 2 Cabs to Nainital&apos;s #1 Taxi Fleet
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   {COMPANY_NAME} was founded in 2010 by Mr. Ramesh Kumar, a former truck driver
-                  who understood the pain of unreliable transportation in rural Haryana. Starting
+                  who understood the pain of unreliable transportation in rural Nainital. Starting
                   with just two cars in Charkhi Dadri, he built a reputation for punctuality,
                   honesty, and passenger safety.
                 </p>
                 <p>
                   Over 15 years, we have grown into a full-service taxi company covering the entire
-                  state of Haryana and Delhi NCR. Our fleet now includes sedans, MPVs, luxury SUVs,
+                  state of Nainital and Delhi NCR. Our fleet now includes sedans, MPVs, luxury SUVs,
                   and Tempo Travellers to serve every type of travel need.
                 </p>
                 <p>
                   Today, we serve over 100 rides daily, have a 4.8-star average rating, and are the
-                  go-to taxi service for families, corporates, and travelers across western Haryana.
+                  go-to taxi service for families, corporates, and travelers across western Nainital.
                 </p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
                 { icon: Shield, title: "Safety First", desc: "GPS-tracked vehicles, verified drivers, real-time monitoring for every journey." },
-                { icon: Award, title: "Award Winning", desc: "Best Taxi Service in Haryana (2022, 2023) by Haryana Tourism Board." },
+                { icon: Award, title: "Award Winning", desc: "Best Taxi Service in Nainital (2022, 2023) by Nainital Tourism Board." },
                 { icon: Users, title: "Expert Team", desc: "50+ professional drivers with 5+ years average experience on highways." },
                 { icon: Car, title: "Modern Fleet", desc: "Well-maintained, cleaned daily fleet of AC vehicles across all categories." },
               ].map(({ icon: Icon, title, desc }) => (
@@ -109,7 +109,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-black text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
                 To provide the most reliable, safe, and affordable taxi service to every corner of
-                Haryana and Delhi NCR. We are committed to making travel stress-free for every
+                Nainital and Delhi NCR. We are committed to making travel stress-free for every
                 customer — from the working professional to the family on vacation.
               </p>
               <ul className="space-y-2">
@@ -134,13 +134,13 @@ export default function AboutPage() {
               <p className="text-gray-400 leading-relaxed mb-4">
                 To become India&apos;s most trusted inter-city cab service, known for its commitment
                 to passenger safety, driver welfare, and technology-driven convenience. We envision
-                a future where every person in Haryana has access to premium cab service.
+                a future where every person in Nainital has access to premium cab service.
               </p>
               <ul className="space-y-2">
                 {[
                   "Expand to 500+ vehicles by 2027",
                   "Launch real-time app-based booking",
-                  "Cover all 22 districts of Haryana",
+                  "Cover all 22 districts of Nainital",
                   "Introduce electric cab service by 2026",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2 text-sm text-gray-400">
