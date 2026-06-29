@@ -19,6 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const COMPANY_NAME = settings.companyName;
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://nainitaltaxi.com"),
+    verification: {
+      google: "DSPBAVU2kCBdxYmlzhvyeekLGIfgrJ6btoD0Pr70ISk",
+    },
     title: {
       default: `${COMPANY_NAME} | Taxi & Cab Service in Nainital, Delhi NCR`,
       template: `%s | ${COMPANY_NAME}`,
