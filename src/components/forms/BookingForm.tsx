@@ -11,6 +11,10 @@ import { cn } from "@/lib/utils";
 import LocationAutocomplete from "./LocationAutocomplete";
 import { toast } from "sonner";
 import { useSettings } from "@/components/providers/SettingsProvider";
+import dynamic from "next/dynamic";
+import type { LocationData } from "./LocationAutocomplete";
+
+const BookingMap = dynamic(() => import("./BookingMap"), { ssr: false });
 
 declare global {
   interface Window {
@@ -50,6 +54,12 @@ export default function BookingForm({
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTourMode, setIsTourMode] = useState(false);
+  
+  // Map State
+  const [pickupCoords, setPickupCoords] = useState<[number, number] | null>(null);
+  const [dropCoords, setDropCoords] = useState<[number, number] | null>(null);
+  const [pickupName, setPickupName] = useState<string>(defaultPickup);
+  const [dropName, setDropName] = useState<string>(defaultDrop);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -299,6 +309,11 @@ export default function BookingForm({
               <LocationAutocomplete
                 value={field.value}
                 onChange={field.onChange}
+                onLocationSelect={(loc: LocationData) => {
+                  setPickupCoords([loc.lat, loc.lon]);
+                  setPickupName(loc.name);
+                }}
+                showLocateMe={true}
                 placeholder="City, Area or Full Address"
                 iconColorClass="text-green-500"
                 error={!!errors.pickupLocation}
@@ -333,9 +348,13 @@ export default function BookingForm({
               control={control}
               name="dropLocation"
               render={({ field }) => (
-                <LocationAutocomplete
+              <LocationAutocomplete
                   value={field.value}
                   onChange={field.onChange}
+                  onLocationSelect={(loc: LocationData) => {
+                    setDropCoords([loc.lat, loc.lon]);
+                    setDropName(loc.name);
+                  }}
                   placeholder="City, Area or Full Address"
                   iconColorClass="text-red-500"
                   error={!!errors.dropLocation}
@@ -348,6 +367,18 @@ export default function BookingForm({
           )}
         </div>
       </div>
+
+      {/* Interactive Map */}
+      {!compact && (pickupCoords || dropCoords) && (
+        <div className="pt-2">
+          <BookingMap 
+            pickupCoords={pickupCoords} 
+            dropCoords={dropCoords} 
+            pickupName={pickupName}
+            dropName={dropName}
+          />
+        </div>
+      )}
 
       {/* Date, Vehicle, Trip Type */}
       <div className={cn("grid gap-4", compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-3")}>
