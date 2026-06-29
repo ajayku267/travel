@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
          if (booking.email && process.env.RESEND_API_KEY) {
            try {
              await resend.emails.send({
-               from: "Haryana Taxi <receipts@haryanataxi.com>", // Update this to a verified domain in Resend later
+               from: "Go Nainital <receipts@haryanataxi.com>", // Update this to a verified domain in Resend later
                to: booking.email,
                subject: `Booking Receipt - ${booking.bookingId}`,
                react: ReceiptEmail({

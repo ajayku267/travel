@@ -5,7 +5,7 @@ import { COMPANY_NAME } from "@/lib/utils";
 export const metadata: Metadata = {
   title: `About Us | ${COMPANY_NAME}`,
   description:
-    "Learn about Haryana Taxi Service — 15 years of trusted cab service in Haryana and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
+    "Learn about Go Nainital — 15 years of trusted cab service in Haryana and Delhi NCR. Our mission, vision, values, and commitment to safe travel.",
 };
 
 export default function AboutPage() {

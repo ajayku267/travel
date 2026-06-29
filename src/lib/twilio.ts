@@ -124,7 +124,7 @@ export async function sendCustomerConfirmation(booking: BookingDetails) {
   const message = `Hi ${booking.name}, your booking request (${booking.bookingId}) is received! 
 Route: ${booking.pickup} ➔ ${booking.drop}
 We will call you shortly to confirm.
-- Haryana Taxi Service`;
+- Go Nainital`;
 
   try {
     const from = twilioWhatsapp || twilioNumber;

@@ -6,7 +6,7 @@ import ContactForm from "@/components/forms/ContactForm";
 export const metadata: Metadata = {
   title: `Contact Us | ${COMPANY_NAME}`,
   description:
-    "Contact Haryana Taxi Service. Call +91 98765 43210, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Haryana and Delhi NCR.",
+    "Contact Go Nainital. Call +91 98765 43210, WhatsApp, or send an email. 24/7 customer support for taxi bookings in Haryana and Delhi NCR.",
 };
 
 export default function ContactPage() {
@@ -114,7 +114,7 @@ export default function ContactPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Haryana Taxi Service Location"
+                  title="Go Nainital Location"
                 />
               </div>
             </div>

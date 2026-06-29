@@ -41,7 +41,7 @@ export const ReceiptEmail = ({
           <Heading style={h1}>Booking Confirmed! 🚖</Heading>
           <Text style={text}>Hi {name},</Text>
           <Text style={text}>
-            Thank you for booking with Haryana Taxi Service. We have received your advance payment and your ride is confirmed.
+            Thank you for booking with Go Nainital. We have received your advance payment and your ride is confirmed.
           </Text>
 
           <Section style={detailsContainer}>

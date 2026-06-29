@@ -34,7 +34,7 @@ export const locations: Location[] = [
       {
         question: "Which taxi service is available in Charkhi Dadri?",
         answer:
-          "Haryana Taxi Service offers comprehensive taxi services in Charkhi Dadri including local, outstation, airport transfer, and corporate cab services.",
+          "Go Nainital offers comprehensive taxi services in Charkhi Dadri including local, outstation, airport transfer, and corporate cab services.",
       },
       {
         question: "What is the contact number for taxi in Dadri?",
@@ -46,7 +46,7 @@ export const locations: Location[] = [
           "Yes, our taxi service is available 24 hours a day, 7 days a week, including holidays.",
       },
     ],
-    metaTitle: "Taxi Service in Charkhi Dadri | Cab Booking 24/7 | Haryana Taxi",
+    metaTitle: "Taxi Service in Charkhi Dadri | Cab Booking 24/7 | Go Nainital",
     metaDescription:
       "Best taxi service in Charkhi Dadri. Book AC cab for local, outstation, airport transfer. Fixed fares, professional drivers, 24/7 availability.",
     keywords: [
@@ -93,7 +93,7 @@ export const locations: Location[] = [
           "Yes, we provide dedicated airport taxi service from Bhiwani to IGI Airport Delhi at competitive rates.",
       },
     ],
-    metaTitle: "Taxi Service in Bhiwani | Book Cab Online | Haryana Taxi Service",
+    metaTitle: "Taxi Service in Bhiwani | Book Cab Online | Go Nainital",
     metaDescription:
       "Best taxi service in Bhiwani, Haryana. Book AC cab for local, outstation, airport transfer. 24/7 availability, fixed fares.",
     keywords: [
@@ -140,7 +140,7 @@ export const locations: Location[] = [
           "Yes, we run regular cabs from Rohtak to Delhi. You can also book on short notice.",
       },
     ],
-    metaTitle: "Taxi Service in Rohtak | Book Cab | Haryana Taxi Service",
+    metaTitle: "Taxi Service in Rohtak | Book Cab | Go Nainital",
     metaDescription:
       "Reliable taxi service in Rohtak. Book AC cab for Delhi, Gurgaon, Chandigarh. Affordable fares, 24/7 service. Call now!",
     keywords: [
@@ -179,7 +179,7 @@ export const locations: Location[] = [
       {
         question: "Which is the best taxi service in Hisar?",
         answer:
-          "Haryana Taxi Service is the most trusted cab service in Hisar with experienced drivers and well-maintained vehicles.",
+          "Go Nainital is the most trusted cab service in Hisar with experienced drivers and well-maintained vehicles.",
       },
       {
         question: "How far is Delhi from Hisar?",
@@ -187,7 +187,7 @@ export const locations: Location[] = [
           "Delhi is approximately 165 km from Hisar via NH-9. The journey takes about 3 hours.",
       },
     ],
-    metaTitle: "Taxi Service in Hisar | Book AC Cab | Haryana Taxi Service",
+    metaTitle: "Taxi Service in Hisar | Book AC Cab | Go Nainital",
     metaDescription:
       "Best taxi service in Hisar, Haryana. Book AC cab for Delhi, Gurgaon, Chandigarh. Corporate packages, fixed fares, 24/7 service.",
     keywords: [
@@ -234,13 +234,13 @@ export const locations: Location[] = [
           "Yes, we offer corporate employee transportation solutions in Gurgaon with dedicated fleet and monthly invoicing.",
       },
     ],
-    metaTitle: "Taxi Service in Gurgaon | Book Cab for Haryana & NCR | Haryana Taxi",
+    metaTitle: "Taxi Service in Gurgaon | Book Cab for Haryana & NCR | Go Nainital",
     metaDescription:
       "Premium taxi service in Gurgaon. Corporate cabs, airport transfer, Haryana routes. 24/7 availability, professional drivers.",
     keywords: [
       "taxi service in gurgaon",
       "gurgaon cab service",
-      "gurgaon to haryana taxi",
+      "gurgaon to go nainital",
       "corporate taxi gurgaon",
     ],
   },

@@ -19,7 +19,7 @@ export const reviews: Review[] = [
     location: "Bhiwani",
     rating: 5,
     review:
-      "Used Haryana Taxi for my wedding car rental. They provided an Innova Crysta beautifully decorated. The driver was on time and very courteous. All my family members were impressed. Will definitely use again for outstation travel!",
+      "Used Go Nainital for my wedding car rental. They provided an Innova Crysta beautifully decorated. The driver was on time and very courteous. All my family members were impressed. Will definitely use again for outstation travel!",
     date: "2024-11-28",
     verified: true,
     route: "Wedding Car Rental",
@@ -31,7 +31,7 @@ export const reviews: Review[] = [
     location: "Rohtak",
     rating: 5,
     review:
-      "I use Haryana Taxi for my weekly commute from Rohtak to Gurgaon office. The drivers are always punctual and the cabs are well-maintained. The corporate billing is very convenient. Best taxi service in Haryana!",
+      "I use Go Nainital for my weekly commute from Rohtak to Gurgaon office. The drivers are always punctual and the cabs are well-maintained. The corporate billing is very convenient. Best taxi service in Haryana!",
     date: "2024-12-01",
     verified: true,
     route: "Rohtak to Gurgaon",

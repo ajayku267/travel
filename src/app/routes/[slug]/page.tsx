@@ -231,7 +231,7 @@ export default async function RoutePage({ params }: Props) {
             description: route.description,
             provider: {
               "@type": "LocalBusiness",
-              name: "Haryana Taxi Service",
+              name: "Go Nainital",
               telephone: "+919876543210",
             },
             areaServed: [route.fromState, route.toState],

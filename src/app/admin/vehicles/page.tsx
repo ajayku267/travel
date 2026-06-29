@@ -20,7 +20,7 @@ export default async function AdminVehiclesPage() {
               🚖
             </div>
             <div>
-              <div className="font-bold">Haryana Taxi — Admin</div>
+              <div className="font-bold">Go Nainital — Admin</div>
               <div className="text-xs text-gray-400">Vehicle Management</div>
             </div>
           </div>

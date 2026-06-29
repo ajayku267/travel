@@ -43,7 +43,7 @@ export const routes: Route[] = [
           "Yes, you can book up to 30 days in advance. We recommend booking at least 4 hours before your journey.",
       },
     ],
-    metaTitle: "Dadri to Delhi Taxi | Book Cab Online | Haryana Taxi Service",
+    metaTitle: "Dadri to Delhi Taxi | Book Cab Online | Go Nainital",
     metaDescription:
       "Book Dadri to Delhi taxi at best price. Reliable, affordable cab service starting ₹1,500. AC cabs, professional drivers, 24/7 availability. Call now!",
     keywords: [
@@ -90,7 +90,7 @@ export const routes: Route[] = [
           "Absolutely. We offer Dadri to Delhi Airport taxi service with a drop at Terminal 1, 2, or 3.",
       },
     ],
-    metaTitle: "Dadri to Gurgaon Taxi | Book Cab | Haryana Taxi Service",
+    metaTitle: "Dadri to Gurgaon Taxi | Book Cab | Go Nainital",
     metaDescription:
       "Book Dadri to Gurgaon taxi online. AC cabs, professional drivers, fixed fares from ₹1,300. Corporate taxi available. 24/7 service.",
     keywords: [
@@ -136,7 +136,7 @@ export const routes: Route[] = [
           "Yes, we offer round-trip booking with a special discount. You can also book a driver for multiple days.",
       },
     ],
-    metaTitle: "Dadri to Chandigarh Taxi | Outstation Cab | Haryana Taxi",
+    metaTitle: "Dadri to Chandigarh Taxi | Outstation Cab | Go Nainital",
     metaDescription:
       "Book outstation taxi from Dadri to Chandigarh. 210 km journey, fare from ₹2,800. AC cabs, tolls included, 24/7 service.",
     keywords: [
@@ -182,7 +182,7 @@ export const routes: Route[] = [
           "Yes, we specialize in airport transfers. Your driver will be at your doorstep at least 15 minutes before the scheduled time.",
       },
     ],
-    metaTitle: "Bhiwani to Delhi Taxi | Book Cab Online | Haryana Taxi Service",
+    metaTitle: "Bhiwani to Delhi Taxi | Book Cab Online | Go Nainital",
     metaDescription:
       "Bhiwani to Delhi taxi booking at best price ₹1,700+. AC cabs, airport transfers, 24/7 service. Professional drivers. Book now!",
     keywords: ["bhiwani to delhi taxi", "bhiwani delhi cab", "taxi from bhiwani to delhi"],
@@ -224,7 +224,7 @@ export const routes: Route[] = [
           "Yes, we offer monthly corporate cab packages with dedicated drivers and priority booking for regular corporate commuters.",
       },
     ],
-    metaTitle: "Hisar to Gurgaon Taxi | Book Cab | Haryana Taxi Service",
+    metaTitle: "Hisar to Gurgaon Taxi | Book Cab | Go Nainital",
     metaDescription:
       "Book Hisar to Gurgaon taxi at best price. 175 km, fare from ₹2,200. AC cabs, corporate packages, fixed rates. Book now!",
     keywords: [
@@ -265,7 +265,7 @@ export const routes: Route[] = [
           "Swift Dzire is the most economical option starting from ₹1,100 for a one-way trip.",
       },
     ],
-    metaTitle: "Rohtak to Delhi Taxi | Book Cab | Haryana Taxi Service",
+    metaTitle: "Rohtak to Delhi Taxi | Book Cab | Go Nainital",
     metaDescription:
       "Rohtak to Delhi taxi booking. 80 km, fare from ₹1,100. Fast, reliable cab service. Book now!",
     keywords: ["rohtak to delhi taxi", "rohtak delhi cab", "taxi rohtak to delhi"],

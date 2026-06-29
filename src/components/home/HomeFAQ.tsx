@@ -3,7 +3,7 @@ import type { FAQ } from "@/types";
 
 const homeFaqs: FAQ[] = [
   {
-    question: "How do I book a taxi with Haryana Taxi Service?",
+    question: "How do I book a taxi with Go Nainital?",
     answer:
       "You can book a taxi through our online booking form on the website, by calling +91 98765 43210, or by sending a WhatsApp message. We respond within 5 minutes.",
   },

@@ -66,5 +66,5 @@ export const PHONE_NUMBER = "+91 98765 43210";
 export const WHATSAPP_NUMBER = "919876543210";
 export const EMAIL = "info@haryanataxi.com";
 export const ADDRESS = "Near Bus Stand, Charkhi Dadri, Haryana - 127306";
-export const COMPANY_NAME = "Haryana Taxi Service";
+export const COMPANY_NAME = "Go Nainital";
 export const TAGLINE = "Your Trusted Travel Partner in Haryana & NCR";
