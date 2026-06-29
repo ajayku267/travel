@@ -141,3 +141,38 @@ We will call you shortly to confirm.
     return false;
   }
 }
+
+/**
+ * Sends a WhatsApp or SMS notification to the Customer when booking status changes
+ */
+export async function sendStatusUpdateNotification(phone: string, name: string, bookingId: string, status: string) {
+  if (!client || !twilioNumber) {
+    console.warn("Twilio credentials missing. Skipping status update notification.");
+    return false;
+  }
+
+  const statusLabels: Record<string, string> = {
+    confirmed: "Confirmed ✅",
+    completed: "Completed 🏁",
+    cancelled: "Cancelled ❌",
+  };
+  const label = statusLabels[status] || status.charAt(0).toUpperCase() + status.slice(1);
+
+  const message = `Hi ${name}, the status of your booking (${bookingId}) has been updated to: *${label}*.
+- Go Nainital`;
+
+  try {
+    const from = twilioWhatsapp || twilioNumber;
+    const formattedPhone = formatNumber(phone, !!twilioWhatsapp);
+
+    await client.messages.create({
+      body: message,
+      from: twilioWhatsapp ? `whatsapp:${twilioWhatsapp}` : from,
+      to: formattedPhone,
+    });
+    return true;
+  } catch (error) {
+    console.error("Twilio Status Update Error:", error);
+    return false;
+  }
+}

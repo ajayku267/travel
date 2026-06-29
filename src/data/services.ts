@@ -6,14 +6,14 @@ export const services: Service[] = [
     slug: "local-taxi",
     title: "Local Taxi Service",
     description:
-      "Reliable local taxi service within your city. Available for hourly booking, market visits, hospital trips, office commutes, and more. Our local cabs are always ready to pick you up at a moment's notice.",
+      "Reliable local taxi service within Nainital and surrounding areas. Available for hourly booking, market visits, hospital trips, and more. Our local cabs are always ready to pick you up.",
     icon: "MapPin",
     features: [
       "Within city cab service",
       "Hourly/daily package available",
       "Hospital & emergency pickups",
       "Market & shopping trips",
-      "School & college drops",
+      "Sightseeing pickups",
       "24/7 availability",
     ],
   },
@@ -22,15 +22,15 @@ export const services: Service[] = [
     slug: "airport-taxi",
     title: "Airport Taxi Service",
     description:
-      "Never miss a flight again. Our punctual airport transfer service ensures you reach Delhi's IGI Airport, Chandigarh Airport, or any other airport with time to spare.",
+      "Never miss a flight again. Our punctual airport transfer service ensures you reach Pantnagar Airport, Delhi IGI, or any other airport on time.",
     icon: "Plane",
     features: [
-      "IGI Airport Delhi transfer",
-      "Chandigarh Airport transfer",
+      "Pantnagar Airport transfer",
+      "Delhi IGI Airport transfer",
       "Flight tracking & wait service",
       "Meet & greet at arrival",
       "Pre-booked airport rides",
-      "All terminals covered",
+      "Reliable pickups",
     ],
   },
   {
@@ -38,13 +38,13 @@ export const services: Service[] = [
     slug: "outstation-taxi",
     title: "Outstation Taxi Service",
     description:
-      "Travel across India comfortably with our outstation cab service. Whether it's Jaipur, Agra, Shimla, or anywhere else — our experienced drivers know the route.",
+      "Travel across North India comfortably with our outstation cab service. Whether it's Delhi, Chandigarh, Jaipur, or anywhere else — our experienced drivers know the route.",
     icon: "Navigation",
     features: [
       "Pan-India outstation service",
       "Experienced highway drivers",
       "All-inclusive fare (tolls, taxes)",
-      "Multiple vehicle options",
+      "Small Cars, Sumo & Tavera",
       "Overnight trips available",
       "Real-time driver tracking",
     ],
@@ -59,7 +59,7 @@ export const services: Service[] = [
     features: [
       "Pay only for one direction",
       "Most economical option",
-      "Available on all routes",
+      "Available on all major routes",
       "No return charges",
       "Fixed one-way pricing",
       "Same quality service",
@@ -94,7 +94,7 @@ export const services: Service[] = [
       "Dedicated account manager",
       "Employee transportation",
       "Priority booking for corporates",
-      "Premium vehicle guarantee",
+      "Well-maintained vehicles",
     ],
   },
   {
@@ -102,31 +102,15 @@ export const services: Service[] = [
     slug: "wedding-car",
     title: "Wedding Car Rental",
     description:
-      "Make your special day even more memorable with our beautifully decorated wedding cars. Luxury Innova Crysta and Fortuner available with floral decoration.",
+      "Make your special day even more memorable with our reliably decorated wedding cars. Sumo and Tavera available for baraat and guest transport.",
     icon: "Heart",
     features: [
       "Decorated vehicles available",
-      "Luxury Innova Crysta & Fortuner",
+      "Spacious Sumo & Tavera",
       "Reliable punctual service",
       "Multi-vehicle fleet for baraat",
       "Driver in formal attire",
       "Affordable wedding packages",
-    ],
-  },
-  {
-    id: "8",
-    slug: "tempo-traveller",
-    title: "Tempo Traveller Service",
-    description:
-      "Plan group tours, pilgrimages, and corporate outings with our Tempo Traveller service. Spacious 12-seater with push-back seats and air conditioning.",
-    icon: "Users",
-    features: [
-      "12-seater Tempo Traveller",
-      "Push-back comfortable seats",
-      "AC & music system",
-      "Ideal for pilgrimages",
-      "Group tour packages",
-      "Large luggage storage",
     ],
   },
 ];

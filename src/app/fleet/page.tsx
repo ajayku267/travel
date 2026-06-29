@@ -7,9 +7,9 @@ import { formatCurrency } from "@/lib/utils";
 import { COMPANY_NAME } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: `Our Fleet | ${COMPANY_NAME} — Swift Dzire, Innova, Tempo Traveller`,
+  title: `Our Fleet | ${COMPANY_NAME} — Small Cars, Tata Sumo, Chevrolet Tavera`,
   description:
-    "Choose from our fleet of well-maintained AC taxis: Swift Dzire, Maruti Ertiga, Toyota Innova, Innova Crysta, and Tempo Traveller. Book now at best prices.",
+    "Choose from our fleet of well-maintained taxis: Small Cars, Tata Sumo, and Chevrolet Tavera. Book now at best prices.",
 };
 
 export default async function FleetPage() {
@@ -30,8 +30,8 @@ export default async function FleetPage() {
             <span className="text-yellow-400 block">Every Trip &amp; Budget</span>
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            All our vehicles are air-conditioned, GPS-tracked, and serviced monthly. 
-            Choose from budget sedans to luxury SUVs and group mini-buses.
+            All our vehicles are well-maintained, GPS-tracked, and serviced regularly. 
+            Choose from small cars for short trips, or spacious SUVs like Sumo and Tavera for hills and groups.
           </p>
         </div>
       </section>

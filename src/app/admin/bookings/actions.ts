@@ -2,15 +2,44 @@
 
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { sendDriverAssignment } from "@/lib/twilio";
+import { sendDriverAssignment, sendStatusUpdateNotification } from "@/lib/twilio";
+import { sendEmail } from "@/lib/email";
 import { bookingSchema, formatZodErrors } from "@/lib/validations";
 
 export async function updateBookingStatus(id: string, status: string) {
   try {
-    await db.booking.update({
+    const booking = await db.booking.update({
       where: { id },
       data: { status },
     });
+
+    // Notify user via SMS/WhatsApp
+    if (booking.phone) {
+      sendStatusUpdateNotification(booking.phone, booking.name, booking.bookingId, status).catch(console.error);
+    }
+
+    // Notify user via Email
+    if (booking.email && process.env.SMTP_USER) {
+      const statusLabels: Record<string, string> = {
+        confirmed: "Confirmed",
+        completed: "Completed",
+        cancelled: "Cancelled",
+      };
+      const label = statusLabels[status] || status.charAt(0).toUpperCase() + status.slice(1);
+      sendEmail({
+        to: booking.email,
+        subject: `Booking Status Update - ${label}`,
+        html: `
+          <h2>Hello ${booking.name},</h2>
+          <p>The status of your booking (<b>${booking.bookingId}</b>) has been updated to: <b>${label}</b>.</p>
+          <p>Pickup: ${booking.pickup}</p>
+          <p>Drop: ${booking.drop}</p>
+          <br/>
+          <p>Thank you for choosing Go Nainital!</p>
+        `
+      }).catch(console.error);
+    }
+
     revalidatePath("/admin/bookings");
     revalidatePath("/admin");
     return { success: true };

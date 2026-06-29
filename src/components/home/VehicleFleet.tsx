@@ -20,8 +20,8 @@ export default async function VehicleFleet() {
             Choose Your Comfortable Ride
           </h2>
           <p className="text-gray-500 mt-5 max-w-2xl mx-auto">
-            From budget sedans to luxury SUVs and group tempo travellers — we have the perfect
-            vehicle for every trip and budget.
+            From small cars to spacious SUVs like Sumo and Tavera — we have the perfect
+            vehicle for every hill trip and budget.
           </p>
         </div>
 

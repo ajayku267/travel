@@ -67,7 +67,7 @@ export default function AboutPage() {
                 <p>
                   Over 15 years, we have grown into a full-service taxi company covering the entire
                   state of Nainital and Delhi NCR. Our fleet now includes sedans, MPVs, luxury SUVs,
-                  and Tempo Travellers to serve every type of travel need.
+                  and Tavera to serve every type of travel need.
                 </p>
                 <p>
                   Today, we serve over 100 rides daily, have a 4.8-star average rating, and are the

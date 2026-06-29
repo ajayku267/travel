@@ -35,24 +35,20 @@ export function calculateFare(
   vehicleType: string,
   tripType: "one-way" | "round-trip"
 ): number {
-  const rateMap: Record<string, number> = {
-    "swift-dzire": 12,
-    "maruti-ertiga": 14,
-    "toyota-innova": 18,
-    "innova-crysta": 20,
-    "tempo-traveller": 25,
+  const priceMap: Record<string, number> = {
+    "small-cars": 12,
+    "tata-sumo": 15,
+    "chevrolet-tavera": 18,
   };
 
-  const baseFareMap: Record<string, number> = {
-    "swift-dzire": 300,
-    "maruti-ertiga": 350,
-    "toyota-innova": 450,
-    "innova-crysta": 500,
-    "tempo-traveller": 800,
+  const baseMap: Record<string, number> = {
+    "small-cars": 300,
+    "tata-sumo": 400,
+    "chevrolet-tavera": 500,
   };
 
-  const ratePerKm = rateMap[vehicleType] || 14;
-  const baseFare = baseFareMap[vehicleType] || 350;
+  const ratePerKm = priceMap[vehicleType] || 14;
+  const baseFare = baseMap[vehicleType] || 350;
   const fare = baseFare + distanceKm * ratePerKm;
 
   return tripType === "round-trip" ? Math.round(fare * 1.8) : Math.round(fare);
@@ -62,10 +58,10 @@ export function generateId(): string {
   return Math.random().toString(36).substr(2, 9);
 }
 
-export const PHONE_NUMBER = "+91 98765 43210";
-export const WHATSAPP_NUMBER = "919876543210";
-export const EMAIL = "info@nainitaltaxi.com";
+export const PHONE_NUMBER = "+91 8392986174";
+export const WHATSAPP_NUMBER = "918392986174";
+export const EMAIL = "booking@gonainital.com";
 export const ADDRESS = "Near Hotel basera, Mallital, Nainital";
 export const ADDRESS2 = "Near shishu bharti school, bareilly road, haldwani";
 export const COMPANY_NAME = "Go Nainital";
-export const TAGLINE = "Your Trusted Travel Partner in Nainital & NCR";
+export const TAGLINE = "Reliable Taxi Service in Nainital";

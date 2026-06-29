@@ -15,7 +15,7 @@ const homeFaqs: FAQ[] = [
   {
     question: "What vehicles are available for outstation trips?",
     answer:
-      "For outstation trips, we have Swift Dzire (4 seats), Maruti Ertiga (6 seats), Toyota Innova (7 seats), Innova Crysta (7 seats, luxury), and Tempo Traveller (12 seats).",
+      "For outstation trips, we have Small Cars (4 seats), Tata Sumo (7 seats), and Chevrolet Tavera (9 seats).",
   },
   {
     question: "Is the fare fixed or metered?",
