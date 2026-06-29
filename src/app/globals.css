@@ -284,24 +284,26 @@ body {
 
 /* ── Form Input ─────────────────────────────────────────────────────────── */
 
-.form-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #E5E7EB;
-  border-radius: 12px;
-  font-size: 14px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  outline: none;
-  background: #FAFAFA;
-}
-.form-input:hover {
-  border-color: #D1D5DB;
-  background: white;
-}
-.form-input:focus {
-  border-color: #F5C518;
-  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.12);
-  background: white;
+@layer components {
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    outline: none;
+    background: #FAFAFA;
+  }
+  .form-input:hover {
+    border-color: #D1D5DB;
+    background: white;
+  }
+  .form-input:focus {
+    border-color: #F5C518;
+    box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.12);
+    background: white;
+  }
 }
 
 /* ── Floating Buttons ───────────────────────────────────────────────────── */
