@@ -1,22 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { calculateFare, formatCurrency } from "@/lib/utils";
 import { Calculator, MapPin, Car, ArrowRight } from "lucide-react";
 import { useSettings } from "@/components/providers/SettingsProvider";
-
-const commonCities = [
-  "Charkhi Dadri",
-  "Bhiwani",
-  "Rohtak",
-  "Hisar",
-  "Gurgaon",
-  "Delhi",
-  "Chandigarh",
-  "Jaipur",
-  "Agra",
-  "Shimla",
-];
+import { useSearchParams } from "next/navigation";
+import LocationAutocomplete from "@/components/forms/LocationAutocomplete";
+import type { LocationData } from "@/components/forms/LocationAutocomplete";
+import { trendingPlaces } from "@/data/worldPlaces";
 
 // Estimated distances in km between cities
 const distanceMap: Record<string, number> = {
@@ -34,6 +25,19 @@ const distanceMap: Record<string, number> = {
   "delhi-jaipur": 280,
   "delhi-agra": 210,
   "chandigarh-shimla": 120,
+  "nainital-delhi": 295,
+  "nainital-lucknow": 340,
+  "dehradun-delhi": 250,
+  "rishikesh-delhi": 230,
+  "manali-delhi": 530,
+  "shimla-delhi": 350,
+  "mussoorie-delhi": 280,
+  "haridwar-delhi": 210,
+  "goa-mumbai": 590,
+  "mumbai-pune": 150,
+  "bangalore-chennai": 350,
+  "jaipur-agra": 240,
+  "amritsar-delhi": 460,
 };
 
 function getDistance(from: string, to: string): number {
@@ -50,11 +54,20 @@ export default function FareCalculatorClient({
   popularRoutes: any[];
 }) {
   const settings = useSettings();
+  const searchParams = useSearchParams();
   const [pickup, setPickup] = useState("");
   const [drop, setDrop] = useState("");
   const [vehicleType, setVehicleType] = useState(vehicles[0]?.slug || "");
   const [tripType, setTripType] = useState<"one-way" | "round-trip">("one-way");
   const [result, setResult] = useState<{ fare: number; distance: number } | null>(null);
+
+  // Pre-fill from URL params (when coming from header/hero search)
+  useEffect(() => {
+    const pickupParam = searchParams.get("pickup");
+    if (pickupParam) {
+      setPickup(pickupParam);
+    }
+  }, [searchParams]);
 
   const handleCalculate = () => {
     if (!pickup || !drop) return;
@@ -92,7 +105,7 @@ export default function FareCalculatorClient({
               </div>
               <div>
                 <h2 className="text-xl font-black text-gray-900">Fare Calculator</h2>
-                <p className="text-gray-500 text-sm">Enter your journey details</p>
+                <p className="text-gray-500 text-sm">Search any city in the world</p>
               </div>
             </div>
 
@@ -100,41 +113,69 @@ export default function FareCalculatorClient({
               {/* Pickup */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Pickup City
+                  Pickup City *
                 </label>
-                <div className="relative">
-                  <select
-                    value={pickup}
-                    onChange={(e) => { setPickup(e.target.value); setResult(null); }}
-                    className="form-input pl-10 appearance-none"
-                  >
-                    <option value="">Select Pickup City</option>
-                    {commonCities.map((city) => (
-                      <option key={city} value={city}>{city}</option>
+                <LocationAutocomplete
+                  value={pickup}
+                  onChange={(val) => { setPickup(val); setResult(null); }}
+                  onLocationSelect={(loc: LocationData) => {
+                    setPickup(loc.name.split(",")[0].trim());
+                    setResult(null);
+                  }}
+                  placeholder="Type pickup city..."
+                  iconColorClass="text-green-500"
+                  showLocateMe={true}
+                />
+                {/* Quick pick chips */}
+                {!pickup && (
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {trendingPlaces.slice(0, 6).map((city) => (
+                      <button
+                        key={city}
+                        type="button"
+                        onClick={() => { setPickup(city); setResult(null); }}
+                        className="place-chip text-xs"
+                      >
+                        {city}
+                      </button>
                     ))}
-                  </select>
-                  <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-green-500" />
-                </div>
+                  </div>
+                )}
               </div>
 
               {/* Drop */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Drop City
+                  Drop City *
                 </label>
-                <div className="relative">
-                  <select
-                    value={drop}
-                    onChange={(e) => { setDrop(e.target.value); setResult(null); }}
-                    className="form-input pl-10 appearance-none"
-                  >
-                    <option value="">Select Drop City</option>
-                    {commonCities.map((city) => (
-                      <option key={city} value={city}>{city}</option>
-                    ))}
-                  </select>
-                  <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-red-500" />
-                </div>
+                <LocationAutocomplete
+                  value={drop}
+                  onChange={(val) => { setDrop(val); setResult(null); }}
+                  onLocationSelect={(loc: LocationData) => {
+                    setDrop(loc.name.split(",")[0].trim());
+                    setResult(null);
+                  }}
+                  placeholder="Type drop city..."
+                  iconColorClass="text-red-500"
+                />
+                {/* Quick pick chips */}
+                {!drop && pickup && (
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {trendingPlaces
+                      .filter((c) => c.toLowerCase() !== pickup.toLowerCase())
+                      .slice(0, 6)
+                      .map((city) => (
+                        <button
+                          key={city}
+                          type="button"
+                          onClick={() => { setDrop(city); setResult(null); }}
+                          className="place-chip text-xs"
+                        >
+                          {city}
+                        </button>
+                      ))}
+                  </div>
+                )}
               </div>
 
               {/* Vehicle */}
@@ -195,7 +236,7 @@ export default function FareCalculatorClient({
 
             {/* Result */}
             {result && vehicle && (
-              <div className="mt-8 p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl text-white">
+              <div className="mt-8 p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl text-white animate-scale-in">
                 <div className="flex items-center gap-2 mb-4 text-gray-400 text-sm">
                   <span className="text-green-400">{pickup}</span>
                   <ArrowRight size={14} />
@@ -257,7 +298,13 @@ export default function FareCalculatorClient({
               {popularRoutes.slice(0, 5).map((route) => (
                 <div
                   key={route.id}
-                  className="bg-white rounded-xl p-4 border border-gray-100 flex items-center justify-between"
+                  className="bg-white rounded-xl p-4 border border-gray-100 flex items-center justify-between hover:shadow-md hover:border-yellow-200 transition-all cursor-pointer"
+                  onClick={() => {
+                    setPickup(route.from);
+                    setDrop(route.to);
+                    setResult(null);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-yellow-500">🚖</span>

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   try {
     // We use Photon (Komoot) instead of raw Nominatim because Nominatim frequently blocks
     // Vercel serverless IP ranges for rate-limiting. Photon is much more lenient and uses OSM data.
-    const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5`);
+    const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=8`);
 
     if (!res.ok) {
       throw new Error(`Photon returned status: ${res.status}`);
@@ -27,11 +27,30 @@ export async function GET(request: NextRequest) {
       const nameParts = [p.name, p.street, p.city || p.town || p.village, p.state, p.country].filter(Boolean);
       // Remove duplicates
       const uniqueParts = Array.from(new Set(nameParts));
+
+      // Determine place type from OSM data
+      let placeType: "city" | "airport" | "landmark" | "village" | "state" | "place" = "place";
+      const osmValue = (p.osm_value || "").toLowerCase();
+      const osmKey = (p.osm_key || "").toLowerCase();
+      if (osmKey === "aeroway" || osmValue.includes("airport") || osmValue.includes("aerodrome")) {
+        placeType = "airport";
+      } else if (osmValue === "city" || osmValue === "town") {
+        placeType = "city";
+      } else if (osmValue === "village" || osmValue === "hamlet") {
+        placeType = "village";
+      } else if (osmValue === "state" || osmValue === "province") {
+        placeType = "state";
+      } else if (osmKey === "tourism" || osmKey === "historic") {
+        placeType = "landmark";
+      }
       
       return {
         display_name: uniqueParts.join(", "),
         lon: feature.geometry.coordinates[0].toString(),
         lat: feature.geometry.coordinates[1].toString(),
+        place_type: placeType,
+        country: p.country || "",
+        city: p.name || "",
       };
     });
 

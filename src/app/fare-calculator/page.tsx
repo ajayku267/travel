@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { db } from "@/lib/db";
 import { getSettings } from "@/lib/settings";
 import FareCalculatorClient from "./FareCalculatorClient";
@@ -18,5 +19,10 @@ export default async function FareCalculatorPage() {
     db.route.findMany({ take: 5, orderBy: { fareEstimate: "asc" } }),
   ]);
 
-  return <FareCalculatorClient vehicles={vehicles} popularRoutes={popularRoutes} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
+      <FareCalculatorClient vehicles={vehicles} popularRoutes={popularRoutes} />
+    </Suspense>
+  );
 }
+
