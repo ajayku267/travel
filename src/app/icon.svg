@@ -1,8 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-  <rect width="256" height="256" rx="50" fill="#facc15" />
-  <path d="M56 140 L 76 96 L 180 96 L 200 140" fill="none" stroke="#111827" stroke-width="16" stroke-linejoin="round" />
-  <rect x="40" y="140" width="176" height="44" rx="12" fill="#111827" />
-  <circle cx="80" cy="190" r="24" fill="#111827" />
-  <circle cx="176" cy="190" r="24" fill="#111827" />
-  <rect x="104" y="70" width="48" height="16" rx="4" fill="#111827" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FACC15"/>
+      <stop offset="100%" style="stop-color:#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDE68A"/>
+      <stop offset="100%" style="stop-color:#FBBF24"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="96" ry="96" fill="url(#bg)"/>
+  <!-- Car body -->
+  <path d="M120 310 L150 230 Q155 215 170 210 L342 210 Q357 215 362 230 L392 310 Q395 318 395 325 L395 355 Q395 365 385 365 L127 365 Q117 365 117 355 L117 325 Q117 318 120 310Z" fill="url(#body)" stroke="#92400E" stroke-width="6"/>
+  <!-- Car roof / top -->
+  <path d="M185 210 L205 155 Q210 142 225 140 L287 140 Q302 142 307 155 L327 210" fill="#FDE68A" stroke="#92400E" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Taxi sign on roof -->
+  <rect x="218" y="118" width="76" height="28" rx="8" fill="#1F2937" stroke="#92400E" stroke-width="3"/>
+  <text x="256" y="139" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="18" fill="#FACC15">TAXI</text>
+  <!-- Windshield -->
+  <path d="M195 210 L210 168 Q213 160 222 158 L290 158 Q299 160 302 168 L317 210" fill="#BFDBFE" opacity="0.7" stroke="#92400E" stroke-width="3"/>
+  <!-- Windows -->
+  <rect x="145" y="230" width="65" height="45" rx="8" fill="#BFDBFE" opacity="0.6" stroke="#92400E" stroke-width="3"/>
+  <rect x="302" y="230" width="65" height="45" rx="8" fill="#BFDBFE" opacity="0.6" stroke="#92400E" stroke-width="3"/>
+  <!-- Center divider window -->
+  <rect x="222" y="230" width="68" height="45" rx="8" fill="#BFDBFE" opacity="0.6" stroke="#92400E" stroke-width="3"/>
+  <!-- Headlights -->
+  <ellipse cx="130" cy="330" rx="14" ry="12" fill="#FEF3C7" stroke="#92400E" stroke-width="3"/>
+  <ellipse cx="382" cy="330" rx="14" ry="12" fill="#FEF3C7" stroke="#92400E" stroke-width="3"/>
+  <!-- Bumper -->
+  <rect x="125" y="358" width="262" height="14" rx="7" fill="#92400E" opacity="0.3"/>
+  <!-- Wheels -->
+  <circle cx="175" cy="372" r="32" fill="#374151" stroke="#1F2937" stroke-width="6"/>
+  <circle cx="175" cy="372" r="14" fill="#6B7280"/>
+  <circle cx="175" cy="372" r="6" fill="#9CA3AF"/>
+  <circle cx="337" cy="372" r="32" fill="#374151" stroke="#1F2937" stroke-width="6"/>
+  <circle cx="337" cy="372" r="14" fill="#6B7280"/>
+  <circle cx="337" cy="372" r="6" fill="#9CA3AF"/>
 </svg>

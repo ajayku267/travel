@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import {
   Phone, Menu, X, ChevronDown, MapPin, Plane, Car, Briefcase,
   Heart, Navigation, ArrowRight, Calculator, Users, Mail,
-  Clock, Star, Shield, MessageCircle
+  Clock, Star, Shield, MessageCircle, Search
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSettings } from "@/components/providers/SettingsProvider";
+import LocationAutocomplete from "@/components/forms/LocationAutocomplete";
 
 const serviceLinks = [
   { label: "Local Taxi", href: "/services#local-taxi", icon: MapPin, desc: "City rides & hourly rentals" },
@@ -33,19 +34,19 @@ const navLinks = [
   { label: "Routes", href: "/routes", mega: "routes" },
   { label: "Tours", href: "/tours" },
   { label: "Fleet", href: "/fleet" },
-  { label: "Locations", href: "/locations" },
-  { label: "Fare Calculator", href: "/fare-calculator" },
-  { label: "About Us", href: "/about" },
+  { label: "Fare", href: "/fare-calculator" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
   const settings = useSettings();
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
+  const [headerSearch, setHeaderSearch] = useState("");
   const megaTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -60,7 +61,6 @@ export default function Header() {
     setMobileDropdown(null);
   }, [pathname]);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
@@ -88,22 +88,25 @@ export default function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-white/98 backdrop-blur-xl shadow-lg shadow-black/5"
-            : "bg-white shadow-sm"
+            ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/[0.04]"
+            : "bg-white"
         )}
       >
-        {/* Top info bar */}
-        <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-9">
+        {/* ── Top Info Strip ───────────────────────────────────────────── */}
+        <div className={cn(
+          "bg-gray-900 text-white transition-all duration-300 overflow-hidden",
+          scrolled ? "h-0 opacity-0" : "h-9 opacity-100"
+        )}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center h-9">
             <div className="flex items-center gap-4">
               <span className="text-gray-400 text-xs hidden sm:flex items-center gap-1.5">
                 <Clock size={11} className="text-yellow-400" />
                 24/7 Available
               </span>
-              <span className="text-gray-500 hidden sm:block">|</span>
+              <span className="text-gray-600 hidden sm:block">|</span>
               <span className="text-gray-400 text-xs flex items-center gap-1.5">
                 <MapPin size={11} className="text-yellow-400" />
-                Nainital & all india
+                Nainital & All India
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -113,7 +116,7 @@ export default function Header() {
               >
                 <Mail size={11} /> {settings.email}
               </a>
-              <span className="text-gray-500 hidden sm:block">|</span>
+              <span className="text-gray-600 hidden sm:block">|</span>
               <a
                 href={`tel:${settings.phone}`}
                 className="flex items-center gap-1.5 text-yellow-400 font-bold text-xs hover:text-yellow-300 transition-colors"
@@ -125,24 +128,25 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Main navigation */}
-        <nav className="max-w-7xl mx-auto px-4">
+        {/* ── Main Navigation Bar ─────────────────────────────────────── */}
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 relative">
           <div className="flex items-center justify-between h-16">
+
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-400/30 group-hover:shadow-yellow-400/50 transition-all group-hover:scale-105">
-                <span className="text-black font-black text-lg">🚖</span>
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+              <div className="w-9 h-9 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-xl flex items-center justify-center shadow-md shadow-yellow-400/25 group-hover:shadow-yellow-400/40 transition-all group-hover:scale-105">
+                <span className="text-sm">🚖</span>
               </div>
               <div>
-                <div className="font-black text-gray-900 text-lg leading-tight tracking-tight">{settings.companyName}</div>
-                <div className="text-[10px] font-bold text-yellow-600 uppercase tracking-widest leading-tight">
+                <div className="font-black text-gray-900 text-base leading-tight tracking-tight">{settings.companyName}</div>
+                <div className="text-[9px] font-bold text-yellow-600 uppercase tracking-[0.15em] leading-tight">
                   Trusted Since 2010
                 </div>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden xl:flex items-center gap-0.5">
+            {/* Desktop Nav Links */}
+            <div className="hidden xl:flex items-center gap-1">
               {navLinks.map((link) => (
                 <div
                   key={link.href}
@@ -153,7 +157,7 @@ export default function Header() {
                   <Link
                     href={link.href}
                     className={cn(
-                      "relative px-3 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-1",
+                      "relative px-3 py-2 rounded-lg text-[13px] font-semibold transition-all flex items-center gap-1",
                       isActive(link.href)
                         ? "text-yellow-700 bg-yellow-50"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -162,7 +166,7 @@ export default function Header() {
                     {link.label}
                     {link.mega && (
                       <ChevronDown
-                        size={13}
+                        size={12}
                         className={cn(
                           "transition-transform duration-200",
                           activeMega === link.mega && "rotate-180"
@@ -177,40 +181,66 @@ export default function Header() {
               ))}
             </div>
 
-            {/* CTA Buttons */}
-            <div className="hidden xl:flex items-center gap-2.5">
+            {/* Search + CTA */}
+            <div className="hidden xl:flex items-center gap-3">
+              {/* Featured Search Bar */}
+              <div className="relative w-64 group">
+                {/* Pulsing attention dot */}
+                <div className="absolute -top-1 -right-1 z-10">
+                  <span className="flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-500"></span>
+                  </span>
+                </div>
+                <LocationAutocomplete
+                  value={headerSearch}
+                  onChange={setHeaderSearch}
+                  onLocationSelect={(loc) => {
+                    setHeaderSearch("");
+                    router.push(`/fare-calculator?pickup=${encodeURIComponent(loc.name)}`);
+                  }}
+                  placeholder="Where to? Search any city..."
+                  compact={true}
+                  variant="header"
+                />
+              </div>
+
+              {/* Divider */}
+              <div className="w-px h-8 bg-gray-200" />
+
+              {/* CTA Buttons */}
               <a
                 href={`https://wa.me/${settings.whatsapp}?text=Hi, I need to book a taxi`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white text-sm font-bold rounded-xl hover:bg-green-600 transition-all shadow-md shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-0.5"
+                className="flex items-center gap-1.5 px-3.5 py-2 bg-green-500 text-white text-xs font-bold rounded-lg hover:bg-green-600 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
               >
-                <MessageCircle size={15} /> WhatsApp
+                <MessageCircle size={13} /> WhatsApp
               </a>
               <a
                 href={`tel:${settings.phone}`}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 text-sm font-bold rounded-xl hover:from-yellow-500 hover:to-yellow-600 transition-all shadow-md shadow-yellow-400/30 hover:shadow-yellow-400/50 hover:-translate-y-0.5"
+                className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 text-xs font-bold rounded-lg hover:from-yellow-500 hover:to-amber-600 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
               >
-                <Phone size={15} /> Book Now
+                <Phone size={13} /> Book Now
               </a>
             </div>
 
-            {/* Mobile menu toggle */}
+            {/* Mobile Toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="xl:hidden p-2.5 rounded-xl hover:bg-gray-100 transition-colors relative"
+              className="xl:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Toggle menu"
             >
               <div className="relative w-6 h-6">
                 <Menu
-                  size={24}
+                  size={22}
                   className={cn(
                     "absolute inset-0 transition-all duration-300",
                     mobileOpen ? "opacity-0 rotate-90 scale-50" : "opacity-100 rotate-0 scale-100"
                   )}
                 />
                 <X
-                  size={24}
+                  size={22}
                   className={cn(
                     "absolute inset-0 transition-all duration-300",
                     mobileOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"
@@ -220,6 +250,9 @@ export default function Header() {
             </button>
           </div>
         </nav>
+
+        {/* Bottom border accent */}
+        <div className="h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-40" />
 
         {/* ═══ Mega Menu: Services ═══ */}
         <div
@@ -232,11 +265,11 @@ export default function Header() {
           onMouseEnter={() => openMega("services")}
           onMouseLeave={closeMega}
         >
-          <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-7">
                 <div className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Our Services</div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-1.5">
                   {serviceLinks.map((svc) => {
                     const Icon = svc.icon;
                     return (
@@ -294,11 +327,11 @@ export default function Header() {
           onMouseEnter={() => openMega("routes")}
           onMouseLeave={closeMega}
         >
-          <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-7">
                 <div className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Popular Routes</div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-1.5">
                   {routeLinks.map((route) => (
                     <Link
                       key={route.href}
@@ -345,13 +378,11 @@ export default function Header() {
             : "opacity-0 pointer-events-none"
         )}
       >
-        {/* Overlay */}
         <div
           className="absolute inset-0 bg-black/40 backdrop-blur-sm"
           onClick={() => setMobileOpen(false)}
         />
 
-        {/* Menu panel */}
         <div
           className={cn(
             "absolute top-0 right-0 h-full w-[85%] max-w-sm bg-white shadow-2xl transition-transform duration-300 flex flex-col",
@@ -372,6 +403,22 @@ export default function Header() {
             >
               <X size={20} />
             </button>
+          </div>
+
+          {/* Mobile search */}
+          <div className="px-4 py-3 border-b border-gray-100">
+            <LocationAutocomplete
+              value={headerSearch}
+              onChange={setHeaderSearch}
+              onLocationSelect={(loc) => {
+                setHeaderSearch("");
+                setMobileOpen(false);
+                router.push(`/fare-calculator?pickup=${encodeURIComponent(loc.name)}`);
+              }}
+              placeholder="Search any place..."
+              compact={true}
+              variant="header"
+            />
           </div>
 
           {/* Scrollable nav */}
@@ -444,7 +491,7 @@ export default function Header() {
             </a>
             <a
               href={`tel:${settings.phone}`}
-              className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 font-bold rounded-xl text-sm shadow-md"
+              className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 font-bold rounded-xl text-sm shadow-md"
             >
               <Phone size={16} /> Call & Book Now
             </a>

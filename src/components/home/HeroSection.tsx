@@ -1,10 +1,65 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import BookingForm from "@/components/forms/BookingForm";
 import Link from "next/link";
 import { Phone, Shield, Clock, Star } from "lucide-react";
-import { getSettings } from "@/lib/settings";
+import { useSettings } from "@/components/providers/SettingsProvider";
+
+const typingDestinations = [
+  "Delhi",
+  "Shimla",
+  "Nainital",
+  "Manali",
+  "Jaipur",
+  "Goa",
+  "Mumbai",
+  "Rishikesh",
+];
+
+function TypingEffect() {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const target = typingDestinations[currentIdx];
+    const speed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && displayText === target) {
+      const pause = setTimeout(() => setIsDeleting(true), 2000);
+      return () => clearTimeout(pause);
+    }
+
+    if (isDeleting && displayText === "") {
+      setIsDeleting(false);
+      setCurrentIdx((prev) => (prev + 1) % typingDestinations.length);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setDisplayText(
+        isDeleting
+          ? target.slice(0, displayText.length - 1)
+          : target.slice(0, displayText.length + 1)
+      );
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, currentIdx]);
+
+  return (
+    <span className="text-yellow-400">
+      {displayText}
+      <span className="typing-cursor text-yellow-400/70">|</span>
+    </span>
+  );
+}
 
 export default function HeroSection({ title, subtitle }: { title?: string, subtitle?: string }) {
-  const settings = getSettings();
+  const settings = useSettings();
+
+
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
       {/* Background */}
@@ -20,6 +75,22 @@ export default function HeroSection({ title, subtitle }: { title?: string, subti
       <div className="absolute top-1/4 -left-20 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-yellow-400/5 rounded-full blur-3xl" />
 
+      {/* Floating particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-yellow-400/30 rounded-full animate-float"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${20 + (i % 3) * 25}%`,
+              animationDelay: `${i * 0.7}s`,
+              animationDuration: `${3 + i * 0.5}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left — Hero Text */}
@@ -28,17 +99,24 @@ export default function HeroSection({ title, subtitle }: { title?: string, subti
               <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
               Trusted Since 2010 · 10,000+ Happy Customers
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6 animate-fade-in-up stagger-1">
-              {title ? title : <>
-                {settings.heroTitle}
-              </>}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-3 animate-fade-in-up stagger-1">
+              {title ? title : (
+                <>
+                  {settings.heroTitle}
+                </>
+              )}
             </h1>
-            <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-lg animate-fade-in-up stagger-2">
+            {/* Typing effect subtitle */}
+            <div className="text-2xl md:text-3xl font-bold mb-6 animate-fade-in-up stagger-2">
+              Travel to <TypingEffect />
+            </div>
+            <p className="text-gray-300 text-lg md:text-xl leading-relaxed mb-6 max-w-lg animate-fade-in-up stagger-2">
               {subtitle ? subtitle : settings.heroSubtitle}
             </p>
 
+
             {/* Trust indicators */}
-            <div className="grid grid-cols-3 gap-3 mb-8 animate-fade-in-up stagger-3">
+            <div className="grid grid-cols-3 gap-3 mb-8 animate-fade-in-up stagger-4">
               {[
                 { value: "10,000+", label: "Happy Customers", icon: Star },
                 { value: "100+", label: "Daily Rides", icon: Clock },
@@ -53,7 +131,7 @@ export default function HeroSection({ title, subtitle }: { title?: string, subti
             </div>
 
             {/* Quick action */}
-            <div className="flex flex-wrap gap-3 animate-fade-in-up stagger-4">
+            <div className="flex flex-wrap gap-3 animate-fade-in-up stagger-5">
               <a
                 href={`tel:${settings.phone}`}
                 className="flex items-center gap-2 px-6 py-3 bg-yellow-400 text-gray-900 font-bold rounded-xl hover:bg-yellow-300 transition-all shadow-lg shadow-yellow-400/30 hover:-translate-y-0.5"

@@ -86,6 +86,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable}`} data-scroll-behavior="smooth">
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
