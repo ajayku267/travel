@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import StarRating from "@/components/ui/StarRating";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/animations";
 
 export default async function CustomerReviews() {
   const reviews = await db.review.findMany({
@@ -21,7 +22,7 @@ export default async function CustomerReviews() {
   return (
     <section className="py-20 bg-gray-50" id="reviews">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-14">
+        <FadeIn direction="up" className="text-center mb-14">
           <span className="badge badge-yellow mb-3">Customer Reviews</span>
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 section-title">
             What Our Customers Say
@@ -34,11 +35,11 @@ export default async function CustomerReviews() {
             <span className="text-gray-500">/ 5.0 Average Rating</span>
           </div>
           <p className="text-gray-500 mt-2">Based on 500+ genuine customer reviews</p>
-        </div>
+        </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review) => (
-            <div key={review.id} className="review-card group">
+            <StaggerItem key={review.id} className="review-card group">
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -80,18 +81,18 @@ export default async function CustomerReviews() {
                   {formatDate(review.date)}
                 </span>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
-        <div className="text-center mt-10">
+        <FadeIn direction="up" delay={0.2} className="text-center mt-10">
           <Link
             href="/reviews"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-all"
           >
             Read All Reviews <ArrowRight size={18} />
           </Link>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

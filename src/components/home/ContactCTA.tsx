@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { Phone, ArrowRight, MessageCircle, Mail } from "lucide-react";
+import { FadeIn } from "@/components/ui/animations";
+import { motion } from "framer-motion";
 
 export default function ContactCTA() {
   return (
@@ -17,7 +21,7 @@ export default function ContactCTA() {
         backgroundSize: '60px 60px'
       }} />
 
-      <div className="relative max-w-4xl mx-auto px-4 text-center z-10">
+      <FadeIn direction="up" className="relative max-w-4xl mx-auto px-4 text-center z-10">
         <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
           <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
           Available 24/7
@@ -73,7 +77,7 @@ export default function ContactCTA() {
             24/7 customer support
           </span>
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }
