@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Shield,
   Clock,
@@ -8,6 +10,8 @@ import {
   MapPin,
   Award,
 } from "lucide-react";
+import { FadeIn, StaggerContainer, staggerItem } from "@/components/ui/animations";
+import { motion } from "framer-motion";
 
 const reasons = [
   {
@@ -76,6 +80,13 @@ const reasons = [
   },
 ];
 
+const stats = [
+  { value: "15+", label: "Years of Experience" },
+  { value: "10,000+", label: "Happy Customers" },
+  { value: "50+", label: "Vehicles in Fleet" },
+  { value: "200+", label: "Routes Covered" },
+];
+
 export default function WhyChooseUs() {
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden" id="why-us">
@@ -85,7 +96,7 @@ export default function WhyChooseUs() {
 
       <div className="relative max-w-7xl mx-auto px-4">
         {/* Heading */}
-        <div className="text-center mb-16">
+        <FadeIn direction="up" className="text-center mb-16">
           <span className="badge badge-yellow text-sm mb-3">Why Choose Us</span>
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 section-title">
             Nainital&apos;s Most Trusted Taxi Service
@@ -94,13 +105,14 @@ export default function WhyChooseUs() {
             We&apos;ve been serving customers since 2010 with a commitment to safety, reliability, and
             affordability that sets us apart.
           </p>
-        </div>
+        </FadeIn>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {reasons.map((reason) => (
-            <div
+            <motion.div
               key={reason.title}
+              variants={staggerItem}
               className="group bg-white rounded-2xl p-6 card-hover border border-gray-100 hover:border-yellow-200 relative overflow-hidden"
             >
               {/* Hover gradient reveal */}
@@ -112,24 +124,23 @@ export default function WhyChooseUs() {
                 <h3 className="font-bold text-gray-900 mb-2">{reason.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{reason.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Stats Row */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-5">
-          {[
-            { value: "15+", label: "Years of Experience" },
-            { value: "10,000+", label: "Happy Customers" },
-            { value: "50+", label: "Vehicles in Fleet" },
-            { value: "200+", label: "Routes Covered" },
-          ].map((stat) => (
-            <div key={stat.label} className="stat-card group hover:-translate-y-1 transition-transform">
+        <StaggerContainer staggerDelay={0.1} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-5">
+          {stats.map((stat) => (
+            <motion.div
+              key={stat.label}
+              variants={staggerItem}
+              className="stat-card group hover:-translate-y-1 transition-transform"
+            >
               <div className="text-3xl font-black text-gray-900 mb-1">{stat.value}</div>
               <div className="text-sm font-semibold text-gray-700">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
